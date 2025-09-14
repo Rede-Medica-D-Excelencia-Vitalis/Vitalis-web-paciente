@@ -47,3 +47,19 @@ Object.defineProperty(window, 'location', {
   },
   writable: true,
 })
+
+// Suprimir warnings conhecidos do React que não afetam a funcionalidade dos testes
+const originalConsoleError = console.error
+console.error = (...args) => {
+  const message = args[0]
+  if (
+    typeof message === 'string' &&
+    (message.includes('Warning: An update to') ||
+     message.includes('act(...)') ||
+     message.includes('React Router Future Flag'))
+  ) {
+    // Suprimir estes warnings específicos
+    return
+  }
+  originalConsoleError(...args)
+}
