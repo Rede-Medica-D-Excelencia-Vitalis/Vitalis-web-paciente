@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📅 3. AGENDAMENTO (3 Testes)
+## 📅 3. AGENDAMENTO (4 Testes)
 
 ### Teste 3.1 - Seleção de Data no Calendário
 **ID**: AGEN-001  
@@ -107,6 +107,39 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-003-time-selection.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 22:17:59 - 22/01/2024
+
+### Teste 3.4 - Confirmação de Agendamento
+**ID**: AGEN-004  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar confirmação e salvamento do agendamento
+
+#### Pré-condições:
+- Data, médico e horário selecionados
+- Usuário autenticado
+
+#### Passos:
+1. Selecionar data, médico e horário
+2. Clicar em "Confirmar Agendamento"
+3. Aguardar processamento
+4. Verificar tela de confirmação
+
+#### Resultado Esperado:
+- Loading durante processamento
+- Tela de confirmação exibida
+- Detalhes do agendamento mostrados
+- Botão "Fazer novo agendamento" disponível
+- Agendamento salvo no sistema
+
+#### Critérios de Aprovação:
+- ✅ Processamento visual
+- ✅ Confirmação clara
+- ✅ Detalhes corretos
+- ✅ Salvamento confirmado
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-004-appointment-confirmation.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 22:22:29 - 22/01/2024
 
 ---
 
