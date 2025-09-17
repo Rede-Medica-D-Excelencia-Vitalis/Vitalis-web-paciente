@@ -9,6 +9,72 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
+## 🏠 2. DASHBOARD E NAVEGAÇÃO (1 Teste)
+
+### Teste 2.1 - Carregamento de Dados do Perfil
+**ID**: DASH-001  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar carregamento correto das informações do paciente
+
+#### Pré-condições:
+- Usuário autenticado
+- Dados do perfil existem no sistema
+
+#### Passos:
+1. Fazer login no sistema
+2. Acessar dashboard (/home)
+3. Verificar seção "Suas Informações"
+
+#### Resultado Esperado:
+- Nome do paciente exibido no cabeçalho
+- Dados pessoais carregados (nome, data nascimento, telefone)
+- Dados de saúde carregados (tipo sanguíneo, alergias, medicamentos)
+- Endereço exibido se disponível
+
+#### Critérios de Aprovação:
+- ✅ Dados carregados corretamente
+- ✅ Informações exibidas
+- ✅ Layout responsivo
+- ✅ Performance adequada
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/dashboard/DASH-001-profile-data-loading.test.tsx`
+- **Cobertura**: 11 cenários de teste
+- **Última Execução**: 21:48:40 - 22/01/2024
+- **Resultado**: ✅ 11 testes passaram (100% de sucesso)
+
+#### Detalhes da Implementação:
+
+**Cenários Testados:**
+1. **Renderização em estado de carregamento**: Verifica exibição de loading ✅
+2. **Mensagem de boas-vindas**: Verifica tela para usuários sem perfil ✅
+3. **Dados pessoais carregados**: Verifica exibição de nome, data nascimento, telefone, endereço ✅
+4. **Dados de saúde carregados**: Verifica tipo sanguíneo, alergias, medicamentos, condições médicas ✅
+5. **Valores padrão**: Verifica exibição de mensagens quando dados não estão preenchidos ✅
+6. **Botões de edição**: Verifica presença de botões para editar dados pessoais e saúde ✅
+7. **Funcionalidades principais**: Verifica exibição de cards de funcionalidades ✅
+8. **Ações rápidas**: Verifica seção de ações rápidas ✅
+9. **Dicas e informações úteis**: Verifica seção de dicas ✅
+10. **Notificações e lembretes**: Verifica seção de notificações ✅
+11. **Estatísticas rápidas**: Verifica exibição de estatísticas de consultas ✅
+
+**Tecnologias Utilizadas:**
+- **Vitest**: Framework de testes
+- **React Testing Library**: Renderização e interação com componentes
+- **Mocking**: useApi hook e serviços
+- **Asserções**: Verificação de elementos na tela
+
+**Cobertura de Testes:**
+- ✅ Carregamento inicial do dashboard
+- ✅ Estados de loading e erro
+- ✅ Exibição de dados pessoais
+- ✅ Exibição de dados de saúde
+- ✅ Funcionalidades do dashboard
+- ✅ Navegação e ações rápidas
+- ✅ Estatísticas e notificações
+
+---
+
 ## 🔐 1. AUTENTICAÇÃO E CADASTRO (7 Testes)
 
 ### Teste 1.1 - Login com Credenciais Válidas
@@ -653,13 +719,14 @@ Duration   2.25s
 - **AUTH-005**: Cadastro de Novo Paciente (11 cenários)
 - **AUTH-006**: Validação de Email no Cadastro (11 cenários)
 - **AUTH-007**: Recuperação de Senha (11 cenários)
+- **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 54 cenários implementados
-- **Taxa de Sucesso**: 100% (54/54 testes passando)
-- **Cobertura**: Autenticação completa (login, cadastro e recuperação)
+- **Total de Testes**: 65 cenários implementados
+- **Taxa de Sucesso**: 100% (65/65 testes passando)
+- **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
-- **Performance**: Tempo total otimizado (~16.7s para todos)
+- **Performance**: Tempo total otimizado (~20.5s para todos)
 
 ### 🛠️ Melhorias Técnicas Implementadas
 - ✅ Configuração completa do Vitest com jsdom
