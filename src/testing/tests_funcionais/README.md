@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏠 2. DASHBOARD E NAVEGAÇÃO (1 Teste)
+## 🏠 2. DASHBOARD E NAVEGAÇÃO (2 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
 **ID**: DASH-001  
@@ -36,6 +36,33 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - ✅ Informações exibidas
 - ✅ Layout responsivo
 - ✅ Performance adequada
+
+### Teste 2.2 - Estatísticas de Consultas
+**ID**: DASH-002  
+**Prioridade**: Alta  
+**Objetivo**: Verificar exibição correta das estatísticas
+
+#### Pré-condições:
+- Usuário autenticado
+- Consultas existem no sistema
+
+#### Passos:
+1. Acessar dashboard
+2. Verificar seção "Estatísticas Rápidas"
+3. Contar consultas futuras, realizadas e passadas
+
+#### Resultado Esperado:
+- Contador de "Consultas Futuras" correto
+- Contador de "Consultas Realizadas" correto
+- Contador de "Consultas Passadas" correto
+- Contador de "Prescrições Ativas" exibido
+- Contador de "Exames Pendentes" exibido
+
+#### Critérios de Aprovação:
+- ✅ Números corretos
+- ✅ Atualização em tempo real
+- ✅ Layout organizado
+- ✅ Cores diferenciadas
 
 #### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
 - **Arquivo**: `src/testing/tests_funcionais/dashboard/DASH-001-profile-data-loading.test.tsx`
