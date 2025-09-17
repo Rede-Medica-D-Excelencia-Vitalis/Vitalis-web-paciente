@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📅 3. AGENDAMENTO (1 Teste)
+## 📅 3. AGENDAMENTO (2 Testes)
 
 ### Teste 3.1 - Seleção de Data no Calendário
 **ID**: AGEN-001  
@@ -43,6 +43,38 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-001-date-selection.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 22:07:29 - 22/01/2024
+
+### Teste 3.2 - Seleção de Médico
+**ID**: AGEN-002  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar seleção de médico disponível
+
+#### Pré-condições:
+- Data selecionada no agendamento
+- Médicos disponíveis para a data
+
+#### Passos:
+1. Selecionar data no calendário
+2. Visualizar lista de médicos disponíveis
+3. Clicar em um médico da lista
+4. Verificar carregamento de horários
+
+#### Resultado Esperado:
+- Médico selecionado destacado visualmente
+- Informações do médico exibidas (nome, especialidade, CRM, foto)
+- Lista de horários disponíveis carregada
+- Botão de confirmação habilitado
+
+#### Critérios de Aprovação:
+- ✅ Seleção clara
+- ✅ Informações completas
+- ✅ Horários carregados
+- ✅ Interface responsiva
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-002-doctor-selection.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 22:14:34 - 22/01/2024
 
 ---
 
