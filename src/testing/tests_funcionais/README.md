@@ -9,6 +9,43 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
+## 📅 3. AGENDAMENTO (1 Teste)
+
+### Teste 3.1 - Seleção de Data no Calendário
+**ID**: AGEN-001  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar seleção de data no calendário
+
+#### Pré-condições:
+- Usuário autenticado
+- Acesso à funcionalidade de agendamento
+
+#### Passos:
+1. Acessar agendamento (/agendamento/iniciar)
+2. Visualizar calendário
+3. Clicar em uma data disponível (não passada, não fim de semana)
+4. Verificar carregamento de médicos
+
+#### Resultado Esperado:
+- Data selecionada destacada visualmente
+- Calendário mostra datas disponíveis
+- Fins de semana desabilitados
+- Datas passadas desabilitadas
+- Lista de médicos carregada para a data selecionada
+
+#### Critérios de Aprovação:
+- ✅ Seleção visual clara
+- ✅ Validação de datas
+- ✅ Carregamento de médicos
+- ✅ UX intuitiva
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-001-date-selection.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 22:07:29 - 22/01/2024
+
+---
+
 ## 🏠 2. DASHBOARD E NAVEGAÇÃO (5 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
