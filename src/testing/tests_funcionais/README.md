@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏠 2. DASHBOARD E NAVEGAÇÃO (3 Testes)
+## 🏠 2. DASHBOARD E NAVEGAÇÃO (4 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
 **ID**: DASH-001  
@@ -92,6 +92,33 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - ✅ Navegação fluida
 - ✅ Botões responsivos
 - ✅ Feedback visual
+
+### Teste 2.4 - Próximas Consultas
+**ID**: DASH-004  
+**Prioridade**: Alta  
+**Objetivo**: Verificar exibição das consultas futuras
+
+#### Pré-condições:
+- Usuário autenticado
+- Consultas futuras agendadas
+
+#### Passos:
+1. Acessar dashboard
+2. Verificar seção "Suas Próximas Consultas"
+3. Verificar informações de cada consulta
+
+#### Resultado Esperado:
+- Lista de consultas futuras exibida
+- Para cada consulta: nome do médico, especialidade, data, horário
+- Foto do médico exibida
+- Status "Consulta Agendada" destacado
+- Botão "Agendar nova consulta" se não houver consultas
+
+#### Critérios de Aprovação:
+- ✅ Lista exibida corretamente
+- ✅ Informações completas
+- ✅ Layout organizado
+- ✅ Ações disponíveis
 
 #### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
 - **Arquivo**: `src/testing/tests_funcionais/dashboard/DASH-001-profile-data-loading.test.tsx`
