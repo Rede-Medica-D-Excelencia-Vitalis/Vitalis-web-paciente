@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏠 2. DASHBOARD E NAVEGAÇÃO (2 Testes)
+## 🏠 2. DASHBOARD E NAVEGAÇÃO (3 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
 **ID**: DASH-001  
@@ -63,6 +63,35 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - ✅ Atualização em tempo real
 - ✅ Layout organizado
 - ✅ Cores diferenciadas
+
+### Teste 2.3 - Ações Rápidas
+**ID**: DASH-003  
+**Prioridade**: Alta  
+**Objetivo**: Verificar funcionalidade dos botões de ação rápida
+
+#### Pré-condições:
+- Usuário autenticado
+- Sistema funcionando normalmente
+
+#### Passos:
+1. Acessar dashboard
+2. Clicar em "Triagem Médica" na seção "Ações Rápidas"
+3. Voltar ao dashboard
+4. Clicar em "Nova Consulta"
+5. Voltar ao dashboard
+6. Clicar em "Central de Ajuda"
+
+#### Resultado Esperado:
+- Redirecionamento para /triagem-online
+- Redirecionamento para /agendamento
+- Redirecionamento para /central-ajuda
+- Navegação fluida entre páginas
+
+#### Critérios de Aprovação:
+- ✅ Redirecionamentos corretos
+- ✅ Navegação fluida
+- ✅ Botões responsivos
+- ✅ Feedback visual
 
 #### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
 - **Arquivo**: `src/testing/tests_funcionais/dashboard/DASH-001-profile-data-loading.test.tsx`
