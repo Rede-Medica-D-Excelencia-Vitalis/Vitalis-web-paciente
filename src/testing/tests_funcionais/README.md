@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏠 2. DASHBOARD E NAVEGAÇÃO (4 Testes)
+## 🏠 2. DASHBOARD E NAVEGAÇÃO (5 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
 **ID**: DASH-001  
@@ -119,6 +119,38 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - ✅ Informações completas
 - ✅ Layout organizado
 - ✅ Ações disponíveis
+
+### Teste 2.5 - Consultas Passadas
+**ID**: DASH-005  
+**Prioridade**: Média  
+**Objetivo**: Verificar exibição das consultas passadas
+
+#### Pré-condições:
+- Usuário autenticado
+- Consultas passadas existem
+
+#### Passos:
+1. Acessar dashboard
+2. Verificar seção "Consultas Passadas"
+3. Verificar informações de cada consulta
+
+#### Resultado Esperado:
+- Lista de consultas passadas exibida
+- Para cada consulta: nome do médico, especialidade, data, horário
+- Status "Consulta Passada" destacado em vermelho
+- Ícone de consulta passada exibido
+- Layout diferenciado (fundo vermelho claro)
+
+#### Critérios de Aprovação:
+- ✅ Lista exibida corretamente
+- ✅ Status visual claro
+- ✅ Layout diferenciado
+- ✅ Informações completas
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/dashboard/DASH-005-past-consultations.test.tsx`
+- **Cobertura**: 7 cenários de teste
+- **Última Execução**: 22:01:41 - 22/01/2024
 
 #### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
 - **Arquivo**: `src/testing/tests_funcionais/dashboard/DASH-001-profile-data-loading.test.tsx`
