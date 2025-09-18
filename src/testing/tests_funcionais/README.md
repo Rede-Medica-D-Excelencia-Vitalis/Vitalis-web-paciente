@@ -405,7 +405,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🧠 5. TRIAGEM ONLINE (1 Teste)
+## 🧠 5. TRIAGEM ONLINE (2 Testes)
 
 ### Teste 5.1 - Início da Triagem
 **ID**: TRIA-001  
@@ -439,6 +439,39 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-001-triage-start.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 20:34:45 - 22/01/2024
+
+### Teste 5.2 - Navegação Entre Perguntas
+**ID**: TRIA-002  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar navegação entre perguntas
+
+#### Pré-condições:
+- Triagem iniciada
+- Primeira pergunta exibida
+
+#### Passos:
+1. Responder primeira pergunta
+2. Clicar em "Continuar"
+3. Verificar próxima pergunta
+4. Repetir para várias perguntas
+
+#### Resultado Esperado:
+- Próxima pergunta carregada
+- Barra de progresso atualizada
+- Resposta anterior salva
+- Navegação fluida
+- Contador de perguntas correto
+
+#### Critérios de Aprovação:
+- ✅ Navegação funcional
+- ✅ Progresso atualizado
+- ✅ Respostas salvas
+- ✅ Contador correto
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-002-question-navigation.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 20:40:58 - 22/01/2024
 
 ---
 
