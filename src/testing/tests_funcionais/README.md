@@ -203,7 +203,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📹 4. TELECONSULTA (2 Testes)
+## 📹 4. TELECONSULTA (3 Testes)
 
 ### Teste 4.1 - Entrada na Consulta
 **ID**: TELE-001  
@@ -271,6 +271,39 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-002-camera-controls.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 18:33:46 - 22/01/2024
+
+### Teste 4.3 - Controles de Microfone
+**ID**: TELE-003  
+**Prioridade**: Alta  
+**Objetivo**: Verificar ligar/desligar microfone
+
+#### Pré-condições:
+- Usuário em videochamada ativa
+
+#### Passos:
+1. Entrar na consulta
+2. Clicar no botão de microfone
+3. Verificar desligamento
+4. Clicar novamente no botão
+5. Verificar ligamento
+
+#### Resultado Esperado:
+- Microfone ligado por padrão
+- Botão alterna entre ligado/desligado
+- Áudio local para quando desligado
+- Ícone de microfone desligado exibido
+- Indicador visual de status
+
+#### Critérios de Aprovação:
+- ✅ Alternância funcional
+- ✅ Feedback visual
+- ✅ Status claro
+- ✅ Controle responsivo
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-003-microphone-controls.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 18:39:59 - 22/01/2024
 
 ---
 
