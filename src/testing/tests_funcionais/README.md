@@ -203,7 +203,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📹 4. TELECONSULTA (1 Teste)
+## 📹 4. TELECONSULTA (2 Testes)
 
 ### Teste 4.1 - Entrada na Consulta
 **ID**: TELE-001  
@@ -238,6 +238,39 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-001-consultation-entry.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 18:30:03 - 22/01/2024
+
+### Teste 4.2 - Controles de Câmera
+**ID**: TELE-002  
+**Prioridade**: Alta  
+**Objetivo**: Verificar ligar/desligar câmera
+
+#### Pré-condições:
+- Usuário em videochamada ativa
+
+#### Passos:
+1. Entrar na consulta
+2. Clicar no botão de câmera
+3. Verificar desligamento
+4. Clicar novamente no botão
+5. Verificar ligamento
+
+#### Resultado Esperado:
+- Câmera ligada por padrão
+- Botão alterna entre ligado/desligado
+- Vídeo local para quando desligado
+- Ícone de câmera desligada exibido
+- Indicador visual de status
+
+#### Critérios de Aprovação:
+- ✅ Alternância funcional
+- ✅ Feedback visual
+- ✅ Status claro
+- ✅ Controle responsivo
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-002-camera-controls.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 18:33:46 - 22/01/2024
 
 ---
 
