@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📅 3. AGENDAMENTO (5 Testes)
+## 📅 3. AGENDAMENTO (6 Testes)
 
 ### Teste 3.1 - Seleção de Data no Calendário
 **ID**: AGEN-001  
@@ -170,6 +170,36 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-005-past-date-validation.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 18:17:39 - 22/01/2024
+
+### Teste 3.6 - Validação de Fins de Semana
+**ID**: AGEN-006  
+**Prioridade**: Alta  
+**Objetivo**: Verificar que fins de semana não podem ser selecionados
+
+#### Pré-condições:
+- Sistema funcionando normalmente
+
+#### Passos:
+1. Acessar agendamento
+2. Tentar clicar em sábados e domingos
+3. Verificar comportamento
+
+#### Resultado Esperado:
+- Sábados e domingos visualmente desabilitados
+- Clicar em fins de semana não tem efeito
+- Cursor "not-allowed" em fins de semana
+- Política de agendamento respeitada
+
+#### Critérios de Aprovação:
+- ✅ Fins de semana desabilitados
+- ✅ Feedback visual
+- ✅ Política respeitada
+- ✅ Comportamento consistente
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-006-weekend-validation.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 18:22:00 - 22/01/2024
 
 ---
 
