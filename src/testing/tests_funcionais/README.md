@@ -203,6 +203,44 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
+## 📹 4. TELECONSULTA (1 Teste)
+
+### Teste 4.1 - Entrada na Consulta
+**ID**: TELE-001  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar entrada na videochamada
+
+#### Pré-condições:
+- Usuário autenticado
+- Consulta agendada e ativa
+- Sala de videochamada criada pelo médico
+
+#### Passos:
+1. Acessar teleconsulta (/teleconsulta)
+2. Verificar consulta disponível
+3. Clicar em "Entrar na Consulta"
+4. Permitir acesso à câmera e microfone
+5. Aguardar conexão
+
+#### Resultado Esperado:
+- Solicitação de permissões de mídia
+- Conexão estabelecida com sucesso
+- Interface de videochamada exibida
+- Vídeo local e remoto funcionando
+
+#### Critérios de Aprovação:
+- ✅ Permissões solicitadas
+- ✅ Conexão estabelecida
+- ✅ Interface carregada
+- ✅ Vídeos funcionando
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-001-consultation-entry.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 18:30:03 - 22/01/2024
+
+---
+
 ## 🏠 2. DASHBOARD E NAVEGAÇÃO (5 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
