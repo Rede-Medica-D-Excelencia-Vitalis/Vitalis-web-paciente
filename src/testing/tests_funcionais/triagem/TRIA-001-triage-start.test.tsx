@@ -51,7 +51,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir tela de boas-vindas', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -61,7 +60,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -79,7 +79,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir informações sobre o processo', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -89,7 +88,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -114,7 +114,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir botão de início destacado', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -124,7 +123,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -152,7 +152,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -184,7 +185,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -209,7 +211,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir estatísticas da triagem', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -219,7 +220,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -242,7 +244,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir botão de saída', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -252,7 +253,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -269,7 +271,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir ícone do cérebro', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -279,7 +280,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
@@ -295,7 +297,6 @@ describe('TRIA-001 - Início da Triagem', () => {
   })
 
   it('deve exibir descrição da IA', async () => {
-    const user = userEvent.setup()
     
     // Mock do triagemService
     const { triagemService } = await import('../../../services/consultation/triagemService')
@@ -305,7 +306,8 @@ describe('TRIA-001 - Início da Triagem', () => {
         text: 'Como você está se sentindo hoje?',
         type: 'text',
         options: [],
-        required: true,
+        symptoms: [],
+        weight: 3,
         category: 'geral'
       }
     ])
