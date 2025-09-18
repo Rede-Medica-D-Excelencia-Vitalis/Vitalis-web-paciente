@@ -203,7 +203,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📹 4. TELECONSULTA (4 Testes)
+## 📹 4. TELECONSULTA (5 Testes)
 
 ### Teste 4.1 - Entrada na Consulta
 **ID**: TELE-001  
@@ -338,6 +338,38 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-004-chat-during-consultation.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 20:22:00 - 22/01/2024
+
+### Teste 4.5 - Tela Cheia
+**ID**: TELE-005  
+**Prioridade**: Média  
+**Objetivo**: Verificar funcionalidade de tela cheia
+
+#### Pré-condições:
+- Usuário em videochamada ativa
+
+#### Passos:
+1. Entrar na consulta
+2. Clicar no botão de tela cheia
+3. Verificar expansão
+4. Clicar novamente no botão
+5. Verificar saída da tela cheia
+
+#### Resultado Esperado:
+- Videochamada expandida para tela cheia
+- Controles ainda acessíveis
+- Botão alterna entre tela cheia/normal
+- Layout otimizado para tela cheia
+
+#### Critérios de Aprovação:
+- ✅ Expansão funcional
+- ✅ Controles acessíveis
+- ✅ Alternância correta
+- ✅ Layout otimizado
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-005-fullscreen.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 20:24:52 - 22/01/2024
 
 ---
 
