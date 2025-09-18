@@ -405,7 +405,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🧠 5. TRIAGEM ONLINE (4 Testes)
+## 🧠 5. TRIAGEM ONLINE (5 Testes)
 
 ### Teste 5.1 - Início da Triagem
 **ID**: TRIA-001  
@@ -539,6 +539,40 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-004-text-input.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 20:51:15 - 22/01/2024
+
+### Teste 5.5 - Navegação para Trás
+**ID**: TRIA-005  
+**Prioridade**: Média  
+**Objetivo**: Verificar navegação para pergunta anterior
+
+#### Pré-condições:
+- Triagem em andamento
+- Múltiplas perguntas respondidas
+
+#### Passos:
+1. Avançar algumas perguntas
+2. Clicar em "Voltar"
+3. Verificar pergunta anterior
+4. Verificar respostas salvas
+5. Avançar novamente
+
+#### Resultado Esperado:
+- Botão "Voltar" funcional
+- Pergunta anterior exibida
+- Respostas anteriores mantidas
+- Navegação bidirecional
+- Progresso atualizado
+
+#### Critérios de Aprovação:
+- ✅ Navegação bidirecional
+- ✅ Respostas mantidas
+- ✅ Progresso correto
+- ✅ UX consistente
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-005-back-navigation.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 20:57:43 - 22/01/2024
 
 ---
 
