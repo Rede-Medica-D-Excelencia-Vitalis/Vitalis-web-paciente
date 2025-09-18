@@ -405,6 +405,43 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
+## 🧠 5. TRIAGEM ONLINE (1 Teste)
+
+### Teste 5.1 - Início da Triagem
+**ID**: TRIA-001  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar início do questionário de triagem
+
+#### Pré-condições:
+- Usuário autenticado
+- Acesso à funcionalidade de triagem
+
+#### Passos:
+1. Acessar triagem online (/triagem-online)
+2. Visualizar tela de boas-vindas
+3. Clicar em "Vamos Começar a Conversar"
+4. Verificar primeira pergunta
+
+#### Resultado Esperado:
+- Tela de boas-vindas exibida
+- Informações sobre o processo
+- Botão de início destacado
+- Primeira pergunta carregada
+- Barra de progresso exibida
+
+#### Critérios de Aprovação:
+- ✅ Tela de boas-vindas clara
+- ✅ Transição suave
+- ✅ Primeira pergunta carregada
+- ✅ Progresso visível
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-001-triage-start.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 20:34:45 - 22/01/2024
+
+---
+
 ## 🏠 2. DASHBOARD E NAVEGAÇÃO (5 Testes)
 
 ### Teste 2.1 - Carregamento de Dados do Perfil
