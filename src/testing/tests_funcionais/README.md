@@ -203,7 +203,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📹 4. TELECONSULTA (3 Testes)
+## 📹 4. TELECONSULTA (4 Testes)
 
 ### Teste 4.1 - Entrada na Consulta
 **ID**: TELE-001  
@@ -304,6 +304,40 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-003-microphone-controls.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 18:39:59 - 22/01/2024
+
+### Teste 4.4 - Chat Durante Consulta
+**ID**: TELE-004  
+**Prioridade**: Média  
+**Objetivo**: Verificar funcionalidade do chat
+
+#### Pré-condições:
+- Usuário em videochamada ativa
+- WebSocket conectado
+
+#### Passos:
+1. Entrar na consulta
+2. Clicar no botão de chat
+3. Digitar uma mensagem
+4. Enviar mensagem
+5. Verificar recebimento
+
+#### Resultado Esperado:
+- Chat lateral aberto
+- Campo de texto funcional
+- Mensagem enviada via WebSocket
+- Mensagem exibida no chat
+- Timestamp da mensagem
+
+#### Critérios de Aprovação:
+- ✅ Chat funcional
+- ✅ Envio via WebSocket
+- ✅ Interface clara
+- ✅ Timestamps corretos
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-004-chat-during-consultation.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 20:22:00 - 22/01/2024
 
 ---
 
