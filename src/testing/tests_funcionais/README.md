@@ -405,7 +405,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🧠 5. TRIAGEM ONLINE (2 Testes)
+## 🧠 5. TRIAGEM ONLINE (3 Testes)
 
 ### Teste 5.1 - Início da Triagem
 **ID**: TRIA-001  
@@ -472,6 +472,40 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-002-question-navigation.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 20:40:58 - 22/01/2024
+
+### Teste 5.3 - Perguntas de Múltipla Escolha
+**ID**: TRIA-003  
+**Prioridade**: Alta  
+**Objetivo**: Verificar seleção múltipla de opções
+
+#### Pré-condições:
+- Triagem em andamento
+- Pergunta de múltipla escolha exibida
+
+#### Passos:
+1. Encontrar pergunta de múltipla escolha
+2. Selecionar primeira opção
+3. Selecionar segunda opção
+4. Desmarcar uma opção
+5. Clicar em "Continuar"
+
+#### Resultado Esperado:
+- Múltiplas opções selecionáveis
+- Checkboxes funcionais
+- Seleções visuais claras
+- Opção de desmarcar
+- Validação antes de continuar
+
+#### Critérios de Aprovação:
+- ✅ Seleção múltipla funcional
+- ✅ Interface clara
+- ✅ Validação adequada
+- ✅ UX intuitiva
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-003-multiple-choice.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 20:46:18 - 22/01/2024
 
 ---
 
