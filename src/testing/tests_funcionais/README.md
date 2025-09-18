@@ -9,7 +9,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📅 3. AGENDAMENTO (4 Testes)
+## 📅 3. AGENDAMENTO (5 Testes)
 
 ### Teste 3.1 - Seleção de Data no Calendário
 **ID**: AGEN-001  
@@ -140,6 +140,36 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-004-appointment-confirmation.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 22:22:29 - 22/01/2024
+
+### Teste 3.5 - Validação de Datas Passadas
+**ID**: AGEN-005  
+**Prioridade**: Alta  
+**Objetivo**: Verificar que datas passadas não podem ser selecionadas
+
+#### Pré-condições:
+- Sistema funcionando normalmente
+
+#### Passos:
+1. Acessar agendamento
+2. Tentar clicar em datas passadas no calendário
+3. Verificar comportamento
+
+#### Resultado Esperado:
+- Datas passadas visualmente desabilitadas
+- Clicar em datas passadas não tem efeito
+- Cursor "not-allowed" em datas passadas
+- Mensagem explicativa se necessário
+
+#### Critérios de Aprovação:
+- ✅ Datas desabilitadas
+- ✅ Feedback visual
+- ✅ Comportamento consistente
+- ✅ UX clara
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/agendamento/AGEN-005-past-date-validation.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 18:17:39 - 22/01/2024
 
 ---
 
