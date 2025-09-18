@@ -203,7 +203,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 📹 4. TELECONSULTA (5 Testes)
+## 📹 4. TELECONSULTA (6 Testes)
 
 ### Teste 4.1 - Entrada na Consulta
 **ID**: TELE-001  
@@ -370,6 +370,38 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-005-fullscreen.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 20:24:52 - 22/01/2024
+
+### Teste 4.6 - Sair da Consulta
+**ID**: TELE-006  
+**Prioridade**: Alta  
+**Objetivo**: Verificar saída da consulta
+
+#### Pré-condições:
+- Usuário em videochamada ativa
+
+#### Passos:
+1. Entrar na consulta
+2. Clicar no botão de sair (telefone vermelho)
+3. Confirmar saída se necessário
+4. Verificar retorno ao dashboard
+
+#### Resultado Esperado:
+- Confirmação de saída (se necessário)
+- Streams de mídia encerrados
+- Conexão WebSocket desconectada
+- Retorno ao dashboard
+- Consulta marcada como encerrada
+
+#### Critérios de Aprovação:
+- ✅ Saída limpa
+- ✅ Recursos liberados
+- ✅ Retorno correto
+- ✅ Estado atualizado
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/teleconsulta/TELE-006-exit-consultation.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 20:29:43 - 22/01/2024
 
 ---
 
