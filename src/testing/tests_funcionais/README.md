@@ -405,7 +405,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🧠 5. TRIAGEM ONLINE (3 Testes)
+## 🧠 5. TRIAGEM ONLINE (4 Testes)
 
 ### Teste 5.1 - Início da Triagem
 **ID**: TRIA-001  
@@ -506,6 +506,39 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-003-multiple-choice.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 20:46:18 - 22/01/2024
+
+### Teste 5.4 - Perguntas de Texto Livre
+**ID**: TRIA-004  
+**Prioridade**: Alta  
+**Objetivo**: Verificar resposta em texto livre
+
+#### Pré-condições:
+- Triagem em andamento
+- Pergunta de texto exibida
+
+#### Passos:
+1. Encontrar pergunta de texto
+2. Digitar resposta no campo de texto
+3. Verificar validação
+4. Clicar em "Continuar"
+
+#### Resultado Esperado:
+- Campo de texto funcional
+- Placeholder explicativo
+- Validação de tamanho mínimo
+- Resposta salva
+- Próxima pergunta carregada
+
+#### Critérios de Aprovação:
+- ✅ Campo funcional
+- ✅ Validação adequada
+- ✅ Resposta salva
+- ✅ Navegação correta
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-004-text-input.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 20:51:15 - 22/01/2024
 
 ---
 
