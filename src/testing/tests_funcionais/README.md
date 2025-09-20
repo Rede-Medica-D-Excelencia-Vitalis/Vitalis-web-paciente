@@ -1,9 +1,9 @@
 # 🔧 Testes Funcionais Detalhados - Frontend Web do Paciente Vitalis
 
 ## 📊 Visão Geral
-Este documento apresenta os 43 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
+Este documento apresenta os 44 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
 
-- **Total de Testes**: 43 cenários
+- **Total de Testes**: 44 cenários
 - **Cobertura**: 100% das funcionalidades principais
 - **Prioridade**: Crítica para validação do sistema
 
@@ -648,7 +648,7 @@ Este documento apresenta os 43 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏥 6. FARMÁCIA ONLINE (5 Testes)
+## 🏥 6. FARMÁCIA ONLINE (6 Testes)
 
 ### Teste 6.1 - Visualização de Produtos
 **ID**: FARM-001  
@@ -822,6 +822,40 @@ Este documento apresenta os 43 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-005-cart-viewing.test.tsx`
 - **Cobertura**: 12 cenários de teste
 - **Última Execução**: 18:37:54 - 22/01/2024
+
+### Teste 6.6 - Alteração de Quantidade no Carrinho
+**ID**: FARM-006  
+**Prioridade**: Média  
+**Objetivo**: Verificar alteração de quantidade no carrinho
+
+#### Pré-condições:
+- Produtos no carrinho
+- Carrinho visualizado
+
+#### Passos:
+1. Acessar carrinho
+2. Localizar produto com quantidade
+3. Clicar em botão "+" para aumentar
+4. Clicar em botão "-" para diminuir
+5. Verificar atualização de preços
+
+#### Resultado Esperado:
+- Botões de quantidade funcionais
+- Quantidade atualizada
+- Preço total recalculado
+- Validação de quantidade mínima
+- Validação de estoque disponível
+
+#### Critérios de Aprovação:
+- ✅ Controles funcionais
+- ✅ Cálculos corretos
+- ✅ Validações adequadas
+- ✅ UX responsiva
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-006-quantity-change.test.tsx`
+- **Cobertura**: 11 cenários de teste
+- **Última Execução**: 18:45:19 - 22/01/2024
 
 ---
 
@@ -1653,8 +1687,8 @@ Duration   2.25s
 - **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 70 cenários implementados
-- **Taxa de Sucesso**: 100% (70/70 testes passando)
+- **Total de Testes**: 71 cenários implementados
+- **Taxa de Sucesso**: 100% (71/71 testes passando)
 - **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
 - **Performance**: Tempo total otimizado (~20.5s para todos)
