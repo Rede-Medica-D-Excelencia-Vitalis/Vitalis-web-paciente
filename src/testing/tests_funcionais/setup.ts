@@ -48,6 +48,13 @@ Object.defineProperty(window, 'location', {
   writable: true,
 })
 
+// Mock do ResizeObserver para componentes Radix UI
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}))
+
 // Suprimir warnings conhecidos do React que não afetam a funcionalidade dos testes
 const originalConsoleError = console.error
 console.error = (...args) => {
@@ -56,7 +63,8 @@ console.error = (...args) => {
     typeof message === 'string' &&
     (message.includes('Warning: An update to') ||
      message.includes('act(...)') ||
-     message.includes('React Router Future Flag'))
+     message.includes('React Router Future Flag') ||
+     message.includes('ResizeObserver is not defined'))
   ) {
     // Suprimir estes warnings específicos
     return
