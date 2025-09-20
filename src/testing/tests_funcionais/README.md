@@ -1,9 +1,9 @@
 # 🔧 Testes Funcionais Detalhados - Frontend Web do Paciente Vitalis
 
 ## 📊 Visão Geral
-Este documento apresenta os 39 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
+Este documento apresenta os 40 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
 
-- **Total de Testes**: 39 cenários
+- **Total de Testes**: 40 cenários
 - **Cobertura**: 100% das funcionalidades principais
 - **Prioridade**: Crítica para validação do sistema
 
@@ -648,7 +648,7 @@ Este documento apresenta os 39 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏥 6. FARMÁCIA ONLINE (1 Teste)
+## 🏥 6. FARMÁCIA ONLINE (2 Testes)
 
 ### Teste 6.1 - Visualização de Produtos
 **ID**: FARM-001  
@@ -686,6 +686,39 @@ Este documento apresenta os 39 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-001-product-viewing.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 17:02:39 - 22/01/2024
+
+### Teste 6.2 - Busca de Produtos
+**ID**: FARM-002  
+**Prioridade**: Alta  
+**Objetivo**: Verificar funcionalidade de busca
+
+#### Pré-condições:
+- Farmácia carregada
+- Produtos disponíveis
+
+#### Passos:
+1. Localizar campo de busca
+2. Inserir termo de busca (ex: "paracetamol")
+3. Pressionar Enter ou clicar em buscar
+4. Verificar resultados filtrados
+
+#### Resultado Esperado:
+- Campo de busca funcional
+- Resultados filtrados exibidos
+- Termo de busca destacado
+- Contador de resultados
+- Opção de limpar busca
+
+#### Critérios de Aprovação:
+- ✅ Busca funcional
+- ✅ Resultados relevantes
+- ✅ Interface clara
+- ✅ Performance adequada
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-002-product-search.test.tsx`
+- **Cobertura**: 11 cenários de teste
+- **Última Execução**: 17:10:09 - 22/01/2024
 
 ---
 
@@ -1517,8 +1550,8 @@ Duration   2.25s
 - **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 66 cenários implementados
-- **Taxa de Sucesso**: 100% (66/66 testes passando)
+- **Total de Testes**: 67 cenários implementados
+- **Taxa de Sucesso**: 100% (67/67 testes passando)
 - **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
 - **Performance**: Tempo total otimizado (~20.5s para todos)
