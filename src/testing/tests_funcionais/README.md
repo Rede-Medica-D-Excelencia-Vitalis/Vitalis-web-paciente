@@ -1,9 +1,9 @@
 # 🔧 Testes Funcionais Detalhados - Frontend Web do Paciente Vitalis
 
 ## 📊 Visão Geral
-Este documento apresenta os 38 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
+Este documento apresenta os 39 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
 
-- **Total de Testes**: 38 cenários
+- **Total de Testes**: 39 cenários
 - **Cobertura**: 100% das funcionalidades principais
 - **Prioridade**: Crítica para validação do sistema
 
@@ -645,6 +645,47 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-007-pdf-generation.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 16:41:36 - 22/01/2024
+
+---
+
+## 🏥 6. FARMÁCIA ONLINE (1 Teste)
+
+### Teste 6.1 - Visualização de Produtos
+**ID**: FARM-001  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar exibição do catálogo de produtos
+
+#### Pré-condições:
+- Usuário autenticado
+- Acesso à farmácia online
+
+#### Passos:
+1. Acessar farmácia (/farmacia)
+2. Visualizar lista de produtos
+3. Verificar informações de cada produto
+4. Testar scroll da página
+
+#### Resultado Esperado:
+- Lista de produtos exibida
+- Para cada produto:
+  - Nome do produto
+  - Preço
+  - Imagem
+  - Farmácia parceira
+  - Botão "Adicionar ao Carrinho"
+- Layout responsivo
+- Paginação ou scroll infinito
+
+#### Critérios de Aprovação:
+- ✅ Produtos exibidos
+- ✅ Informações completas
+- ✅ Layout responsivo
+- ✅ Performance adequada
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-001-product-viewing.test.tsx`
+- **Cobertura**: 8 cenários de teste
+- **Última Execução**: 17:02:39 - 22/01/2024
 
 ---
 
@@ -1476,8 +1517,8 @@ Duration   2.25s
 - **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 65 cenários implementados
-- **Taxa de Sucesso**: 100% (65/65 testes passando)
+- **Total de Testes**: 66 cenários implementados
+- **Taxa de Sucesso**: 100% (66/66 testes passando)
 - **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
 - **Performance**: Tempo total otimizado (~20.5s para todos)
