@@ -405,7 +405,7 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 
 ---
 
-## 🧠 5. TRIAGEM ONLINE (5 Testes)
+## 🧠 5. TRIAGEM ONLINE (6 Testes)
 
 ### Teste 5.1 - Início da Triagem
 **ID**: TRIA-001  
@@ -573,6 +573,42 @@ Este documento apresenta os 38 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-005-back-navigation.test.tsx`
 - **Cobertura**: 8 cenários de teste
 - **Última Execução**: 20:57:43 - 22/01/2024
+
+### Teste 5.6 - Análise e Resultado
+**ID**: TRIA-006  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar análise final e exibição do resultado
+
+#### Pré-condições:
+- Todas as perguntas respondidas
+- Triagem pronta para análise
+
+#### Passos:
+1. Responder última pergunta
+2. Aguardar análise da IA
+3. Verificar tela de resultado
+4. Analisar informações exibidas
+
+#### Resultado Esperado:
+- Tela de loading durante análise
+- Resultado exibido com:
+  - Nível de risco
+  - Sintomas detectados
+  - Especialidades recomendadas
+  - Recomendações
+  - Próximos passos
+  - Botões de ação disponíveis
+
+#### Critérios de Aprovação:
+- ✅ Análise completa
+- ✅ Resultado detalhado
+- ✅ Informações úteis
+- ✅ Ações disponíveis
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/triagem/TRIA-006-analysis-result.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 16:22:33 - 22/01/2024
 
 ---
 
