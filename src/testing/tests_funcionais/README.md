@@ -1,9 +1,9 @@
 # 🔧 Testes Funcionais Detalhados - Frontend Web do Paciente Vitalis
 
 ## 📊 Visão Geral
-Este documento apresenta os 42 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
+Este documento apresenta os 43 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
 
-- **Total de Testes**: 42 cenários
+- **Total de Testes**: 43 cenários
 - **Cobertura**: 100% das funcionalidades principais
 - **Prioridade**: Crítica para validação do sistema
 
@@ -648,7 +648,7 @@ Este documento apresenta os 42 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏥 6. FARMÁCIA ONLINE (4 Testes)
+## 🏥 6. FARMÁCIA ONLINE (5 Testes)
 
 ### Teste 6.1 - Visualização de Produtos
 **ID**: FARM-001  
@@ -786,6 +786,42 @@ Este documento apresenta os 42 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-004-cart-addition.test.tsx`
 - **Cobertura**: 9 cenários de teste
 - **Última Execução**: 18:29:22 - 22/01/2024
+
+### Teste 6.5 - Visualização do Carrinho
+**ID**: FARM-005  
+**Prioridade**: Alta  
+**Objetivo**: Verificar visualização do carrinho
+
+#### Pré-condições:
+- Produtos adicionados ao carrinho
+
+#### Passos:
+1. Adicionar produtos ao carrinho
+2. Clicar em "Ver Carrinho"
+3. Verificar lista de produtos
+4. Verificar informações de cada item
+
+#### Resultado Esperado:
+- Página do carrinho carregada
+- Lista de produtos adicionados
+- Para cada item:
+  - Nome do produto
+  - Preço unitário
+  - Quantidade
+  - Preço total
+  - Botão de remoção
+- Total geral calculado
+
+#### Critérios de Aprovação:
+- ✅ Carrinho exibido
+- ✅ Informações completas
+- ✅ Cálculos corretos
+- ✅ Ações disponíveis
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-005-cart-viewing.test.tsx`
+- **Cobertura**: 12 cenários de teste
+- **Última Execução**: 18:37:54 - 22/01/2024
 
 ---
 
@@ -1617,8 +1653,8 @@ Duration   2.25s
 - **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 69 cenários implementados
-- **Taxa de Sucesso**: 100% (69/69 testes passando)
+- **Total de Testes**: 70 cenários implementados
+- **Taxa de Sucesso**: 100% (70/70 testes passando)
 - **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
 - **Performance**: Tempo total otimizado (~20.5s para todos)
