@@ -1,9 +1,9 @@
 # 🔧 Testes Funcionais Detalhados - Frontend Web do Paciente Vitalis
 
 ## 📊 Visão Geral
-Este documento apresenta os 44 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
+Este documento apresenta os 45 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
 
-- **Total de Testes**: 44 cenários
+- **Total de Testes**: 45 cenários
 - **Cobertura**: 100% das funcionalidades principais
 - **Prioridade**: Crítica para validação do sistema
 
@@ -648,7 +648,7 @@ Este documento apresenta os 44 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏥 6. FARMÁCIA ONLINE (6 Testes)
+## 🏥 6. FARMÁCIA ONLINE (7 Testes)
 
 ### Teste 6.1 - Visualização de Produtos
 **ID**: FARM-001  
@@ -856,6 +856,41 @@ Este documento apresenta os 44 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-006-quantity-change.test.tsx`
 - **Cobertura**: 11 cenários de teste
 - **Última Execução**: 18:45:19 - 22/01/2024
+
+### Teste 6.7 - Remoção de Produto do Carrinho
+**ID**: FARM-007  
+**Prioridade**: Média  
+**Objetivo**: Verificar remoção de produto do carrinho
+
+#### Pré-condições:
+- Produtos no carrinho
+- Carrinho visualizado
+
+#### Passos:
+1. Acessar carrinho
+2. Localizar produto a ser removido
+3. Clicar no botão de remoção (X)
+4. Confirmar remoção se necessário
+5. Verificar atualização do carrinho
+
+#### Resultado Esperado:
+- Botão de remoção funcional
+- Confirmação de remoção (se necessário)
+- Produto removido do carrinho
+- Contador atualizado
+- Total recalculado
+- Carrinho vazio se último produto removido
+
+#### Critérios de Aprovação:
+- ✅ Remoção funcional
+- ✅ Confirmação adequada
+- ✅ Atualizações corretas
+- ✅ Estado consistente
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-007-product-removal.test.tsx`
+- **Cobertura**: 12 cenários de teste
+- **Última Execução**: 18:56:07 - 22/01/2024
 
 ---
 
@@ -1687,8 +1722,8 @@ Duration   2.25s
 - **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 71 cenários implementados
-- **Taxa de Sucesso**: 100% (71/71 testes passando)
+- **Total de Testes**: 72 cenários implementados
+- **Taxa de Sucesso**: 100% (72/72 testes passando)
 - **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
 - **Performance**: Tempo total otimizado (~20.5s para todos)
