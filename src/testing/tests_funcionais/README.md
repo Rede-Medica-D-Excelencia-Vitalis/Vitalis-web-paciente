@@ -1,9 +1,9 @@
 # 🔧 Testes Funcionais Detalhados - Frontend Web do Paciente Vitalis
 
 ## 📊 Visão Geral
-Este documento apresenta os 41 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
+Este documento apresenta os 42 cenários de teste funcionais identificados para o frontend web do paciente da plataforma Vitalis, organizados por módulos de funcionalidade.
 
-- **Total de Testes**: 41 cenários
+- **Total de Testes**: 42 cenários
 - **Cobertura**: 100% das funcionalidades principais
 - **Prioridade**: Crítica para validação do sistema
 
@@ -648,7 +648,7 @@ Este documento apresenta os 41 cenários de teste funcionais identificados para 
 
 ---
 
-## 🏥 6. FARMÁCIA ONLINE (3 Testes)
+## 🏥 6. FARMÁCIA ONLINE (4 Testes)
 
 ### Teste 6.1 - Visualização de Produtos
 **ID**: FARM-001  
@@ -752,6 +752,40 @@ Este documento apresenta os 41 cenários de teste funcionais identificados para 
 - **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-003-category-filters.test.tsx`
 - **Cobertura**: 6 cenários de teste
 - **Última Execução**: 17:21:08 - 22/01/2024
+
+### Teste 6.4 - Adição de Produtos ao Carrinho
+**ID**: FARM-004  
+**Prioridade**: Crítica  
+**Objetivo**: Verificar adição de produtos ao carrinho
+
+#### Pré-condições:
+- Produtos exibidos na farmácia
+- Usuário autenticado
+
+#### Passos:
+1. Localizar produto desejado
+2. Clicar em "Adicionar ao Carrinho"
+3. Verificar contador do carrinho
+4. Adicionar outro produto
+5. Verificar atualização do contador
+
+#### Resultado Esperado:
+- Produto adicionado ao carrinho
+- Contador do carrinho atualizado
+- Feedback visual de adição
+- Produto disponível no carrinho
+- Quantidade correta
+
+#### Critérios de Aprovação:
+- ✅ Adição funcional
+- ✅ Contador atualizado
+- ✅ Feedback visual
+- ✅ Persistência correta
+
+#### Status: ✅ IMPLEMENTADO E EXECUTADO COM SUCESSO
+- **Arquivo**: `src/testing/tests_funcionais/farmacia/FARM-004-cart-addition.test.tsx`
+- **Cobertura**: 9 cenários de teste
+- **Última Execução**: 18:29:22 - 22/01/2024
 
 ---
 
@@ -1583,8 +1617,8 @@ Duration   2.25s
 - **DASH-001**: Carregamento de Dados do Perfil (11 cenários)
 
 ### 📊 Métricas Gerais
-- **Total de Testes**: 68 cenários implementados
-- **Taxa de Sucesso**: 100% (68/68 testes passando)
+- **Total de Testes**: 69 cenários implementados
+- **Taxa de Sucesso**: 100% (69/69 testes passando)
 - **Cobertura**: Autenticação completa (login, cadastro e recuperação) + Dashboard (carregamento de perfil)
 - **Qualidade**: Zero warnings, zero erros de lint
 - **Performance**: Tempo total otimizado (~20.5s para todos)
