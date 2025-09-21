@@ -1,8 +1,33 @@
 import React from 'react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { screen, render as rtlRender, waitFor, fireEvent } from '@testing-library/react'
+import { screen, render as rtlRender, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
+
+// Interfaces para tipagem
+interface Doctor {
+  id: string
+  name: string
+  specialty: string
+  avatar: string
+  rating: number
+  availableSlots: string[]
+}
+
+interface Appointment {
+  id: string
+  doctorName: string
+  specialty: string
+  date: string
+  time: string
+  status: string
+}
+
+interface AppointmentData {
+  reason: string
+  notes: string
+  urgency: string
+}
 
 // Mock dos serviços de API
 const mockAppointmentService = {
@@ -58,7 +83,7 @@ const mockData = {
       rating: 4.6,
       availableSlots: ['08:00', '09:00', '16:00', '17:00']
     }
-  ],
+  ] as Doctor[],
   timeSlots: [
     '08:00', '09:00', '10:00', '11:00',
     '14:00', '15:00', '16:00', '17:00'
@@ -69,18 +94,17 @@ const mockData = {
 const MockAppointmentPage = () => {
   const [currentStep, setCurrentStep] = React.useState(1)
   const [selectedDate, setSelectedDate] = React.useState('')
-  const [selectedDoctor, setSelectedDoctor] = React.useState(null)
+  const [selectedDoctor, setSelectedDoctor] = React.useState<Doctor | null>(null)
   const [selectedTime, setSelectedTime] = React.useState('')
-  const [appointmentData, setAppointmentData] = React.useState({
+  const [appointmentData, setAppointmentData] = React.useState<AppointmentData>({
     reason: '',
     notes: '',
     urgency: 'normal'
   })
   const [isLoading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState('')
-  const [success, setSuccess] = React.useState(false)
-  const [availableDoctors, setAvailableDoctors] = React.useState([])
-  const [availableTimes, setAvailableTimes] = React.useState([])
+  const [availableDoctors, setAvailableDoctors] = React.useState<Doctor[]>([])
+  const [availableTimes, setAvailableTimes] = React.useState<string[]>([])
 
   const steps = [
     { id: 1, title: 'Selecionar Data', component: 'date-selection' },
@@ -104,7 +128,7 @@ const MockAppointmentPage = () => {
     }
   }
 
-  const handleDoctorSelection = async (doctor: any) => {
+  const handleDoctorSelection = async (doctor: Doctor) => {
     setSelectedDoctor(doctor)
     setIsLoading(true)
     try {
@@ -123,7 +147,7 @@ const MockAppointmentPage = () => {
     setCurrentStep(4)
   }
 
-  const handleAppointmentDataChange = (field: string, value: string) => {
+  const handleAppointmentDataChange = (field: keyof AppointmentData, value: string) => {
     setAppointmentData(prev => ({ ...prev, [field]: value }))
   }
 
@@ -132,6 +156,11 @@ const MockAppointmentPage = () => {
     setError('')
     
     try {
+      if (!selectedDoctor) {
+        setError('Médico não selecionado')
+        return
+      }
+
       const appointment = {
         date: selectedDate,
         doctorId: selectedDoctor.id,
@@ -149,12 +178,11 @@ const MockAppointmentPage = () => {
         await mockNotificationService.sendConfirmation({
           appointmentId: result.appointmentId,
           patientEmail: mockAuthContext.user.email,
-          doctorName: selectedDoctor.name,
+          doctorName: selectedDoctor!.name,
           date: selectedDate,
           time: selectedTime
         })
         
-        setSuccess(true)
         setCurrentStep(5)
       } else {
         setError(result.message || 'Erro ao criar agendamento')
@@ -327,7 +355,7 @@ const MockAppointmentPage = () => {
 
 // Componente mock para dashboard
 const MockDashboard = () => {
-  const [appointments, setAppointments] = React.useState([])
+  const [appointments, setAppointments] = React.useState<Appointment[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
