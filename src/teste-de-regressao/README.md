@@ -36,6 +36,48 @@ Este diretório contém os testes de regressão implementados para garantir que 
 - Chama todas as APIs necessárias no fluxo completo
 - Trata timeout das APIs
 
+### REG-002 - Fluxo Completo de Teleconsulta
+**Prioridade:** Crítica | **Status:** ✅ 17/17 testes passando
+
+**Cenários Testados:**
+
+#### Fluxo Normal de Teleconsulta (2 testes)
+- Completa o fluxo completo de teleconsulta com sucesso
+- Navega corretamente pelos controles de mídia
+
+#### Funcionalidade de Chat (2 testes)
+- Envia e recebe mensagens no chat
+- Exibe status de conexão do chat
+
+#### Tratamento de Erros (5 testes)
+- Trata erro ao carregar dados da consulta
+- Trata erro ao iniciar consulta sem permissões
+- Trata erro ao conectar WebSocket
+- Trata erro ao enviar mensagem no chat
+- Trata erro ao finalizar consulta
+
+#### Cenários Especiais (4 testes)
+- Lida com problemas de rede durante a consulta
+- Lida com câmera indisponível
+- Lida com microfone indisponível
+- Valida controle de gravação
+
+#### Integração com APIs (2 testes)
+- Chama todas as APIs necessárias no fluxo completo
+- Trata timeout das APIs
+
+#### Validação de Estados (2 testes)
+- Gerencia corretamente os estados da interface
+- Valida estados de mídia
+
+**Funcionalidades Testadas:**
+- **WebRTC:** Conexão de vídeo e áudio
+- **WebSocket:** Chat em tempo real
+- **Gravação:** Gravação da consulta
+- **Controles de Mídia:** Câmera e microfone
+- **Estados da Interface:** Gerenciamento de estados
+- **Tratamento de Erros:** Cenários de falha
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Vitest** - Framework de testes
@@ -52,6 +94,7 @@ npm test -- src/teste-de-regressao/
 
 # Teste específico
 npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
+npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 ```
 
 ## 📊 Resumo de Cobertura
@@ -59,16 +102,25 @@ npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
 | Teste | Cenários | Status | Prioridade |
 |-------|----------|--------|------------|
 | REG-001 | 15 | ✅ Passando | Crítica |
-| **Total** | **15** | **✅ 100%** | - |
+| REG-002 | 17 | ✅ Passando | Crítica |
+| **Total** | **32** | **✅ 100%** | - |
 
-## 🔄 Fluxo de Agendamento Testado
+## 🔄 Fluxos Testados
 
-### Passos do Fluxo:
+### Fluxo de Agendamento:
 1. **Selecionar Data** - Escolher data disponível
 2. **Escolher Médico** - Selecionar especialista
 3. **Selecionar Horário** - Escolher horário disponível
 4. **Dados da Consulta** - Preencher motivo, observações e urgência
 5. **Confirmação** - Confirmar agendamento e receber confirmação
+
+### Fluxo de Teleconsulta:
+1. **Carregar Consulta** - Verificar consulta agendada
+2. **Iniciar Videochamada** - Estabelecer conexão WebRTC
+3. **Controles de Mídia** - Gerenciar câmera e microfone
+4. **Chat em Tempo Real** - Enviar e receber mensagens
+5. **Gravação** - Gravar consulta (se aplicável)
+6. **Finalização** - Finalizar consulta e desconectar
 
 ### Componentes Testados:
 - Página de agendamento
@@ -78,6 +130,12 @@ npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
 - Formulário de dados
 - Confirmação de agendamento
 - Dashboard do paciente
+- Interface de teleconsulta
+- Player de vídeo
+- Controles de câmera/microfone
+- Chat em tempo real
+- Botões de ação
+- Modal de finalização
 
 ### Integrações Testadas:
 - API de agendamento
@@ -85,15 +143,28 @@ npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
 - API de horários
 - API de confirmação
 - API de dashboard
+- WebRTC para vídeo
+- WebSocket para chat
+- API de consultas
+- API de gravação
+- API de finalização
 - Serviço de notificações
 
 ## 🎯 Critérios de Aprovação
 
+### REG-001 - Agendamento:
 ✅ **Fluxo completo funcional** - Todos os passos funcionam corretamente
 ✅ **Validação adequada** - Dados são validados antes do envio
 ✅ **Confirmação correta** - Agendamento é confirmado adequadamente
 ✅ **Dashboard atualizado** - Agendamento aparece no dashboard
 ✅ **Notificação enviada** - Confirmação é enviada ao paciente
+
+### REG-002 - Teleconsulta:
+✅ **Videochamada funcional** - Conexão WebRTC estabelecida
+✅ **Áudio funcionando** - Microfone ativo e funcional
+✅ **Chat funcional** - Mensagens enviadas e recebidas
+✅ **Finalização correta** - Consulta finalizada adequadamente
+✅ **Gravação funcional** - Consulta gravada (se aplicável)
 
 ## 🚨 Cenários de Teste Cobertos
 
@@ -102,6 +173,8 @@ npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
 - Navegação entre passos
 - Validação de formulários
 - Confirmação de agendamento
+- Teleconsulta normal
+- Chat em tempo real
 
 ### Cenários de Erro:
 - Médicos indisponíveis
@@ -109,12 +182,19 @@ npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
 - Erros de rede
 - Timeout de APIs
 - Dados inválidos
+- Problemas de câmera/microfone
+- Falhas de WebSocket
+- Erros de gravação
 
 ### Cenários Especiais:
 - Caracteres especiais nos dados
 - Dados com acentos e símbolos
 - Validação de campos obrigatórios
 - Tratamento de exceções
+- Teleconsulta com problemas de rede
+- Teleconsulta com câmera indisponível
+- Teleconsulta com microfone indisponível
+- Teleconsulta com chat indisponível
 
 ## 📝 Convenções
 
