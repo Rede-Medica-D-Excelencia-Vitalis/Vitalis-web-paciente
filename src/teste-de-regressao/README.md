@@ -39,7 +39,39 @@ Este diretório contém os testes de regressão implementados para garantir que 
 ### REG-002 - Fluxo Completo de Teleconsulta
 **Prioridade:** Crítica | **Status:** ✅ 17/17 testes passando
 
+### REG-003 - Fluxo Completo de Triagem Online
+**Prioridade:** Crítica | **Status:** ✅ 11/11 testes passando
+
 **Cenários Testados:**
+
+#### Fluxo Normal de Triagem (2 testes)
+- Completa o fluxo completo de triagem com sucesso
+- Navega corretamente pelo questionário
+
+#### Validação de Dados (2 testes)
+- Valida perguntas obrigatórias
+- Valida dados pessoais obrigatórios
+
+#### Tratamento de Erros (4 testes)
+- Trata erro ao carregar questionário
+- Trata erro ao salvar dados pessoais
+- Trata erro na análise da triagem
+- Trata erro na geração de PDF
+
+#### Cenários Especiais (2 testes)
+- Lida com timeout na análise
+- Valida diferentes tipos de pergunta
+
+#### Integração com APIs (1 teste)
+- Chama todas as APIs necessárias no fluxo completo
+
+**Funcionalidades Testadas:**
+- **Questionário sequencial:** Navegação entre perguntas
+- **Validação de respostas:** Verificação de campos obrigatórios
+- **Sistema de análise:** Processamento das respostas
+- **Geração de PDF:** Criação automática do relatório
+- **Download de relatório:** Baixar PDF da triagem
+- **Tratamento de erros:** Falhas em cada etapa
 
 #### Fluxo Normal de Teleconsulta (2 testes)
 - Completa o fluxo completo de teleconsulta com sucesso
@@ -95,6 +127,7 @@ npm test -- src/teste-de-regressao/
 # Teste específico
 npm test -- src/teste-de-regressao/REG-001-fluxo-agendamento.test.tsx
 npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
+npm test -- src/teste-de-regressao/REG-003-fluxo-triagem.test.tsx
 ```
 
 ## 📊 Resumo de Cobertura
@@ -103,7 +136,8 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 |-------|----------|--------|------------|
 | REG-001 | 15 | ✅ Passando | Crítica |
 | REG-002 | 17 | ✅ Passando | Crítica |
-| **Total** | **32** | **✅ 100%** | - |
+| REG-003 | 11 | ✅ Passando | Crítica |
+| **Total** | **43** | **✅ 100%** | - |
 
 ## 🔄 Fluxos Testados
 
@@ -122,6 +156,15 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 5. **Gravação** - Gravar consulta (se aplicável)
 6. **Finalização** - Finalizar consulta e desconectar
 
+### Fluxo de Triagem Online:
+1. **Carregar Questionário** - Exibir perguntas de triagem
+2. **Responder Perguntas** - Navegar pelo questionário sequencial
+3. **Preencher Dados Pessoais** - Inserir informações do paciente
+4. **Análise** - Processar respostas e calcular risco
+5. **Exibir Resultados** - Mostrar nível de risco e recomendações
+6. **Gerar PDF** - Criar relatório da triagem
+7. **Download** - Baixar relatório em PDF
+
 ### Componentes Testados:
 - Página de agendamento
 - Calendário de datas
@@ -136,6 +179,13 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 - Chat em tempo real
 - Botões de ação
 - Modal de finalização
+- Interface de triagem
+- Questionário sequencial
+- Formulário de dados pessoais
+- Sistema de análise
+- Exibição de resultados
+- Geração de PDF
+- Download de relatório
 
 ### Integrações Testadas:
 - API de agendamento
@@ -149,6 +199,10 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 - API de gravação
 - API de finalização
 - Serviço de notificações
+- API de triagem
+- Sistema de análise
+- PDF service
+- API de resultados
 
 ## 🎯 Critérios de Aprovação
 
@@ -166,6 +220,13 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 ✅ **Finalização correta** - Consulta finalizada adequadamente
 ✅ **Gravação funcional** - Consulta gravada (se aplicável)
 
+### REG-003 - Triagem Online:
+✅ **Questionário funcional** - Navegação entre perguntas
+✅ **Validação adequada** - Campos obrigatórios validados
+✅ **Análise funcional** - Processamento das respostas
+✅ **Resultados exibidos** - Nível de risco e recomendações
+✅ **PDF gerado** - Relatório criado automaticamente
+
 ## 🚨 Cenários de Teste Cobertos
 
 ### Cenários Normais:
@@ -175,6 +236,9 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 - Confirmação de agendamento
 - Teleconsulta normal
 - Chat em tempo real
+- Triagem com respostas válidas
+- Navegação pelo questionário
+- Geração de PDF
 
 ### Cenários de Erro:
 - Médicos indisponíveis
@@ -185,6 +249,10 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 - Problemas de câmera/microfone
 - Falhas de WebSocket
 - Erros de gravação
+- Erro ao carregar questionário
+- Erro ao salvar dados pessoais
+- Erro na análise da triagem
+- Erro na geração de PDF
 
 ### Cenários Especiais:
 - Caracteres especiais nos dados
@@ -195,6 +263,9 @@ npm test -- src/teste-de-regressao/REG-002-fluxo-teleconsulta.test.tsx
 - Teleconsulta com câmera indisponível
 - Teleconsulta com microfone indisponível
 - Teleconsulta com chat indisponível
+- Timeout na análise da triagem
+- Diferentes tipos de pergunta (múltipla escolha, escala, texto)
+- Perguntas obrigatórias vs opcionais
 
 ## 📝 Convenções
 
