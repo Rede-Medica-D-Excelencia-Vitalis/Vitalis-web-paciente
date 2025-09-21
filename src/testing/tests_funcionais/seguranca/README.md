@@ -56,6 +56,32 @@ Este diretório contém os testes funcionais de segurança implementados para o 
 - Detecção de extensão falsa
 - Scan de conteúdo malicioso
 
+### SEC-006 - Validação de Dados Recebidos da API
+**Prioridade:** Alta | **Status:** ✅ 31/31 testes passando
+
+**Cenários Testados:**
+- Validação de dados válidos de médico, produto, chat, consulta e perfil
+- Sanitização de scripts maliciosos em dados de texto
+- Bloqueio de atributos maliciosos (onerror, onclick, javascript:)
+- Tratamento de dados corrompidos e estruturas inválidas
+- Validação de tipos de dados específicos (preços, status, arrays)
+- Logs de segurança para tentativas maliciosas
+- Tratamento de erros de API (rede, timeout)
+
+**Tipos de Dados Validados:**
+- **Dados de Médico:** ID, nome, especialidade, email
+- **Dados de Produto:** ID, nome, descrição, preço
+- **Dados de Chat:** Array de mensagens com ID, conteúdo, timestamp
+- **Dados de Consulta:** ID, paciente, médico, data, status
+- **Dados de Perfil:** ID, nome, email, telefone
+
+**Sanitizações Implementadas:**
+- Remoção de tags `<script>`, `<img>`, `<iframe>`
+- Bloqueio de protocolo `javascript:`
+- Remoção de atributos de evento (`onerror`, `onclick`, etc.)
+- Sanitização de `eval()` e `Function()`
+- Remoção de conteúdo malicioso em strings
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Vitest** - Framework de testes
@@ -73,6 +99,7 @@ npm test -- src/testing/tests_funcionais/seguranca/
 npm test -- src/testing/tests_funcionais/seguranca/SEC-003-secure-logout.test.tsx
 npm test -- src/testing/tests_funcionais/seguranca/SEC-004-input-sanitization.test.tsx
 npm test -- src/testing/tests_funcionais/seguranca/SEC-005-file-upload-validation.test.tsx
+npm test -- src/testing/tests_funcionais/seguranca/SEC-006-api-data-validation.test.tsx
 ```
 
 ## 📊 Resumo de Cobertura
@@ -82,7 +109,8 @@ npm test -- src/testing/tests_funcionais/seguranca/SEC-005-file-upload-validatio
 | SEC-003 | 13 | ✅ Passando | Crítica |
 | SEC-004 | 15 | ✅ Passando | Crítica |
 | SEC-005 | 27 | ✅ Passando | Alta |
-| **Total** | **55** | **✅ 100%** | - |
+| SEC-006 | 31 | ✅ Passando | Alta |
+| **Total** | **86** | **✅ 100%** | - |
 
 ## 🔒 Aspectos de Segurança Cobertos
 
@@ -94,6 +122,10 @@ npm test -- src/testing/tests_funcionais/seguranca/SEC-005-file-upload-validatio
 - ✅ Bloqueio de arquivos maliciosos
 - ✅ Detecção de extensão falsa
 - ✅ Validação de MIME types
+- ✅ Validação de dados da API
+- ✅ Sanitização de respostas da API
+- ✅ Tratamento de dados corrompidos
+- ✅ Logs de segurança
 
 ## 📝 Convenções
 
