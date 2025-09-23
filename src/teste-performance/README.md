@@ -150,6 +150,43 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Detecção de carregamento lazy lento** - Identifica carregamento > 1.0s
 - ✅ **Detecção de cache hit rate baixo** - Identifica cache < 70%
 
+### PERF-005 - Cache de Dados da API
+**Prioridade:** Alta | **Status:** ✅ 16/16 testes passando
+
+**Objetivo:** Verificar cache de dados da API
+
+#### Cache Hit Funcional Testadas (3 testes)
+- ✅ **Carregamento de dados do cache** - Dados carregados do cache quando disponível
+- ✅ **Tempo de cache hit significativamente menor** - Cache hit < 100ms
+- ✅ **Hit rate adequado** - Hit rate > 70%
+
+#### Dados Consistentes Testadas (2 testes)
+- ✅ **Retorno dos mesmos dados do cache** - Dados consistentes entre carregamentos
+- ✅ **Carregamento de dados de consultas do cache** - Consultas carregadas do cache
+
+#### Invalidação de Cache Testadas (2 testes)
+- ✅ **Invalidação de cache corretamente** - Cache invalidado adequadamente
+- ✅ **Recarregamento de dados após invalidação** - Dados recarregados após invalidação
+
+#### Uso Eficiente de Memória Testadas (2 testes)
+- ✅ **Uso de memória eficiente** - Memória < 100MB
+- ✅ **Tamanho de cache adequado** - Cache < 50MB
+
+#### Performance de Cache Testadas (2 testes)
+- ✅ **Redução significativa no tempo de carregamento** - Redução de 80-90%
+- ✅ **Contagem de chamadas de API e cache hits** - Contadores funcionais
+
+#### Validação Completa de Cache (1 teste)
+- ✅ **Validação de todas as métricas** - Verifica se todas as métricas estão dentro dos limites
+
+#### Monitor de Performance de Cache (1 teste)
+- ✅ **Exibição de métricas** - Verifica se o monitor exibe as métricas de cache
+
+#### Cenários de Performance Degradada (3 testes)
+- ✅ **Detecção de cache hit time lento** - Identifica cache hit > 100ms
+- ✅ **Detecção de hit rate baixo** - Identifica hit rate < 70%
+- ✅ **Detecção de uso excessivo de memória** - Identifica memória > 100MB
+
 ## 🎯 Critérios de Aprovação
 
 ### Core Web Vitals (PERF-001)
@@ -198,6 +235,18 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Memória < 100MB** - Uso eficiente de memória
 - ✅ **Carregamento lazy < 1.0s** - Carregamento rápido de componentes
 
+### Cache de Dados da API (PERF-005)
+- ✅ **Cache hit < 100ms** - Tempo de acesso ao cache
+- ✅ **Redução 80-90%** - Redução significativa no tempo de carregamento
+- ✅ **Hit rate > 70%** - Taxa de acerto do cache
+- ✅ **Dados consistentes** - Mesmos dados retornados do cache
+- ✅ **Invalidação adequada** - Cache atualizado quando necessário
+- ✅ **Memória < 100MB** - Uso eficiente de memória
+- ✅ **Cache < 50MB** - Tamanho adequado do cache
+- ✅ **Contadores funcionais** - API calls, cache hits e misses
+- ✅ **Carregamento de consultas** - Dados de consultas cacheados
+- ✅ **Recarregamento após invalidação** - Dados atualizados após invalidação
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Vitest** - Framework de testes
@@ -223,6 +272,9 @@ npm test -- src/teste-performance/PERF-003-carregamento-imagens.test.tsx
 
 # Teste específico - Lazy Loading
 npm test -- src/teste-performance/PERF-004-lazy-loading-componentes.test.tsx
+
+# Teste específico - Cache de Dados
+npm test -- src/teste-performance/PERF-005-cache-dados-api.test.tsx
 ```
 
 ## 📊 Métricas Monitoradas
@@ -275,6 +327,19 @@ npm test -- src/teste-performance/PERF-004-lazy-loading-componentes.test.tsx
 - **Component Load Count:** Número de componentes carregados
 - **Suspense Fallbacks:** Número de fallbacks do Suspense exibidos
 
+### Métricas de Cache de Dados (PERF-005)
+- **First Load Time:** Tempo da primeira carga de dados em ms
+- **Cache Hit Time:** Tempo de acesso ao cache em ms
+- **Cache Miss Time:** Tempo quando não há cache em ms
+- **Memory Usage:** Uso de memória do cache em bytes
+- **Cache Size:** Tamanho total do cache em bytes
+- **Hit Rate:** Taxa de acerto do cache (0-1)
+- **Invalidation Count:** Número de invalidações do cache
+- **Cache Entries:** Número de entradas no cache
+- **API Calls:** Número de chamadas para a API
+- **Cache Hits:** Número de acessos bem-sucedidos ao cache
+- **Cache Misses:** Número de acessos que não encontraram dados no cache
+
 ## 🔧 Funcionalidades Testadas
 
 ### Performance Geral
@@ -311,6 +376,16 @@ npm test -- src/teste-performance/PERF-004-lazy-loading-componentes.test.tsx
 - **Otimização de memória** - Uso eficiente de memória
 - **Performance de carregamento** - Tempo de carregamento otimizado
 - **Múltiplos componentes** - Carregamento de vários componentes lazy
+
+### Cache de Dados da API
+- **Cache hit funcional** - Acesso rápido aos dados cacheados
+- **Redução significativa no tempo** - 80-90% de redução no carregamento
+- **Dados consistentes** - Mesmos dados retornados do cache
+- **Invalidação adequada** - Cache atualizado quando necessário
+- **Uso eficiente de memória** - Controle de uso de memória
+- **Hit rate adequado** - Taxa de acerto > 70%
+- **Contadores funcionais** - API calls, cache hits e misses
+- **Carregamento de diferentes tipos** - Perfil, consultas, médicos, farmácia
 
 ## 📈 Cenários de Teste
 
@@ -370,6 +445,22 @@ npm test -- src/teste-performance/PERF-004-lazy-loading-componentes.test.tsx
 - Transições lentas (> 500ms)
 - Bundle splitting inadequado
 
+### Cenários de Cache de Dados (PERF-005)
+- Carregamento normal com cache funcionando
+- Cache hit rápido e eficiente
+- Dados consistentes entre carregamentos
+- Invalidação de cache funcionando
+- Carregamento de diferentes tipos de dados
+- Contadores de performance funcionais
+
+### Cenários de Performance Degradada de Cache (PERF-005)
+- Cache hit time lento (> 100ms)
+- Hit rate baixo (< 70%)
+- Uso excessivo de memória (> 100MB)
+- Cache muito grande (> 50MB)
+- Invalidação não funcionando
+- Dados inconsistentes no cache
+
 ## 🎨 Interface de Monitoramento
 
 ### Monitor Geral (PERF-001)
@@ -415,6 +506,21 @@ O teste inclui um componente específico para lazy loading que exibe:
 - Número de bundles separados
 - Número de componentes carregados
 - Número de fallbacks do Suspense
+- Status de cada métrica (dentro/fora do limite)
+
+### Monitor de Cache de Dados (PERF-005)
+O teste inclui um componente específico para cache de dados que exibe:
+- Tempo da primeira carga de dados
+- Tempo de acesso ao cache (cache hit)
+- Tempo quando não há cache (cache miss)
+- Uso de memória do cache
+- Tamanho total do cache
+- Taxa de acerto do cache (hit rate)
+- Número de invalidações do cache
+- Número de entradas no cache
+- Número de chamadas para a API
+- Número de acessos bem-sucedidos ao cache
+- Número de acessos que não encontraram dados no cache
 - Status de cada métrica (dentro/fora do limite)
 
 ## 📝 Convenções
@@ -463,6 +569,16 @@ O teste inclui um componente específico para lazy loading que exibe:
 - **Performance de Carregamento** - Tempos e Suspense
 - **Validação Completa** - Verificação geral
 - **Monitor de Performance de Lazy Loading** - Interface específica
+- **Cenários de Degradação** - Detecção de problemas
+
+#### PERF-005 - Cache de Dados
+- **Cache Hit Funcional** - Acesso ao cache e tempos
+- **Dados Consistentes** - Consistência entre carregamentos
+- **Invalidação de Cache** - Invalidação e recarregamento
+- **Uso Eficiente de Memória** - Memória e tamanho do cache
+- **Performance de Cache** - Tempos e contadores
+- **Validação Completa** - Verificação geral
+- **Monitor de Performance de Cache** - Interface específica
 - **Cenários de Degradação** - Detecção de problemas
 
 ### Padrões de Teste:
