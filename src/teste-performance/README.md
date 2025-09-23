@@ -187,6 +187,43 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Detecção de hit rate baixo** - Identifica hit rate < 70%
 - ✅ **Detecção de uso excessivo de memória** - Identifica memória > 100MB
 
+### PERF-006 - Otimização do Bundle JavaScript
+**Prioridade:** Média | **Status:** ✅ 16/16 testes passando
+
+**Objetivo:** Verificar otimização do bundle JavaScript
+
+#### Métricas de Tamanho do Bundle Testadas (3 testes)
+- ✅ **Bundle principal menor que 250KB** - Bundle principal < 250KB
+- ✅ **Bundle gzipped menor que 250KB** - Bundle gzipped < 250KB
+- ✅ **Compressão Brotli otimizada** - Brotli menor que gzip
+
+#### Code Splitting e Chunks Testadas (2 testes)
+- ✅ **Chunks divididos adequadamente** - Mínimo 4 chunks
+- ✅ **Vendor chunk otimizado** - Vendor chunk < 200KB
+
+#### Tree Shaking e Otimizações Testadas (2 testes)
+- ✅ **Tree shaking eficiente** - Eficiência > 80%
+- ✅ **Código não utilizado mínimo** - Código não utilizado < 10KB
+
+#### Performance de Carregamento Testadas (2 testes)
+- ✅ **Carregamento em tempo adequado** - Carregamento < 1.0s
+- ✅ **Tempo de parsing adequado** - Parsing < 200ms
+
+#### Compressão e Otimização Testadas (2 testes)
+- ✅ **Compressão gzip adequada** - Compressão > 60%
+- ✅ **Código duplicado mínimo** - Código duplicado < 5KB
+
+#### Validação Completa de Performance (1 teste)
+- ✅ **Validação de todas as métricas** - Verifica se todas as métricas estão dentro dos limites
+
+#### Monitor de Performance do Bundle (1 teste)
+- ✅ **Exibição de métricas** - Verifica se o monitor exibe as métricas do bundle
+
+#### Cenários de Performance Degradada (3 testes)
+- ✅ **Detecção de bundle muito grande** - Identifica bundle > 250KB
+- ✅ **Detecção de tree shaking ineficiente** - Identifica eficiência < 80%
+- ✅ **Detecção de compressão inadequada** - Identifica compressão < 60%
+
 ## 🎯 Critérios de Aprovação
 
 ### Core Web Vitals (PERF-001)
@@ -247,6 +284,20 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Carregamento de consultas** - Dados de consultas cacheados
 - ✅ **Recarregamento após invalidação** - Dados atualizados após invalidação
 
+### Otimização do Bundle JavaScript (PERF-006)
+- ✅ **Bundle principal < 250KB** - Tamanho otimizado do bundle principal
+- ✅ **Bundle gzipped < 250KB** - Tamanho comprimido com gzip
+- ✅ **Compressão Brotli** - Brotli menor que gzip para melhor compressão
+- ✅ **Chunks divididos adequadamente** - Mínimo 4 chunks para code splitting
+- ✅ **Vendor chunk < 200KB** - Tamanho otimizado do vendor chunk
+- ✅ **Tree shaking > 80%** - Eficiência na remoção de código não utilizado
+- ✅ **Código não utilizado < 10KB** - Quantidade mínima de código não utilizado
+- ✅ **Compressão > 60%** - Taxa de compressão adequada
+- ✅ **Código duplicado < 5KB** - Quantidade mínima de código duplicado
+- ✅ **Carregamento < 1.0s** - Tempo de carregamento do bundle
+- ✅ **Parsing < 200ms** - Tempo de parsing do JavaScript
+- ✅ **Execução < 300ms** - Tempo de execução inicial
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Vitest** - Framework de testes
@@ -275,6 +326,9 @@ npm test -- src/teste-performance/PERF-004-lazy-loading-componentes.test.tsx
 
 # Teste específico - Cache de Dados
 npm test -- src/teste-performance/PERF-005-cache-dados-api.test.tsx
+
+# Teste específico - Otimização do Bundle
+npm test -- src/teste-performance/PERF-006-otimizacao-bundle.test.tsx
 ```
 
 ## 📊 Métricas Monitoradas
@@ -340,6 +394,21 @@ npm test -- src/teste-performance/PERF-005-cache-dados-api.test.tsx
 - **Cache Hits:** Número de acessos bem-sucedidos ao cache
 - **Cache Misses:** Número de acessos que não encontraram dados no cache
 
+### Métricas de Bundle JavaScript (PERF-006)
+- **Main Bundle Size:** Tamanho do bundle principal em bytes
+- **Gzipped Size:** Tamanho do bundle comprimido com gzip em bytes
+- **Brotli Size:** Tamanho do bundle comprimido com Brotli em bytes
+- **Total Chunks:** Número total de chunks divididos
+- **Vendor Chunk Size:** Tamanho do vendor chunk em bytes
+- **Route Chunks:** Chunks específicos por rota
+- **Unused Code:** Quantidade de código não utilizado em bytes
+- **Duplicate Code:** Quantidade de código duplicado em bytes
+- **Tree Shaking Efficiency:** Eficiência do tree shaking (0-1)
+- **Compression Ratio:** Taxa de compressão (0-1)
+- **Load Time:** Tempo de carregamento do bundle em ms
+- **Parse Time:** Tempo de parsing do JavaScript em ms
+- **Execution Time:** Tempo de execução inicial em ms
+
 ## 🔧 Funcionalidades Testadas
 
 ### Performance Geral
@@ -386,6 +455,17 @@ npm test -- src/teste-performance/PERF-005-cache-dados-api.test.tsx
 - **Hit rate adequado** - Taxa de acerto > 70%
 - **Contadores funcionais** - API calls, cache hits e misses
 - **Carregamento de diferentes tipos** - Perfil, consultas, médicos, farmácia
+
+### Otimização do Bundle JavaScript
+- **Análise de tamanho do bundle** - Bundle principal, gzipped e Brotli
+- **Code splitting adequado** - Divisão em chunks otimizados
+- **Tree shaking eficiente** - Remoção de código não utilizado
+- **Compressão otimizada** - Gzip e Brotli para redução de tamanho
+- **Performance de carregamento** - Tempos de carregamento, parsing e execução
+- **Vendor chunk otimizado** - Separação de dependências
+- **Chunks por rota** - Carregamento otimizado por página
+- **Detecção de código duplicado** - Identificação de duplicações
+- **Monitoramento de métricas** - Interface para análise de performance
 
 ## 📈 Cenários de Teste
 
@@ -461,6 +541,24 @@ npm test -- src/teste-performance/PERF-005-cache-dados-api.test.tsx
 - Invalidação não funcionando
 - Dados inconsistentes no cache
 
+### Cenários de Bundle JavaScript (PERF-006)
+- Carregamento normal de bundle otimizado
+- Code splitting funcionando corretamente
+- Tree shaking removendo código não utilizado
+- Compressão gzip e Brotli ativa
+- Vendor chunk separado adequadamente
+- Chunks por rota carregados sob demanda
+- Monitoramento de métricas funcionando
+
+### Cenários de Performance Degradada de Bundle (PERF-006)
+- Bundle muito grande (> 250KB)
+- Tree shaking ineficiente (< 80%)
+- Compressão inadequada (< 60%)
+- Código não utilizado excessivo (> 10KB)
+- Código duplicado excessivo (> 5KB)
+- Carregamento lento (> 1.0s)
+- Parsing lento (> 200ms)
+
 ## 🎨 Interface de Monitoramento
 
 ### Monitor Geral (PERF-001)
@@ -523,6 +621,20 @@ O teste inclui um componente específico para cache de dados que exibe:
 - Número de acessos que não encontraram dados no cache
 - Status de cada métrica (dentro/fora do limite)
 
+### Monitor de Bundle JavaScript (PERF-006)
+O teste inclui um componente específico para bundle JavaScript que exibe:
+- Tamanho do bundle principal
+- Tamanho do bundle comprimido com gzip
+- Tamanho do bundle comprimido com Brotli
+- Número total de chunks divididos
+- Tamanho do vendor chunk
+- Eficiência do tree shaking
+- Taxa de compressão
+- Tempo de carregamento do bundle
+- Tempo de parsing do JavaScript
+- Tempo de execução inicial
+- Status de cada métrica (dentro/fora do limite)
+
 ## 📝 Convenções
 
 - **Nomenclatura:** PERF-XXX seguido de descrição clara
@@ -579,6 +691,16 @@ O teste inclui um componente específico para cache de dados que exibe:
 - **Performance de Cache** - Tempos e contadores
 - **Validação Completa** - Verificação geral
 - **Monitor de Performance de Cache** - Interface específica
+- **Cenários de Degradação** - Detecção de problemas
+
+#### PERF-006 - Bundle JavaScript
+- **Métricas de Tamanho do Bundle** - Bundle principal, gzipped e Brotli
+- **Code Splitting e Chunks** - Divisão em chunks e vendor chunk
+- **Tree Shaking e Otimizações** - Eficiência e código não utilizado
+- **Performance de Carregamento** - Tempos de carregamento e parsing
+- **Compressão e Otimização** - Compressão e código duplicado
+- **Validação Completa** - Verificação geral
+- **Monitor de Performance do Bundle** - Interface específica
 - **Cenários de Degradação** - Detecção de problemas
 
 ### Padrões de Teste:
