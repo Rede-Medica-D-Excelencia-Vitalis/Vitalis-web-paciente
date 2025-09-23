@@ -4,7 +4,6 @@ import { screen, render as rtlRender, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 // Mock do Performance API
-const mockPerformanceObserver = vi.fn()
 const mockObserve = vi.fn()
 const mockDisconnect = vi.fn()
 
@@ -80,6 +79,12 @@ global.PerformanceObserver = vi.fn().mockImplementation((callback) => {
   }, 100)
   
   return observer
+}) as any
+
+// Adicionar propriedade supportedEntryTypes ao mock
+Object.defineProperty(global.PerformanceObserver, 'supportedEntryTypes', {
+  value: ['navigation', 'resource', 'paint', 'largest-contentful-paint', 'first-input', 'layout-shift'],
+  writable: false
 })
 
 // Mock do IntersectionObserver
@@ -223,7 +228,6 @@ const usePerformanceMetrics = () => {
   React.useEffect(() => {
     const collectMetrics = () => {
       // Simular coleta de métricas reais
-      const performanceEntries = performance.getEntriesByType('navigation')
       const resourceEntries = performance.getEntriesByType('resource')
       
       const collectedMetrics: PerformanceMetrics = {

@@ -107,6 +107,49 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Detecção de tamanho excessivo** - Identifica imagens > 100KB
 - ✅ **Detecção de carregamento lento** - Identifica carregamento > 1.0s
 
+### PERF-004 - Lazy Loading de Componentes
+**Prioridade:** Alta | **Status:** ✅ 20/20 testes passando
+
+**Objetivo:** Verificar carregamento sob demanda de componentes
+
+#### Redução no Carregamento Inicial Testadas (3 testes)
+- ✅ **Bundle inicial otimizado** - Bundle inicial < 2MB
+- ✅ **Tempo de carregamento inicial adequado** - Carregamento < 2.0s
+- ✅ **Redução de 40-60% no bundle inicial** - Redução adequada do tamanho
+
+#### Lazy Loading Funcional Testadas (3 testes)
+- ✅ **Carregamento sob demanda** - Componentes carregados quando necessários
+- ✅ **Suspense fallback durante carregamento** - Fallback exibido durante carregamento
+- ✅ **Carregamento de múltiplos componentes lazy** - Múltiplos componentes funcionais
+
+#### Transições Suaves Testadas (2 testes)
+- ✅ **Tempo de transição adequado** - Transição < 500ms
+- ✅ **Transição suave entre componentes** - Substituição fluida de componentes
+
+#### Bundle Splitting Testadas (3 testes)
+- ✅ **Número adequado de bundles** - Bundles separados adequadamente
+- ✅ **Tamanho de bundle lazy adequado** - Bundle lazy < 1MB
+- ✅ **Carregamento de bundles sob demanda** - Bundles carregados quando necessário
+
+#### Cache Eficiente Testadas (2 testes)
+- ✅ **Cache hit rate adequado** - Cache hit rate > 70%
+- ✅ **Uso de memória eficiente** - Memória < 100MB
+
+#### Performance de Carregamento Testadas (2 testes)
+- ✅ **Carregamento rápido de componentes lazy** - Carregamento < 1.0s
+- ✅ **Contagem de fallbacks do Suspense** - Fallbacks contados corretamente
+
+#### Validação Completa de Performance (1 teste)
+- ✅ **Validação de todas as métricas** - Verifica se todas as métricas estão dentro dos limites
+
+#### Monitor de Performance de Lazy Loading (1 teste)
+- ✅ **Exibição de métricas** - Verifica se o monitor exibe as métricas de lazy loading
+
+#### Cenários de Performance Degradada (3 testes)
+- ✅ **Detecção de bundle inicial muito grande** - Identifica bundle > 2MB
+- ✅ **Detecção de carregamento lazy lento** - Identifica carregamento > 1.0s
+- ✅ **Detecção de cache hit rate baixo** - Identifica cache < 70%
+
 ## 🎯 Critérios de Aprovação
 
 ### Core Web Vitals (PERF-001)
@@ -142,6 +185,19 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Carregamento < 1.0s** - Tempo de carregamento rápido
 - ✅ **Progressivo** - Carregamento progressivo ativo
 
+### Lazy Loading de Componentes (PERF-004)
+- ✅ **Bundle inicial < 2MB** - Tamanho otimizado do bundle inicial
+- ✅ **Carregamento inicial < 2.0s** - Tempo de carregamento inicial
+- ✅ **Redução 40-60%** - Redução adequada no bundle inicial
+- ✅ **Carregamento sob demanda** - Componentes lazy funcionais
+- ✅ **Suspense fallback** - Fallback durante carregamento
+- ✅ **Múltiplos componentes** - Carregamento de vários componentes
+- ✅ **Transição < 500ms** - Transições suaves
+- ✅ **Bundle lazy < 1MB** - Tamanho otimizado de bundles lazy
+- ✅ **Cache hit rate > 70%** - Cache eficiente
+- ✅ **Memória < 100MB** - Uso eficiente de memória
+- ✅ **Carregamento lazy < 1.0s** - Carregamento rápido de componentes
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Vitest** - Framework de testes
@@ -164,6 +220,9 @@ npm test -- src/teste-performance/PERF-002-carregamento-dashboard.test.tsx
 
 # Teste específico - Imagens
 npm test -- src/teste-performance/PERF-003-carregamento-imagens.test.tsx
+
+# Teste específico - Lazy Loading
+npm test -- src/teste-performance/PERF-004-lazy-loading-componentes.test.tsx
 ```
 
 ## 📊 Métricas Monitoradas
@@ -204,6 +263,18 @@ npm test -- src/teste-performance/PERF-003-carregamento-imagens.test.tsx
 - **Loading Time:** Tempo de carregamento das imagens
 - **Intersection Observer Calls:** Número de chamadas do IntersectionObserver
 
+### Métricas de Lazy Loading (PERF-004)
+- **Initial Bundle Size:** Tamanho do bundle inicial em bytes
+- **Lazy Bundle Size:** Tamanho do bundle lazy em bytes
+- **Initial Load Time:** Tempo de carregamento inicial em ms
+- **Lazy Load Time:** Tempo de carregamento de componentes lazy em ms
+- **Transition Time:** Tempo de transição entre componentes em ms
+- **Memory Usage:** Uso de memória em bytes
+- **Cache Hit Rate:** Taxa de acerto do cache (0-1)
+- **Bundle Count:** Número de bundles separados
+- **Component Load Count:** Número de componentes carregados
+- **Suspense Fallbacks:** Número de fallbacks do Suspense exibidos
+
 ## 🔧 Funcionalidades Testadas
 
 ### Performance Geral
@@ -230,6 +301,16 @@ npm test -- src/teste-performance/PERF-003-carregamento-imagens.test.tsx
 - **Carregamento progressivo** - Placeholder e transições suaves
 - **Otimização de tamanho** - Controle de tamanho de imagens
 - **Performance de carregamento** - Tempo de carregamento otimizado
+
+### Lazy Loading de Componentes
+- **Bundle splitting** - Separação de código em bundles menores
+- **Carregamento sob demanda** - Componentes carregados quando necessários
+- **Suspense fallback** - Fallback durante carregamento de componentes
+- **Transições suaves** - Substituição fluida de componentes
+- **Cache eficiente** - Cache de componentes carregados
+- **Otimização de memória** - Uso eficiente de memória
+- **Performance de carregamento** - Tempo de carregamento otimizado
+- **Múltiplos componentes** - Carregamento de vários componentes lazy
 
 ## 📈 Cenários de Teste
 
@@ -273,6 +354,22 @@ npm test -- src/teste-performance/PERF-003-carregamento-imagens.test.tsx
 - Falta de suporte a WebP
 - Lazy loading não funcionando
 
+### Cenários de Lazy Loading (PERF-004)
+- Carregamento normal de componentes lazy
+- Bundle splitting funcionando corretamente
+- Suspense fallback exibido durante carregamento
+- Transições suaves entre componentes
+- Cache eficiente de componentes
+- Múltiplos componentes carregados sob demanda
+
+### Cenários de Performance Degradada de Lazy Loading (PERF-004)
+- Bundle inicial muito grande (> 2MB)
+- Carregamento lazy lento (> 1.0s)
+- Cache hit rate baixo (< 70%)
+- Uso excessivo de memória (> 100MB)
+- Transições lentas (> 500ms)
+- Bundle splitting inadequado
+
 ## 🎨 Interface de Monitoramento
 
 ### Monitor Geral (PERF-001)
@@ -304,6 +401,20 @@ O teste inclui um componente específico para imagens que exibe:
 - Número total de imagens
 - Número de imagens carregadas
 - Tempo de carregamento
+- Status de cada métrica (dentro/fora do limite)
+
+### Monitor de Lazy Loading (PERF-004)
+O teste inclui um componente específico para lazy loading que exibe:
+- Tamanho do bundle inicial
+- Tamanho do bundle lazy
+- Tempo de carregamento inicial
+- Tempo de carregamento de componentes lazy
+- Tempo de transição entre componentes
+- Uso de memória
+- Taxa de acerto do cache
+- Número de bundles separados
+- Número de componentes carregados
+- Número de fallbacks do Suspense
 - Status de cada métrica (dentro/fora do limite)
 
 ## 📝 Convenções
@@ -341,6 +452,17 @@ O teste inclui um componente específico para imagens que exibe:
 - **Performance de Carregamento** - Tempos e IntersectionObserver
 - **Validação Completa** - Verificação geral
 - **Monitor de Performance de Imagens** - Interface específica
+- **Cenários de Degradação** - Detecção de problemas
+
+#### PERF-004 - Lazy Loading
+- **Redução no Carregamento Inicial** - Bundle inicial e tempos
+- **Lazy Loading Funcional** - Carregamento sob demanda
+- **Transições Suaves** - Tempos e fluidez
+- **Bundle Splitting** - Separação e carregamento de bundles
+- **Cache Eficiente** - Hit rate e memória
+- **Performance de Carregamento** - Tempos e Suspense
+- **Validação Completa** - Verificação geral
+- **Monitor de Performance de Lazy Loading** - Interface específica
 - **Cenários de Degradação** - Detecção de problemas
 
 ### Padrões de Teste:
