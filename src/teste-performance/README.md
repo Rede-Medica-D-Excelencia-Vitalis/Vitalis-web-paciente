@@ -66,6 +66,47 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Detecção de dados acima do limite** - Identifica quando dados > 1.0s
 - ✅ **Detecção de memória acima do limite** - Identifica quando memória > 50MB
 
+### PERF-003 - Carregamento Otimizado de Imagens
+**Prioridade:** Alta | **Status:** ✅ 20/20 testes passando
+
+**Objetivo:** Verificar carregamento otimizado de imagens
+
+#### Otimização de Formato Testadas (3 testes)
+- ✅ **WebP quando suportado** - Usa formato WebP para melhor compressão
+- ✅ **Fallback JPEG/PNG** - Fallback para navegadores antigos
+- ✅ **Detecção de suporte** - Detecta quando WebP não é suportado
+
+#### Lazy Loading Testadas (3 testes)
+- ✅ **Implementação correta** - Lazy loading implementado adequadamente
+- ✅ **Carregamento sob demanda** - Imagens carregadas quando necessárias
+- ✅ **Carregamento eager** - Imagens críticas carregadas imediatamente
+
+#### Compressão e Tamanho Testadas (3 testes)
+- ✅ **Compressão adequada** - 60-80% de redução no tamanho
+- ✅ **Tamanho otimizado** - Imagens < 100KB
+- ✅ **Tamanho médio adequado** - Tamanho médio < 200KB
+
+#### Carregamento Progressivo Testadas (3 testes)
+- ✅ **Implementação progressiva** - Carregamento progressivo ativo
+- ✅ **Placeholder durante carregamento** - Placeholder exibido
+- ✅ **Transição suave** - Transição entre placeholder e imagem
+
+#### Performance de Carregamento Testadas (3 testes)
+- ✅ **Tempo adequado** - Carregamento < 1.0s
+- ✅ **Número adequado** - Carregamento de múltiplas imagens
+- ✅ **IntersectionObserver** - Uso correto para lazy loading
+
+#### Validação Completa (1 teste)
+- ✅ **Validação de todas as métricas** - Verifica se todas as métricas estão dentro dos limites
+
+#### Monitor de Performance de Imagens (1 teste)
+- ✅ **Exibição de métricas** - Verifica se o monitor exibe as métricas de imagens
+
+#### Cenários de Performance Degradada (3 testes)
+- ✅ **Detecção de compressão inadequada** - Identifica compressão < 60%
+- ✅ **Detecção de tamanho excessivo** - Identifica imagens > 100KB
+- ✅ **Detecção de carregamento lento** - Identifica carregamento > 1.0s
+
 ## 🎯 Critérios de Aprovação
 
 ### Core Web Vitals (PERF-001)
@@ -91,6 +132,16 @@ Este diretório contém os testes de performance implementados para garantir que
 - ✅ **Componentes < 20** - Número de componentes renderizados
 - ✅ **Listas < 50** - Número de itens em listas
 
+### Otimização de Imagens (PERF-003)
+- ✅ **WebP suportado** - Formato WebP quando disponível
+- ✅ **Fallback disponível** - JPEG/PNG para navegadores antigos
+- ✅ **Lazy loading** - Carregamento sob demanda
+- ✅ **Compressão 60-80%** - Redução significativa no tamanho
+- ✅ **Tamanho < 100KB** - Imagens otimizadas
+- ✅ **Tamanho médio < 200KB** - Tamanho médio adequado
+- ✅ **Carregamento < 1.0s** - Tempo de carregamento rápido
+- ✅ **Progressivo** - Carregamento progressivo ativo
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Vitest** - Framework de testes
@@ -110,6 +161,9 @@ npm test -- src/teste-performance/PERF-001-carregamento-inicial.test.tsx
 
 # Teste específico - Dashboard
 npm test -- src/teste-performance/PERF-002-carregamento-dashboard.test.tsx
+
+# Teste específico - Imagens
+npm test -- src/teste-performance/PERF-003-carregamento-imagens.test.tsx
 ```
 
 ## 📊 Métricas Monitoradas
@@ -137,6 +191,19 @@ npm test -- src/teste-performance/PERF-002-carregamento-dashboard.test.tsx
 - **Component Count:** Número de componentes React renderizados
 - **List Items:** Número de itens em listas dinâmicas
 
+### Métricas de Imagens (PERF-003)
+- **WebP Support:** Suporte ao formato WebP no navegador
+- **Lazy Loading:** Status do lazy loading de imagens
+- **Compression Ratio:** Taxa de compressão das imagens (60-80%)
+- **Progressive Loading:** Status do carregamento progressivo
+- **Fallback Available:** Disponibilidade de fallback JPEG/PNG
+- **Average Image Size:** Tamanho médio das imagens em bytes
+- **Optimized Image Size:** Tamanho otimizado das imagens em bytes
+- **Total Images:** Número total de imagens na página
+- **Loaded Images:** Número de imagens carregadas
+- **Loading Time:** Tempo de carregamento das imagens
+- **Intersection Observer Calls:** Número de chamadas do IntersectionObserver
+
 ## 🔧 Funcionalidades Testadas
 
 ### Performance Geral
@@ -154,6 +221,15 @@ npm test -- src/teste-performance/PERF-002-carregamento-dashboard.test.tsx
 - **Gerenciamento de memória** - Uso eficiente de recursos
 - **Renderização de listas** - Performance com dados dinâmicos
 - **Componentes React** - Otimização de renderização
+
+### Otimização de Imagens
+- **Formato WebP** - Suporte e detecção de formato otimizado
+- **Fallback JPEG/PNG** - Compatibilidade com navegadores antigos
+- **Lazy loading** - Carregamento sob demanda com IntersectionObserver
+- **Compressão de imagens** - Redução de 60-80% no tamanho
+- **Carregamento progressivo** - Placeholder e transições suaves
+- **Otimização de tamanho** - Controle de tamanho de imagens
+- **Performance de carregamento** - Tempo de carregamento otimizado
 
 ## 📈 Cenários de Teste
 
@@ -183,6 +259,20 @@ npm test -- src/teste-performance/PERF-002-carregamento-dashboard.test.tsx
 - Número excessivo de requisições de API
 - Renderização lenta de componentes
 
+### Cenários de Imagens (PERF-003)
+- Carregamento normal de imagens otimizadas
+- Uso de WebP com fallback adequado
+- Lazy loading funcionando corretamente
+- Compressão adequada de imagens
+- Carregamento progressivo ativo
+
+### Cenários de Performance Degradada de Imagens (PERF-003)
+- Compressão inadequada (< 60%)
+- Tamanho de imagens excessivo (> 100KB)
+- Carregamento lento de imagens (> 1.0s)
+- Falta de suporte a WebP
+- Lazy loading não funcionando
+
 ## 🎨 Interface de Monitoramento
 
 ### Monitor Geral (PERF-001)
@@ -201,6 +291,19 @@ O teste inclui um componente específico para dashboard que exibe:
 - Número de requisições de API
 - Número de componentes renderizados
 - Número de itens em listas
+- Status de cada métrica (dentro/fora do limite)
+
+### Monitor de Imagens (PERF-003)
+O teste inclui um componente específico para imagens que exibe:
+- Suporte ao formato WebP
+- Status do lazy loading
+- Taxa de compressão das imagens
+- Status do carregamento progressivo
+- Disponibilidade de fallback
+- Tamanho das imagens otimizadas
+- Número total de imagens
+- Número de imagens carregadas
+- Tempo de carregamento
 - Status de cada métrica (dentro/fora do limite)
 
 ## 📝 Convenções
@@ -228,6 +331,16 @@ O teste inclui um componente específico para dashboard que exibe:
 - **Funcionalidade do Dashboard** - Interface e dados
 - **Validação Completa** - Verificação geral
 - **Monitor de Performance do Dashboard** - Interface específica
+- **Cenários de Degradação** - Detecção de problemas
+
+#### PERF-003 - Imagens
+- **Otimização de Formato** - WebP e fallback
+- **Lazy Loading** - Carregamento sob demanda
+- **Compressão e Tamanho** - Otimização de imagens
+- **Carregamento Progressivo** - Placeholder e transições
+- **Performance de Carregamento** - Tempos e IntersectionObserver
+- **Validação Completa** - Verificação geral
+- **Monitor de Performance de Imagens** - Interface específica
 - **Cenários de Degradação** - Detecção de problemas
 
 ### Padrões de Teste:
