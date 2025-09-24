@@ -1,0 +1,194 @@
+name: Testes de Interface (UI/UX)
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/teste-de-interface/**'
+      - 'src/screens/**'
+      - 'src/components/**'
+      - 'src/pages/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/teste-de-interface/**'
+      - 'src/screens/**'
+      - 'src/components/**'
+      - 'src/pages/**'
+  schedule:
+    - cron: '0 2 * * 1' # Executar toda segunda-feira às 2h
+
+jobs:
+  testes-interface:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18, 20]
+        browser: [chromium, firefox, webkit]
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Instalar dependências
+      run: npm ci
+      
+    - name: Instalar navegadores do Playwright
+      run: npx playwright install --with-deps ${{ matrix.browser }}
+      
+    - name: Build da aplicação
+      run: npm run build
+      
+    - name: Executar testes de interface
+      run: npx playwright test --project=${{ matrix.browser }}
+      env:
+        CI: true
+        
+    - name: Upload relatório HTML
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report-${{ matrix.browser }}-${{ matrix.node-version }}
+        path: docs/playwright-report/
+        retention-days: 30
+        
+    - name: Upload screenshots de falhas
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: screenshots-${{ matrix.browser }}-${{ matrix.node-version }}
+        path: test-results/
+        retention-days: 7
+        
+    - name: Upload vídeos de falhas
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: videos-${{ matrix.browser }}-${{ matrix.node-version }}
+        path: test-results/
+        retention-days: 7
+
+  testes-criticos:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    needs: testes-interface
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Instalar dependências
+      run: npm ci
+      
+    - name: Instalar navegadores do Playwright
+      run: npx playwright install --with-deps
+      
+    - name: Build da aplicação
+      run: npm run build
+      
+    - name: Executar testes críticos
+      run: npx playwright test UI-003 UI-007 --project=chromium
+      env:
+        CI: true
+        
+    - name: Upload relatório de testes críticos
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: testes-criticos-report
+        path: docs/playwright-report/
+        retention-days: 30
+
+  relatorio-consolidado:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    needs: [testes-interface, testes-criticos]
+    if: always()
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Download relatórios
+      uses: actions/download-artifact@v4
+      with:
+        pattern: playwright-report-*
+        merge-multiple: true
+        
+    - name: Gerar relatório consolidado
+      run: |
+        echo "# Relatório Consolidado de Testes de Interface" > relatorio-consolidado.md
+        echo "" >> relatorio-consolidado.md
+        echo "## Resumo da Execução" >> relatorio-consolidado.md
+        echo "" >> relatorio-consolidado.md
+        echo "- **Data:** $(date)" >> relatorio-consolidado.md
+        echo "- **Branch:** ${{ github.ref_name }}" >> relatorio-consolidado.md
+        echo "- **Commit:** ${{ github.sha }}" >> relatorio-consolidado.md
+        echo "" >> relatorio-consolidado.md
+        echo "## Testes Executados" >> relatorio-consolidado.md
+        echo "" >> relatorio-consolidado.md
+        echo "### Responsividade (6 testes)" >> relatorio-consolidado.md
+        echo "- UI-001: Layout Desktop (1920x1080)" >> relatorio-consolidado.md
+        echo "- UI-002: Layout Tablet (768x1024)" >> relatorio-consolidado.md
+        echo "- UI-003: Layout Mobile Portrait (375x667)" >> relatorio-consolidado.md
+        echo "- UI-004: Layout Mobile Landscape (667x375)" >> relatorio-consolidado.md
+        echo "- UI-005: Layout Tablet Landscape (1024x768)" >> relatorio-consolidado.md
+        echo "- UI-006: Breakpoints Intermediários" >> relatorio-consolidado.md
+        echo "" >> relatorio-consolidado.md
+        echo "### Navegação (3 testes)" >> relatorio-consolidado.md
+        echo "- UI-007: Menu de Navegação Principal" >> relatorio-consolidado.md
+        echo "- UI-008: Breadcrumbs e Navegação Hierárquica" >> relatorio-consolidado.md
+        echo "- UI-009: Botões de Navegação e Ações" >> relatorio-consolidado.md
+        echo "" >> relatorio-consolidado.md
+        echo "### Consistência Visual (2 testes)" >> relatorio-consolidado.md
+        echo "- UI-010: Consistência de Cores e Tipografia" >> relatorio-consolidado.md
+        echo "- UI-011: Acessibilidade e Usabilidade" >> relatorio-consolidado.md
+        
+    - name: Upload relatório consolidado
+      uses: actions/upload-artifact@v4
+      with:
+        name: relatorio-consolidado
+        path: relatorio-consolidado.md
+        retention-days: 90
+
+  notificacao-slack:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    needs: [testes-interface, testes-criticos]
+    if: always() && github.event_name == 'push'
+    
+    steps:
+    - name: Notificar resultado no Slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#vitalis-tests'
+        text: |
+          🎨 **Testes de Interface (UI/UX) - Vitalis**
+          
+          **Status:** ${{ job.status }}
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+          
+          **Testes Executados:**
+          - Responsividade: 6 testes
+          - Navegação: 3 testes
+          - Consistência: 2 testes
+          
+          **Relatórios:** Disponível nos artifacts
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
