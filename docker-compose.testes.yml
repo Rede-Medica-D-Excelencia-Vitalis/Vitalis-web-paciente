@@ -1,0 +1,81 @@
+services:
+  vitalis-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.testes
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=test
+      - CI=true
+    volumes:
+      - ./docs:/app/docs
+      - ./test-results:/app/test-results
+    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  testes-interface:
+    build:
+      context: .
+      dockerfile: Dockerfile.testes
+    depends_on:
+      vitalis-app:
+        condition: service_healthy
+    environment:
+      - CI=true
+      - BASE_URL=http://vitalis-app:5173
+    volumes:
+      - ./docs:/app/docs
+      - ./test-results:/app/test-results
+    command: |
+      sh -c "
+        echo 'Aguardando aplicação ficar saudável...' &&
+        sleep 10 &&
+        echo 'Executando testes de interface...' &&
+        npm run test:playwright &&
+        echo 'Testes concluídos!'
+      "
+
+  testes-criticos:
+    build:
+      context: .
+      dockerfile: Dockerfile.testes
+    depends_on:
+      vitalis-app:
+        condition: service_healthy
+    environment:
+      - CI=true
+      - BASE_URL=http://vitalis-app:5173
+    volumes:
+      - ./docs:/app/docs
+      - ./test-results:/app/test-results
+    command: |
+      sh -c "
+        echo 'Aguardando aplicação ficar saudável...' &&
+        sleep 10 &&
+        echo 'Executando testes críticos...' &&
+        npx playwright test UI-003 UI-007 &&
+        echo 'Testes críticos concluídos!'
+      "
+
+  relatorio:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docs/playwright-report:/usr/share/nginx/html
+    depends_on:
+      testes-interface:
+        condition: service_completed_successfully
+    command: |
+      sh -c "
+        echo 'Aguardando relatórios serem gerados...' &&
+        sleep 30 &&
+        echo 'Iniciando servidor de relatórios...' &&
+        nginx -g 'daemon off;'
+      "

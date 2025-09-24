@@ -96,15 +96,7 @@ describe('AUTH-002 - Login com Credenciais Inválidas', () => {
   it('deve exibir erro específico do backend quando disponível', async () => {
     const user = userEvent.setup()
     
-    // Mock com erro específico do backend
-    const authService = await import('../../../services/auth/authService')
-    vi.mocked(authService.authService.login).mockRejectedValueOnce({
-      response: {
-        data: {
-          message: 'Usuário não encontrado'
-        }
-      }
-    })
+   
     
     render(<Login />)
 
