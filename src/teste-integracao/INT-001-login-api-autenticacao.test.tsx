@@ -133,7 +133,7 @@ test.describe('INT-001 - Login com API de Autenticação', () => {
         });
         return await res.json();
       } catch (error) {
-        return { error: error.message };
+        return { error: error instanceof Error ? error.message : 'Erro desconhecido' };
       }
     });
     
@@ -176,7 +176,7 @@ test.describe('INT-001 - Login com API de Autenticação', () => {
         });
         return await res.json();
       } catch (error) {
-        return { error: error.message };
+        return { error: error instanceof Error ? error.message : 'Erro desconhecido' };
       }
     });
     
@@ -244,9 +244,7 @@ test.describe('INT-001 - Login com API de Autenticação', () => {
     expect(title).toBeTruthy();
     
     // ✅ Interceptação de API funciona
-    let requestIntercepted = false;
     await page.route('**/usuarios/login', async (route) => {
-      requestIntercepted = true;
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
