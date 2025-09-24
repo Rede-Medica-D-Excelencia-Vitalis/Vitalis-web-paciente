@@ -16,7 +16,13 @@
     "test:playwright:headed": "playwright test --headed",
     "test:playwright:debug": "playwright test --debug",
     "test:playwright:report": "playwright show-report",
-    "test:playwright:install": "playwright install"
+    "test:playwright:install": "playwright install",
+    "test:integracao": "playwright test --config=playwright.integracao.config.ts",
+    "test:integracao:report": "playwright test --config=playwright.integracao.config.ts --reporter=html",
+    "test:integracao:headless": "playwright test --config=playwright.integracao.config.ts --headed=false",
+    "test:dados": "playwright test --config=playwright.dados.config.ts",
+    "test:dados:report": "playwright test --config=playwright.dados.config.ts --reporter=html",
+    "test:dados:headless": "playwright test --config=playwright.dados.config.ts --headed=false"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
