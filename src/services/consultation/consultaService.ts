@@ -111,7 +111,19 @@ export const consultaService = {
       let errorMessage = 'Erro ao entrar na sala de videochamada';
       
       if (error.response?.status === 400) {
-        errorMessage = `Erro 400 - Bad Request: ${error.response.data?.erro || error.response.data?.message || 'Requisição inválida'}`;
+        const errorMsg = error.response.data?.erro || error.response.data?.message || 'Requisição inválida';
+        
+        // Se o usuário já está na sala, não é realmente um erro - apenas propagar a informação
+        if (errorMsg.includes('Usuário já está na sala')) {
+          const enhancedError = new Error(`Usuário já está na sala`);
+          (enhancedError as any).isUserAlreadyInRoom = true;
+          (enhancedError as any).originalError = error;
+          (enhancedError as any).statusCode = error.response?.status;
+          (enhancedError as any).responseData = error.response?.data;
+          throw enhancedError;
+        }
+        
+        errorMessage = `Erro 400 - Bad Request: ${errorMsg}`;
       } else if (error.response?.status === 401) {
         errorMessage = 'Erro 401 - Não autorizado. Verifique se você está logado.';
       } else if (error.response?.status === 403) {
@@ -175,44 +187,30 @@ export const consultaService = {
   // Verificar se há sala ativa para uma consulta
   async verificarSalaAtiva(consultaId: number): Promise<VideochamadaSala | null> {
     try {
-      console.log('🔍 Verificando sala ativa para consulta:', consultaId);
       const response = await api.get('/videochamada/salas');
-      console.log('🔍 Resposta da API:', response.data);
-      console.log('🔍 URL da requisição:', response.config.url);
-      console.log('🔍 Status da resposta:', response.status);
       
       if (response.data.sucesso && response.data.salas) {
-        console.log('🔍 Todas as salas:', response.data.salas);
-        console.log('🔍 Procurando por consultaId:', consultaId, 'tipo:', typeof consultaId);
-        
-        const salaAtiva = response.data.salas.find((sala: VideochamadaSala) => {
-          console.log(`🔍 Verificando sala ${sala.roomId}: consultaId=${sala.consultaId}, status=${sala.status}`);
-          console.log(`🔍 Tipos: sala.consultaId=${typeof sala.consultaId}, consultaId=${typeof consultaId}`);
-          
-          // Comparar como números
+        // Filtrar salas da consulta específica que estão ativas ou criadas
+        const salasAtivas = response.data.salas.filter((sala: VideochamadaSala) => {
           const salaId = Number(sala.consultaId);
           const consultaIdNum = Number(consultaId);
-          const match = salaId === consultaIdNum && (sala.status === 'ativa' || sala.status === 'criada');
-          
-          console.log(`🔍 Comparação: ${salaId} === ${consultaIdNum} = ${salaId === consultaIdNum}`);
-          console.log(`🔍 Status válido: ${sala.status === 'ativa' || sala.status === 'criada'}`);
-          console.log(`🔍 Match final: ${match}`);
-          
-          return match;
+          return salaId === consultaIdNum && (sala.status === 'ativa' || sala.status === 'criada');
         });
-        console.log('🔍 Sala ativa encontrada:', salaAtiva);
-        if (salaAtiva) {
-          console.log('🔍 Detalhes da sala:', {
-            roomId: salaAtiva.roomId,
-            consultaId: salaAtiva.consultaId,
-            status: salaAtiva.status
-          });
-        } else {
-          console.log('🔍 Nenhuma sala ativa encontrada para consulta:', consultaId);
+        
+        // Se houver múltiplas salas, pegar a mais recente (por createdAt ou criadoEm)
+        if (salasAtivas.length > 0) {
+          const salaMaisRecente = salasAtivas.sort((a: any, b: any) => {
+            const dataA = new Date(a.createdAt || a.criadoEm).getTime();
+            const dataB = new Date(b.createdAt || b.criadoEm).getTime();
+            return dataB - dataA; // Ordem decrescente (mais recente primeiro)
+          })[0];
+          
+          console.log(`🔍 Sala mais recente para consulta ${consultaId}:`, salaMaisRecente);
+          return salaMaisRecente;
         }
-        return salaAtiva || null;
+        
+        return null;
       }
-      console.log('🔍 Nenhuma sala encontrada');
       return null;
     } catch (error) {
       console.error('Erro ao verificar sala ativa:', error);

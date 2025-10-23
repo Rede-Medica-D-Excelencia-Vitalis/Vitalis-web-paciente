@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { CalendarCheckIcon, InfoIcon, HistoryIcon, VideoIcon, CalendarPlusIcon, ArrowRightIcon, Loader2, XCircleIcon, ClockIcon, UserIcon, MapPinIcon } from "lucide-react";
+import { InfoIcon, HistoryIcon, VideoIcon, CalendarPlusIcon, ArrowRightIcon, ClockIcon, MapPinIcon } from "lucide-react";
 import { useApi } from "../../hooks/api/useApi";
 import { getMinhasConsultas } from "../../services/consultation/consultationService";
 import { Consultation } from "../../types/api";
@@ -37,19 +37,12 @@ const cards = [
 ];
 
 const ConsultasDashboard: React.FC = () => {
-  const { data: consultations, loading, error, execute: fetchConsultas } = useApi<Consultation[]>(getMinhasConsultas);
+  const { data: consultations, execute: fetchConsultas } = useApi<Consultation[]>(getMinhasConsultas);
 
   useEffect(() => {
     fetchConsultas();
   }, [fetchConsultas]);
 
-  const proximaConsulta = useMemo(() => {
-    if (!consultations) return null;
-    const agora = new Date();
-    return consultations
-      .filter(c => c.status === 'agendada' || c.status === 'confirmada')
-      .find(c => new Date(`${c.date}T${c.time}`) >= agora);
-  }, [consultations]);
 
   const consultasAgendadas = useMemo(() => {
     if (!consultations) return [];
@@ -58,82 +51,9 @@ const ConsultasDashboard: React.FC = () => {
 
   const consultasRealizadas = useMemo(() => {
     if (!consultations) return [];
-    return consultations.filter(c => c.status === 'concluída');
+    return consultations.filter(c => c.status === 'concluída' || c.status === 'realizada');
   }, [consultations]);
 
-  const renderProximaConsulta = () => {
-    if (loading) {
-      return (
-        <div className="flex items-center justify-center h-full">
-          <Loader2 className="w-6 h-6 text-blue-600 animate-spin" />
-        </div>
-      );
-    }
-    if (error) {
-       return (
-        <div className="flex flex-col items-center justify-center h-full text-red-600">
-          <XCircleIcon className="w-8 h-8 mb-2" />
-          <p className="text-sm font-semibold">Erro ao buscar consultas.</p>
-          <p className="text-xs">{error}</p>
-        </div>
-      );
-    }
-    if (proximaConsulta) {
-      return (
-        <>
-          <div className="flex items-center gap-3 mb-4">
-            <CalendarCheckIcon className="w-7 h-7 text-blue-600" />
-            <h2 className="text-xl font-bold text-blue-900">Próxima Consulta</h2>
-          </div>
-          <div className="bg-white rounded-lg p-4 border border-blue-200">
-            <div className="flex items-center gap-3 mb-3">
-              <img 
-                src={proximaConsulta.doctor.avatar || "https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg"} 
-                alt={proximaConsulta.doctor.name} 
-                className="w-12 h-12 rounded-full object-cover border border-blue-200" 
-              />
-              <div>
-                <div className="font-semibold text-blue-900">{proximaConsulta.doctor.name}</div>
-                <div className="text-blue-600 text-sm">{proximaConsulta.doctor.specialty}</div>
-              </div>
-            </div>
-            <div className="space-y-2 text-blue-800 text-sm">
-              <div className="flex items-center gap-2">
-                <ClockIcon className="w-4 h-4 text-blue-600" />
-                <span>{proximaConsulta.date.split('-').reverse().join('/')} às {proximaConsulta.time}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPinIcon className="w-4 h-4 text-blue-600" />
-                <span>{proximaConsulta.type === 'teleconsulta' ? 'Online (Teleconsulta)' : 'Presencial'}</span>
-              </div>
-            </div>
-            {proximaConsulta.type === 'teleconsulta' && (
-              <Link
-                to={`/teleconsulta/${proximaConsulta.id}`}
-                className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-              >
-                <VideoIcon className="w-4 h-4" />
-                Entrar na Consulta
-              </Link>
-            )}
-          </div>
-        </>
-      );
-    }
-    return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <h2 className="text-xl font-bold text-blue-900 mb-2">Nenhuma consulta agendada</h2>
-        <p className="text-blue-800 text-sm mb-4">Que tal marcar uma agora?</p>
-        <Link 
-          to="/agendamento"
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
-        >
-          <CalendarPlusIcon className="w-4 h-4" />
-          Agendar Consulta
-        </Link>
-      </div>
-    );
-  };
   
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
@@ -141,7 +61,7 @@ const ConsultasDashboard: React.FC = () => {
       <p className="mb-8 text-blue-800 text-lg animate-fade-in delay-100">Gerencie suas consultas médicas de forma simples e eficiente.</p>
 
       {/* Estatísticas rápidas */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         <div className="bg-blue-100 rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-blue-700">{consultasAgendadas.length}</div>
           <div className="text-sm text-blue-600">Consultas Agendadas</div>
@@ -150,19 +70,11 @@ const ConsultasDashboard: React.FC = () => {
           <div className="text-2xl font-bold text-green-700">{consultasRealizadas.length}</div>
           <div className="text-sm text-green-600">Consultas Realizadas</div>
         </div>
-        <div className="bg-purple-100 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-purple-700">{proximaConsulta ? 1 : 0}</div>
-          <div className="text-sm text-purple-600">Próxima Consulta</div>
-        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        {/* Próxima Consulta */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-2xl shadow-lg p-7 border border-blue-200 animate-fade-in min-h-[280px]">
-          {renderProximaConsulta()}
-        </div>
-        {/* Dicas para a Consulta */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-2xl shadow-lg p-7 border border-blue-200 animate-fade-in delay-100">
+      {/* Dicas para a Consulta */}
+      <div className="mb-10">
+        <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-2xl shadow-lg p-7 border border-blue-200 animate-fade-in">
           <div className="flex items-center gap-3 mb-4">
             <InfoIcon className="w-7 h-7 text-blue-600" />
             <h2 className="text-xl font-bold text-blue-900">Dicas para sua Consulta</h2>

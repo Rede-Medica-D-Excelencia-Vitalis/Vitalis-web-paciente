@@ -30,7 +30,7 @@ export const ConsultasAnteriores = () => {
   }, [fetchConsultas]);
 
   const consultations = data?.filter(
-    c => c.status === 'concluída' || c.status === 'cancelada'
+    c => c.status === 'concluída' || c.status === 'realizada' || c.status === 'cancelada'
   ) || [];
 
   const renderStars = (rating: number) => {
@@ -84,11 +84,11 @@ export const ConsultasAnteriores = () => {
                   </div>
                 </div>
                 <div className={`px-3 py-1 rounded-full text-sm ${
-                  consultation.status === 'concluída' 
+                  consultation.status === 'concluída' || consultation.status === 'realizada'
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                 }`}>
-                  {consultation.status.charAt(0).toUpperCase() + consultation.status.slice(1)}
+                  {consultation.status === 'realizada' ? 'Concluída' : consultation.status.charAt(0).toUpperCase() + consultation.status.slice(1)}
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -104,7 +104,7 @@ export const ConsultasAnteriores = () => {
 
                 </div>
 
-                {consultation.status === 'concluída' && (
+                {(consultation.status === 'concluída' || consultation.status === 'realizada') && (
                   <>
                       {consultation.rating && (
                     <div className="border-t pt-4">

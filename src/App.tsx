@@ -15,6 +15,7 @@ import { Prescricoes } from "./screens/Prescricoes/Prescricoes";
 import { TelaInicial } from "./screens/TelaInicial/TelaInicial";
 import { Teleconsulta } from "./screens/Teleconsulta/Teleconsulta";
 import { TesteVideochamada } from "./screens/Teleconsulta/TesteVideochamada";
+import { VideochamadaRoom } from "./screens/Teleconsulta/VideochamadaRoom";
 import TrabalheConosco from "./screens/TrabalheConosco/TrabalheConosco";
 import { TriagemOnline } from "./screens/TriagemOnline/TriagemOnline";
 import ProductDetails from "./screens/Farmacia/ProductDetails";
@@ -130,6 +131,15 @@ export const App = () => {
         }>
           <Route index element={<Teleconsulta />} />
         </Route>
+
+        {/* Sala de Videochamada - SEM Layout (fullscreen dedicado) */}
+        <Route path="/videochamada-room" element={
+          <ProtectedRoute>
+            <PlanRequiredRoute featureName="Teleconsulta">
+              <VideochamadaRoom />
+            </PlanRequiredRoute>
+          </ProtectedRoute>
+        } />
 
         <Route path="/teste-videochamada" element={
           <ProtectedRoute>

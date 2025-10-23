@@ -289,8 +289,6 @@ export const Agendamento = () => {
                   const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
                   
                   return dateOnly < todayOnly ||
-                    date.getDay() === 0 ||
-                    date.getDay() === 6 ||
                     date > new Date(new Date().setDate(new Date().getDate() + 60));
                 }}
               />

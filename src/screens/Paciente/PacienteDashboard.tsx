@@ -110,7 +110,7 @@ const PacienteDashboard: React.FC = () => {
 
   // Estatísticas rápidas
   const consultasAgendadas = consultas?.filter(c => c.status === 'agendada' || c.status === 'confirmada') || [];
-  const consultasRealizadas = consultas?.filter(c => c.status === 'concluída') || [];
+  const consultasRealizadas = consultas?.filter(c => c.status === 'concluída' || c.status === 'realizada') || [];
   const consultasCanceladas = consultas?.filter(c => c.status === 'cancelada') || [];
   
   // Separar consultas por status temporal
@@ -226,11 +226,7 @@ const PacienteDashboard: React.FC = () => {
       <p className="mb-8 text-blue-800 text-lg animate-fade-in delay-100">Bem-vindo à sua área do paciente. Aqui você tem acesso a todos os recursos do Vitalis.</p>
 
       {/* Estatísticas rápidas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        <div className="bg-blue-100 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-blue-700">{consultasFuturas.length}</div>
-          <div className="text-sm text-blue-600">Consultas Futuras</div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="bg-green-100 rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-green-700">{consultasRealizadas.length}</div>
           <div className="text-sm text-green-600">Consultas Realizadas</div>
