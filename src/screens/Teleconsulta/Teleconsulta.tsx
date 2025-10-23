@@ -21,7 +21,9 @@ import {
   XCircleIcon,
   ClockIcon,
   MaximizeIcon,
-  MinimizeIcon
+  MinimizeIcon,
+  VideoIcon,
+  UserIcon
 } from 'lucide-react';
 import { ScrollArea } from '../../components/ui/scroll-area';
 import { consultaService, Consulta } from '../../services/consultation/consultaService';
@@ -77,7 +79,7 @@ interface Message {
 }
 
 export const Teleconsulta = () => {
-  console.log('🔍 Renderizando Teleconsulta - versão completa');
+  // Componente renderiza normalmente
   
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -101,9 +103,39 @@ export const Teleconsulta = () => {
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
   const [isRequestingPermissions, setIsRequestingPermissions] = useState(false);
+  const [mediaPermissionsStatus, setMediaPermissionsStatus] = useState<'unknown' | 'granted' | 'denied' | 'prompt'>('unknown');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [tempoRestante, setTempoRestante] = useState<string>('');
   const [showDebug, setShowDebug] = useState<boolean>(false);
+
+  // Hook de videochamada - usar currentRoomId ao invés de salaAtiva
+  const {
+    isConnected,
+    isConnecting: isWebRTCConnecting,
+    localStream: webRTCLocalStream,
+    remoteStream,
+    error: webRTCError,
+    connectToRoom,
+    disconnectFromRoom,
+    toggleCamera,
+    toggleMicrophone
+  } = useVideochamada({
+    roomId: currentRoomId || undefined,
+    onParticipantJoined: (participant) => {
+      console.log('Participante entrou:', participant);
+      if (participant.userType === 'medico') {
+        setIsInCall(true);
+      }
+    },
+    onParticipantLeft: (participantId) => {
+      console.log('Participante saiu:', participantId);
+      setIsInCall(false);
+    },
+    onError: (error) => {
+      console.error('Erro na videochamada:', error);
+      setVideochamadaError(error);
+    }
+  });
   
   // Estados do chat
   const [mensagens, setMensagens] = useState<ChatMessage[]>([]);
@@ -116,9 +148,38 @@ export const Teleconsulta = () => {
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
   
+  // Monitorar mudanças em currentRoomId
+  useEffect(() => {
+    console.log('🔍 useEffect - currentRoomId mudou:', currentRoomId);
+  }, [currentRoomId]);
+  
+  // Conectar streams aos vídeos quando disponíveis
+  useEffect(() => {
+    if (localVideoRef.current && webRTCLocalStream) {
+      console.log('🎥 Conectando webRTCLocalStream ao vídeo local');
+      localVideoRef.current.srcObject = webRTCLocalStream;
+    }
+  }, [webRTCLocalStream]);
+  
+  useEffect(() => {
+    if (remoteVideoRef.current && remoteStream) {
+      console.log('🎥 Conectando remoteStream ao vídeo remoto');
+      remoteVideoRef.current.srcObject = remoteStream;
+    }
+  }, [remoteStream]);
+  
   // useEffect básico com tratamento de erro
   useEffect(() => {
     console.log('🔍 useEffect iniciado');
+    
+    // Limpar qualquer roomId residual de sessões anteriores
+    // IMPORTANTE: Só carregar a sala quando o usuário clicar em "Entrar"
+    setCurrentRoomId(null);
+    setIsInCall(false);
+    console.log('✅ Estados de videochamada limpos ao iniciar');
+    
+    // Verificar permissões de mídia ao carregar
+    verificarPermissoesMidia();
     
     const fetchConsultas = async () => {
       try {
@@ -129,33 +190,62 @@ export const Teleconsulta = () => {
         const consultas = await consultaService.getProximasConsultas();
         console.log('🔍 Consultas recebidas:', consultas);
         
-        // Separar consultas por status temporal com tolerância de 10 minutos
+        // Filtrar apenas consultas agendadas que estão dentro do horário permitido
         const consultasAgendadas = consultas.filter(c => c.status === 'agendada');
         
         // Tolerância de 10 minutos para o paciente entrar na consulta
         const TOLERANCIA_MINUTOS = 10;
+        const agora = new Date();
         
-        const consultasFuturas = consultasAgendadas.filter(c => {
-          const agora = new Date();
+        // Consultas que podem ser acessadas (dentro da tolerância)
+        const consultasDisponiveis = consultasAgendadas.filter(c => {
           const dataHoraConsulta = new Date(`${c.date}T${c.time}`);
           const tolerancia = new Date(dataHoraConsulta.getTime() + (TOLERANCIA_MINUTOS * 60 * 1000));
-          return tolerancia >= agora;
+          
+          // Só mostrar consultas que:
+          // 1. Ainda estão dentro da tolerância OU
+          // 2. São futuras (até 1 hora antes do horário para preparação)
+          const umaHoraAntes = new Date(dataHoraConsulta.getTime() - (60 * 60 * 1000));
+          const dentroTolerancia = (tolerancia >= agora) || (agora >= umaHoraAntes && agora <= dataHoraConsulta);
+          
+          console.log(`🔍 Consulta ${c.id} - ${c.time}:`, {
+            horarioConsulta: dataHoraConsulta.toLocaleTimeString(),
+            agora: agora.toLocaleTimeString(),
+            tolerancia: tolerancia.toLocaleTimeString(),
+            dentroTolerancia
+          });
+          
+          return dentroTolerancia;
         });
         
-        const consultasPassadasTemp = consultasAgendadas.filter(c => {
-          const agora = new Date();
-          const dataHoraConsulta = new Date(`${c.date}T${c.time}`);
-          const tolerancia = new Date(dataHoraConsulta.getTime() + (TOLERANCIA_MINUTOS * 60 * 1000));
-          return tolerancia < agora;
-        });
+        // Verificar quais consultas têm sala ativa (médico já iniciou)
+        const consultasComSalaAtiva = [];
         
-        setProximasConsultas(consultasFuturas);
-        setConsultasPassadas(consultasPassadasTemp);
-        setConsultaAtual(consultasFuturas[0] || null);
+        for (const consulta of consultasDisponiveis) {
+          try {
+            const sala = await consultaService.verificarSalaAtiva(consulta.id);
+            if (sala) {
+              consultasComSalaAtiva.push(consulta);
+              // Se é a primeira consulta com sala ativa, definir como atual
+              if (!consultaAtual) {
+                setConsultaAtual(consulta);
+                setSalaAtiva(sala);
+              }
+            }
+          } catch (error) {
+            console.log(`Consulta ${consulta.id} não tem sala ativa`);
+          }
+        }
         
-        // Se há consulta atual, verificar se há sala ativa
-        if (consultasFuturas[0]) {
-          await verificarSalaAtiva(consultasFuturas[0].id);
+        // Só mostrar consultas que têm sala ativa (médico já iniciou)
+        setProximasConsultas(consultasComSalaAtiva);
+        setConsultasPassadas([]); // Não mostrar consultas passadas
+        
+        // Se não há consulta atual mas há consultas com sala ativa, definir a primeira
+        if (!consultaAtual && consultasComSalaAtiva.length > 0) {
+          setConsultaAtual(consultasComSalaAtiva[0]);
+          // Verificar sala ativa para a primeira consulta
+          await verificarSalaAtiva(consultasComSalaAtiva[0].id);
         }
         
       } catch (err) {
@@ -173,35 +263,14 @@ export const Teleconsulta = () => {
     }
   }, [user]);
 
-  // Verificar se o usuário já está em uma videochamada ativa
+  // Quando sala ativa for detectada, NÃO entrar automaticamente
+  // O usuário deve clicar no botão "Entrar na Consulta"
   useEffect(() => {
-    if (!user || !consultaAtual || !salaAtiva) return;
-
-    const verificarUsuarioNaSala = async () => {
-      try {
-        console.log('🔍 Verificando se usuário já está na sala ativa...');
-        const infoSala = await consultaService.getInfoSala(salaAtiva.roomId);
-        
-        // Verificar se o usuário já está na lista de participantes
-        const usuarioJaParticipando = infoSala.participantes?.some(
-          (p: any) => p.userId === user.id && p.userType === 'paciente'
-        );
-        
-        if (usuarioJaParticipando) {
-          console.log('🔍 Usuário já está na sala, redirecionando para videochamada...');
-          setCurrentRoomId(salaAtiva.roomId);
-          setIsInCall(true);
-        }
-      } catch (error) {
-        console.log('🔍 Não foi possível verificar se usuário está na sala:', error);
-      }
-    };
-
-    // Verificar após um pequeno delay para garantir que tudo foi carregado
-    const timeoutId = setTimeout(verificarUsuarioNaSala, 1000);
-    
-    return () => clearTimeout(timeoutId);
-  }, [user, consultaAtual, salaAtiva]);
+    if (salaAtiva && !currentRoomId) {
+      console.log('🔍 Sala ativa detectada:', salaAtiva.roomId);
+      console.log('⏳ Aguardando usuário clicar em "Entrar na Consulta"');
+    }
+  }, [salaAtiva, currentRoomId]);
 
   // Verificar sala ativa periodicamente
   useEffect(() => {
@@ -257,15 +326,18 @@ export const Teleconsulta = () => {
     };
   }, [consultaAtual]);
 
-  // Conectar WebSocket quando entrar na consulta
+  // NÃO conectar websocketService quando em videochamada
+  // O hook useVideochamada já cuida do WebSocket
+  // websocketService é apenas para chat fora da videochamada
   useEffect(() => {
-    if (isInCall && consultaAtual && user) {
-      conectarWebSocket();
-    }
-
-    return () => {
-      websocketService.disconnect();
-    };
+    // Comentado: websocketService conflita com useVideochamada
+    // if (isInCall && consultaAtual && user) {
+    //   conectarWebSocket();
+    // }
+    
+    // return () => {
+    //   websocketService.disconnect();
+    // };
   }, [isInCall, consultaAtual, user]);
 
   // Auto-scroll do chat
@@ -276,7 +348,16 @@ export const Teleconsulta = () => {
   }, [mensagens]);
 
   const conectarWebSocket = () => {
-    if (!consultaAtual || !user) return;
+    if (!consultaAtual || !user) {
+      console.log('🔍 WebSocket - Dados faltando:', { consultaAtual: !!consultaAtual, user: !!user });
+      return;
+    }
+
+    console.log('🔍 WebSocket - Conectando com dados:', {
+      consultaId: consultaAtual.id,
+      userId: user.id,
+      userType: 'paciente'
+    });
 
     websocketService.connect(
       consultaAtual.id,
@@ -302,6 +383,7 @@ export const Teleconsulta = () => {
         },
         onError: (error) => {
           console.error('Erro WebSocket:', error);
+          setWsConnected(false);
         }
       }
     );
@@ -309,10 +391,8 @@ export const Teleconsulta = () => {
 
   const verificarSalaAtiva = async (consultaId: number) => {
     try {
-      console.log('🔍 Verificando sala ativa para consulta:', consultaId);
       setVerificandoSala(true);
       const sala = await consultaService.verificarSalaAtiva(consultaId);
-      console.log('🔍 Sala encontrada:', sala);
       setSalaAtiva(sala);
     } catch (error) {
       console.error('Erro ao verificar sala ativa:', error);
@@ -321,204 +401,120 @@ export const Teleconsulta = () => {
     }
   };
 
+  // Verificar status das permissões de mídia
+  const verificarPermissoesMidia = async () => {
+    try {
+      if (navigator.permissions) {
+        const cameraPermission = await navigator.permissions.query({ name: 'camera' as PermissionName });
+        const microphonePermission = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+        
+        // Se qualquer uma das permissões foi negada, marcar como negada
+        if (cameraPermission.state === 'denied' || microphonePermission.state === 'denied') {
+          setMediaPermissionsStatus('denied');
+        } else if (cameraPermission.state === 'granted' && microphonePermission.state === 'granted') {
+          setMediaPermissionsStatus('granted');
+        } else {
+          setMediaPermissionsStatus('prompt');
+        }
+      } else {
+        // Fallback para navegadores que não suportam navigator.permissions
+        setMediaPermissionsStatus('unknown');
+      }
+    } catch (error) {
+      console.log('🔍 Não foi possível verificar permissões:', error);
+      setMediaPermissionsStatus('unknown');
+    }
+  };
+
   const handleEntrarConsulta = async () => {
-    if (!consultaAtual) {
-      setError('Nenhuma consulta encontrada');
+    if (!consultaAtual || !salaAtiva) {
+      setError('Nenhuma consulta ou sala encontrada');
       return;
     }
 
     try {
-      setIsLoading(true);
-      setError(null);
-      setIsConnecting(true);
-      setVideochamadaError(null);
-      setIsRequestingPermissions(true);
-
-      // 1. Solicitar permissões de câmera e microfone
-      console.log('🔍 Solicitando permissões de mídia...');
+      console.log('🚀 Paciente: Abrindo sala de videochamada em nova janela');
+      console.log('🔍 Sala ativa:', salaAtiva);
+      console.log('🔍 Consulta atual:', consultaAtual);
       
-      let mediaStream: MediaStream | null = null;
+      // Abrir videochamada em nova janela/guia
+      const params = new URLSearchParams({
+        roomId: salaAtiva.roomId,
+        consultaId: consultaAtual.id.toString(),
+        doctorName: consultaAtual.doctor?.name || 'Médico'
+      });
       
-      try {
-        mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true
-        });
-        
-        console.log('🔍 Permissões concedidas:', {
-          video: mediaStream.getVideoTracks().length > 0,
-          audio: mediaStream.getAudioTracks().length > 0
-        });
-        
-        // Conectar os streams aos elementos de vídeo
-        if (localVideoRef.current && mediaStream) {
-          localVideoRef.current.srcObject = mediaStream;
-          setLocalStream(mediaStream);
-        }
-        
-      } catch (permissionError) {
-        console.error('🔍 Erro ao solicitar permissões:', permissionError);
-        
-        if (permissionError instanceof DOMException) {
-          if (permissionError.name === 'NotAllowedError') {
-            setVideochamadaError('Permissões de câmera e microfone negadas. Por favor, permita o acesso e tente novamente.');
-          } else if (permissionError.name === 'NotFoundError') {
-            setVideochamadaError('Câmera ou microfone não encontrados. Verifique se os dispositivos estão conectados.');
-          } else if (permissionError.name === 'NotReadableError') {
-            setVideochamadaError('Câmera ou microfone estão sendo usados por outro aplicativo. Feche outros programas e tente novamente.');
-          } else {
-            setVideochamadaError(`Erro de permissão: ${permissionError.message}`);
-          }
-        } else {
-          setVideochamadaError('Erro inesperado ao solicitar permissões de mídia.');
-        }
-        
-        setIsRequestingPermissions(false);
-        setIsConnecting(false);
-        setIsLoading(false);
-        return;
-      }
-
-      setIsRequestingPermissions(false);
-
-      // 2. Verificar se o usuário já está na sala
-      if (salaAtiva) {
-        try {
-          console.log('🔍 Verificando se usuário já está na sala:', salaAtiva.roomId);
-          
-          // Tentar obter informações da sala para verificar se já está participando
-          try {
-            const infoSala = await consultaService.getInfoSala(salaAtiva.roomId);
-            console.log('🔍 Informações da sala:', infoSala);
-            
-            // Verificar se o usuário já está na lista de participantes
-            const usuarioJaParticipando = infoSala.participantes?.some(
-              (p: any) => p.userId === user?.id && p.userType === 'paciente'
-            );
-            
-            if (usuarioJaParticipando) {
-              console.log('🔍 Usuário já está na sala, redirecionando para videochamada...');
-              setCurrentRoomId(salaAtiva.roomId);
-              setIsInCall(true);
-              setVideochamadaError(null);
-              return;
-            }
-          } catch (infoError) {
-            console.log('🔍 Não foi possível obter informações da sala, tentando entrar normalmente...');
-          }
-          
-          // 3. Tentar entrar na sala
-          console.log('🔍 Tentando entrar na sala:', salaAtiva.roomId);
-          console.log('🔍 Detalhes da sala:', {
-            roomId: salaAtiva.roomId,
-            consultaId: salaAtiva.consultaId,
-            status: salaAtiva.status
-          });
-          
-          const infoSala = await consultaService.entrarSalaVideochamada(salaAtiva.roomId);
-          console.log('🔍 Informações da sala:', infoSala);
-          
-          setCurrentRoomId(salaAtiva.roomId);
-          setIsInCall(true);
-          setVideochamadaError(null);
-          
-        } catch (salaError: any) {
-          console.error('🔍 Erro ao entrar na sala:', salaError);
-          
-          // Tratamento especial para "Usuário já está na sala"
-          if (salaError.message?.includes('Usuário já está na sala')) {
-            console.log('🔍 Usuário já está na sala, redirecionando para videochamada...');
-            setCurrentRoomId(salaAtiva.roomId);
-            setIsInCall(true);
-            setVideochamadaError(null);
-            return;
-          }
-          
-          // Mensagens de erro mais específicas
-          let errorMessage = 'Erro ao conectar com a sala de videochamada.';
-          
-          if (salaError.statusCode === 400) {
-            errorMessage = salaError.message || 'Erro na requisição. Verifique os dados da sala.';
-          } else if (salaError.statusCode === 401) {
-            errorMessage = 'Sessão expirada. Faça login novamente.';
-          } else if (salaError.statusCode === 403) {
-            errorMessage = 'Acesso negado. Você não tem permissão para esta sala.';
-          } else if (salaError.statusCode === 404) {
-            errorMessage = 'Sala não encontrada. Pode ter sido removida.';
-          } else if (salaError.statusCode === 500) {
-            errorMessage = 'Erro no servidor. Tente novamente em alguns instantes.';
-          }
-          
-          setVideochamadaError(errorMessage);
-          
-          // Se for erro 400, tentar verificar a sala novamente
-          if (salaError.statusCode === 400) {
-            console.log('🔍 Tentando verificar sala novamente devido ao erro 400...');
-            setTimeout(() => {
-              verificarSalaAtiva(consultaAtual.id);
-            }, 2000);
-          }
-        }
+      const url = `/videochamada-room?${params.toString()}`;
+      
+      // Abrir em nova janela com tamanho adequado
+      const width = 1280;
+      const height = 720;
+      const left = (window.screen.width - width) / 2;
+      const top = (window.screen.height - height) / 2;
+      
+      const windowFeatures = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,status=no`;
+      
+      const videochamadaWindow = window.open(url, 'VideochamadaVitalis', windowFeatures);
+      
+      if (!videochamadaWindow) {
+        setVideochamadaError('Pop-up bloqueado! Por favor, permita pop-ups para este site.');
       } else {
-        setVideochamadaError('Sala de videochamada não encontrada. Aguarde o médico iniciar a consulta.');
+        console.log('✅ Janela de videochamada aberta com sucesso');
+        videochamadaWindow.focus();
+      }
+      
+    } catch (error: any) {
+      console.error('❌ Erro ao abrir videochamada:', error);
+      setVideochamadaError('Erro ao abrir janela de videochamada.');
+    }
+  };
+
+  const handleEndCall = async () => {
+    try {
+      // Desconectar do WebRTC
+      await disconnectFromRoom();
+      
+      // Parar streams de mídia local
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        setLocalStream(null);
       }
 
+      // Sair da sala
+      if (currentRoomId) {
+        await consultaService.sairSalaVideochamada(currentRoomId).catch(console.error);
+      }
+
+      // Desconectar WebSocket
+      websocketService.disconnect();
+
+      // Resetar estados
+      setIsInCall(false);
+      setCurrentRoomId(null);
+      setVideochamadaError(null);
+      setIsCameraOn(true);
+      setIsMicrophoneOn(true);
+      setShowChat(false);
+      setMensagens([]);
+      setNovaMensagem('');
+      setIsFullscreen(false);
+      setVideoCallFullscreen(false);
     } catch (error) {
-      console.error('🔍 Erro geral ao entrar na consulta:', error);
-      setVideochamadaError('Erro inesperado ao entrar na consulta.');
-    } finally {
-      setIsLoading(false);
-      setIsConnecting(false);
+      console.error('Erro ao encerrar chamada:', error);
     }
   };
-
-  const handleEndCall = () => {
-    // Parar streams de mídia
-    if (localStream) {
-      localStream.getTracks().forEach(track => track.stop());
-      setLocalStream(null);
-    }
-
-    // Sair da sala
-    if (currentRoomId) {
-      consultaService.sairSalaVideochamada(currentRoomId).catch(console.error);
-    }
-
-    // Desconectar WebSocket
-    websocketService.disconnect();
-
-    // Resetar estados
-    setIsInCall(false);
-    setCurrentRoomId(null);
-    setVideochamadaError(null);
-    setIsCameraOn(true);
-    setIsMicrophoneOn(true);
-    setShowChat(false);
-    setMensagens([]);
-    setNovaMensagem('');
-    setIsFullscreen(false);
-    setVideoCallFullscreen(false);
+  
+  // Sincronizar controles de câmera e microfone com o estado
+  const handleToggleCamera = () => {
+    toggleCamera();
+    setIsCameraOn(!isCameraOn);
+  };
+  
+  const handleToggleMicrophone = () => {
+    toggleMicrophone();
+    setIsMicrophoneOn(!isMicrophoneOn);
   };
 
-  const toggleCamera = () => {
-    if (localStream) {
-      const videoTrack = localStream.getVideoTracks()[0];
-      if (videoTrack) {
-        videoTrack.enabled = !videoTrack.enabled;
-        setIsCameraOn(videoTrack.enabled);
-      }
-    }
-  };
-
-  const toggleMicrophone = () => {
-    if (localStream) {
-      const audioTrack = localStream.getAudioTracks()[0];
-      if (audioTrack) {
-        audioTrack.enabled = !audioTrack.enabled;
-        setIsMicrophoneOn(audioTrack.enabled);
-      }
-    }
-  };
 
   const enviarMensagem = async () => {
     if (!novaMensagem.trim() || !consultaAtual) return;
@@ -576,61 +572,67 @@ export const Teleconsulta = () => {
     "Em caso de problemas técnicos, tente recarregar a página"
   ];
 
-  // Tela de videochamada
+  // Tela de videochamada - Design moderno igual ao profissional
   if (isInCall) {
     return (
-      <div className="min-h-screen bg-gray-900 flex flex-col">
-        {/* Header - Oculto em tela cheia */}
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
+        {/* Header da consulta - Oculto em tela cheia */}
         {!isFullscreen && (
-          <div className="bg-gray-800 border-b border-gray-700 p-4">
+          <div className="bg-black/20 backdrop-blur-sm border-b border-white/10 p-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-6">
+                {/* Informações da consulta */}
                 <div className="flex items-center space-x-2 text-white">
+                  <CalendarIcon className="h-5 w-5 text-blue-300" />
                   <span className="font-medium">
                     {consultaAtual ? formatarData(consultaAtual.date) : ''}
                   </span>
-                  <ClockIcon className="h-5 w-5 text-blue-400 ml-4" />
+                </div>
+                <div className="flex items-center space-x-2 text-white">
+                  <ClockIcon className="h-5 w-5 text-blue-300" />
                   <span className="font-medium">{consultaAtual?.time}</span>
                 </div>
               </div>
               
               <div className="flex items-center space-x-4">
-                {/* Status da conexão WebSocket */}
-                <div className="flex items-center space-x-2 text-white">
-                  <div className={`w-2 h-2 rounded-full ${wsConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <span className="text-sm">{wsConnected ? 'Conectado' : 'Desconectado'}</span>
+                {/* Status da conexão WebRTC */}
+                <div className="flex items-center space-x-2 px-3 py-1 bg-black/30 rounded-full">
+                  <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : isWebRTCConnecting ? 'bg-yellow-400' : 'bg-red-400'}`}></div>
+                  <span className="text-white text-sm font-medium">
+                    {isWebRTCConnecting ? 'Conectando...' : isConnected ? 'Conectado' : 'Desconectado'}
+                  </span>
                 </div>
                 
-                {/* Botão fechar */}
+                {/* Botão voltar */}
                 <button
                   onClick={() => navigate('/')}
-                  className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+                  className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <XIcon className="h-5 w-5" />
+                  <HomeIcon className="h-5 w-5" />
                 </button>
               </div>
             </div>
             
             {/* Informações do médico */}
-            <div className="mt-3 flex items-center justify-between">
+            <div className="mt-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold">
-                    {consultaAtual?.doctor?.name?.charAt(0) || 'M'}
-                  </span>
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                  <UserIcon className="h-7 w-7 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-white font-semibold text-lg">{consultaAtual?.doctor?.name}</h2>
-                  <p className="text-gray-400 text-sm">{consultaAtual?.doctor?.specialty}</p>
+                  <h2 className="text-white font-bold text-lg">{consultaAtual?.doctor?.name}</h2>
+                  <p className="text-blue-200 text-sm">{consultaAtual?.doctor?.specialty}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-2">
-                <span className="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
+                <span className="px-4 py-1.5 bg-white/10 backdrop-blur-sm text-white text-sm rounded-full border border-white/20 font-medium">
                   {consultaAtual?.type === 'consulta' ? 'Consulta' : consultaAtual?.type}
                 </span>
-                <span className="px-3 py-1 bg-green-600 text-white text-sm rounded-full">
-                  Em Andamento
+                <span className={`px-4 py-1.5 text-white text-sm rounded-full font-medium ${
+                  isConnected ? 'bg-green-600' : isWebRTCConnecting ? 'bg-yellow-600' : 'bg-gray-600'
+                }`}>
+                  {isWebRTCConnecting ? 'Conectando...' : isConnected ? 'Em Andamento' : 'Aguardando'}
                 </span>
               </div>
             </div>
@@ -638,141 +640,209 @@ export const Teleconsulta = () => {
         )}
 
         {/* Área principal da videochamada */}
-        <div className={`flex flex-1 ${isFullscreen ? 'h-screen' : 'h-[calc(100vh-140px)]'}`}>
+        <div className={`flex ${isFullscreen ? 'h-screen' : 'h-[calc(100vh-160px)]'}`}>
           {/* Área de vídeo */}
           <div className={`flex-1 relative ${showChat && !isFullscreen ? 'mr-80' : ''}`}>
-            {/* Vídeo principal */}
-            <div className="relative w-full h-full bg-gray-800">
+            {/* Vídeo principal - Fundo com gradiente */}
+            <div className="relative w-full h-full bg-black/20">
               {/* Vídeo do médico (principal) */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-gray-400">
-                  <CameraIcon className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">{consultaAtual?.doctor?.name}</p>
-                  <p className="text-sm">Aguardando médico...</p>
+              {remoteStream ? (
+                <video
+                  ref={remoteVideoRef}
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-cover"
+                  onLoadedMetadata={(e) => {
+                    console.log('🎥 Vídeo remoto carregado');
+                    (e.target as HTMLVideoElement).play();
+                  }}
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <div className="w-32 h-32 rounded-full bg-blue-500/20 border-4 border-blue-400 flex items-center justify-center mx-auto mb-6 animate-pulse">
+                      <UserIcon className="h-16 w-16 text-blue-300" />
+                    </div>
+                    <h2 className="text-2xl font-bold mb-2">{consultaAtual?.doctor?.name}</h2>
+                    <p className="text-blue-200 text-lg mb-4">{consultaAtual?.doctor?.specialty}</p>
+                    <div className="flex items-center justify-center gap-2 text-blue-300">
+                      <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400 animate-pulse' : isWebRTCConnecting ? 'bg-yellow-400 animate-pulse' : 'bg-red-400'}`}></div>
+                      <span className="text-sm font-medium">
+                        {isWebRTCConnecting ? 'Conectando...' : isConnected ? 'Aguardando vídeo...' : 'Aguardando médico...'}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
               
-              {/* Vídeo do paciente (picture-in-picture) */}
-              <div className="absolute top-4 right-4 w-48 h-36 bg-gray-700 rounded-lg border-2 border-gray-600 overflow-hidden">
+              {/* Vídeo do paciente (picture-in-picture) - Estilo profissional */}
+              <div className="absolute bottom-6 right-6 w-48 h-36 bg-gray-800 rounded-xl border-2 border-blue-400 overflow-hidden shadow-2xl">
                 <video
                   ref={localVideoRef}
                   autoPlay
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover ${isCameraOn ? 'block' : 'hidden'}`}
                 />
                 {!isCameraOn && (
-                  <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
-                    <CameraIcon className="h-8 w-8 text-gray-400" />
+                  <div className="w-full h-full flex items-center justify-center text-blue-400">
+                    <UserIcon className="h-12 w-12" />
+                  </div>
+                )}
+                <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-xs font-medium">
+                  Você
+                </div>
+              </div>
+              
+              {/* Indicadores de status - Design moderno */}
+              <div className="absolute top-6 left-6 flex items-center gap-3">
+                {!isFullscreen && (
+                  <div className="bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'}`}></div>
+                    <span className="text-white text-sm font-medium">
+                      {isConnected ? 'Ao vivo' : 'Aguardando'}
+                    </span>
+                  </div>
+                )}
+                
+                {!isCameraOn && (
+                  <div className="px-4 py-2 bg-red-600/90 backdrop-blur-sm text-white text-sm rounded-full flex items-center space-x-2 shadow-lg">
+                    <VideoIcon className="h-4 w-4" />
+                    <span className="font-medium">Câmera Desligada</span>
+                  </div>
+                )}
+                
+                {!isMicrophoneOn && (
+                  <div className="px-4 py-2 bg-red-600/90 backdrop-blur-sm text-white text-sm rounded-full flex items-center space-x-2 shadow-lg">
+                    <MicIcon className="h-4 w-4" />
+                    <span className="font-medium">Microfone Desligado</span>
                   </div>
                 )}
               </div>
-              
-              {/* Indicadores de status */}
-              {!isCameraOn && (
-                <div className="absolute top-4 left-4 px-3 py-1 bg-red-600 text-white text-sm rounded-full flex items-center space-x-1">
-                  <CameraIcon className="h-4 w-4" />
-                  <span>Câmera Desligada</span>
-                </div>
-              )}
-              
-              {!isMicrophoneOn && (
-                <div className="absolute top-12 left-4 px-3 py-1 bg-red-600 text-white text-sm rounded-full flex items-center space-x-1">
-                  <MicIcon className="h-4 w-4" />
-                  <span>Microfone Desligado</span>
+
+              {/* Informações essenciais em tela cheia */}
+              {isFullscreen && (
+                <div className="absolute top-6 left-6 bg-black/50 backdrop-blur-md text-white px-4 py-3 rounded-xl shadow-xl border border-white/10">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                      <UserIcon className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-sm">{consultaAtual?.doctor?.name}</h3>
+                      <p className="text-xs text-blue-200">
+                        {consultaAtual ? formatarData(consultaAtual.date) : ''} às {consultaAtual?.time}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
             
-            {/* Controles da videochamada - Simplificados */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
-              <div className="flex items-center space-x-4 bg-gray-800 bg-opacity-90 backdrop-blur-sm rounded-full px-6 py-3">
+            {/* Controles da videochamada - Design profissional moderno */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+              <div className="flex items-center space-x-3 bg-black/40 backdrop-blur-md rounded-full px-6 py-4 shadow-2xl border border-white/10">
+                {/* Controle de microfone */}
                 <button
-                  onClick={toggleMicrophone}
-                  className={`p-3 rounded-full transition-colors ${
+                  onClick={handleToggleMicrophone}
+                  className={`p-4 rounded-full transition-all shadow-lg transform hover:scale-110 ${
                     isMicrophoneOn 
-                      ? 'bg-gray-600 text-white hover:bg-gray-500' 
-                      : 'bg-red-600 text-white hover:bg-red-500'
+                      ? 'bg-white/20 text-white hover:bg-white/30 border-2 border-white/30' 
+                      : 'bg-red-600 text-white hover:bg-red-700 border-2 border-red-500'
                   }`}
                   title={isMicrophoneOn ? 'Desligar Microfone' : 'Ligar Microfone'}
                 >
-                  {isMicrophoneOn ? <MicIcon className="h-5 w-5" /> : <MicIcon className="h-5 w-5" />}
+                  {isMicrophoneOn ? <MicIcon className="h-6 w-6" /> : <MicIcon className="h-6 w-6" />}
                 </button>
                 
+                {/* Controle de câmera */}
                 <button
-                  onClick={toggleCamera}
-                  className={`p-3 rounded-full transition-colors ${
+                  onClick={handleToggleCamera}
+                  className={`p-4 rounded-full transition-all shadow-lg transform hover:scale-110 ${
                     isCameraOn 
-                      ? 'bg-gray-600 text-white hover:bg-gray-500' 
-                      : 'bg-red-600 text-white hover:bg-red-500'
+                      ? 'bg-white/20 text-white hover:bg-white/30 border-2 border-white/30' 
+                      : 'bg-red-600 text-white hover:bg-red-700 border-2 border-red-500'
                   }`}
                   title={isCameraOn ? 'Desligar Câmera' : 'Ligar Câmera'}
                 >
-                  {isCameraOn ? <CameraIcon className="h-5 w-5" /> : <CameraIcon className="h-5 w-5" />}
+                  {isCameraOn ? <CameraIcon className="h-6 w-6" /> : <CameraIcon className="h-6 w-6" />}
                 </button>
                 
-                <button
-                  onClick={() => setShowChat(!showChat)}
-                  className={`p-3 rounded-full transition-colors ${
-                    showChat 
-                      ? 'bg-blue-600 text-white hover:bg-blue-500' 
-                      : 'bg-gray-600 text-white hover:bg-gray-500'
-                  }`}
-                  title="Chat"
-                >
-                  <MessageSquareIcon className="h-5 w-5" />
-                </button>
+                {/* Chat */}
+                {!isFullscreen && (
+                  <button
+                    onClick={() => setShowChat(!showChat)}
+                    className={`p-4 rounded-full transition-all shadow-lg transform hover:scale-110 ${
+                      showChat 
+                        ? 'bg-blue-600 text-white hover:bg-blue-700 border-2 border-blue-500' 
+                        : 'bg-white/20 text-white hover:bg-white/30 border-2 border-white/30'
+                    }`}
+                    title={showChat ? 'Fechar Chat' : 'Abrir Chat'}
+                  >
+                    <MessageSquareIcon className="h-6 w-6" />
+                  </button>
+                )}
                 
+                {/* Tela cheia */}
                 <button
                   onClick={() => {
                     const newFullscreenState = !isFullscreen;
-                    console.log('🔍 Teleconsulta - Alternando tela cheia:', newFullscreenState);
                     setIsFullscreen(newFullscreenState);
                     setVideoCallFullscreen(newFullscreenState);
-                    console.log('🔍 Teleconsulta - Contexto atualizado para:', newFullscreenState);
                   }}
-                  className={`p-3 rounded-full transition-colors ${
-                    isFullscreen 
-                      ? 'bg-orange-600 text-white hover:bg-orange-500' 
-                      : 'bg-gray-600 text-white hover:bg-gray-500'
-                  }`}
+                  className="p-4 rounded-full bg-white/20 text-white hover:bg-white/30 border-2 border-white/30 transition-all shadow-lg transform hover:scale-110"
                   title={isFullscreen ? 'Sair da Tela Cheia' : 'Tela Cheia'}
                 >
-                  {isFullscreen ? <MinimizeIcon className="h-5 w-5" /> : <MaximizeIcon className="h-5 w-5" />}
+                  {isFullscreen ? <MinimizeIcon className="h-6 w-6" /> : <MaximizeIcon className="h-6 w-6" />}
                 </button>
                 
+                {/* Botão de encerrar - Destaque */}
+                <div className="w-px h-8 bg-white/20 mx-2"></div>
                 <button
                   onClick={handleEndCall}
-                  className="p-3 bg-red-600 text-white rounded-full hover:bg-red-500 transition-colors"
-                  title="Sair da Consulta"
+                  className="p-4 px-6 rounded-full bg-red-600 text-white hover:bg-red-700 transition-all shadow-lg transform hover:scale-110 border-2 border-red-500 flex items-center gap-2"
+                  title="Encerrar Consulta"
                 >
-                  <PhoneIcon className="h-5 w-5" />
+                  <PhoneIcon className="h-6 w-6 rotate-[135deg]" />
+                  <span className="font-semibold">Encerrar</span>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Chat lateral - Oculto em tela cheia */}
+          {/* Chat lateral - Design moderno */}
           {showChat && !isFullscreen && (
-            <div className="w-80 bg-gray-800 border-l border-gray-700 flex flex-col">
+            <div className="w-80 bg-gray-900/90 backdrop-blur-sm border-l border-white/10 flex flex-col">
               {/* Header do chat */}
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-white font-semibold flex items-center space-x-2">
-                  <MessageSquareIcon className="h-5 w-5" />
-                  <span>Chat com {consultaAtual?.doctor?.name}</span>
-                </h3>
+              <div className="p-4 border-b border-white/10 bg-black/20">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-white font-bold flex items-center space-x-2">
+                    <MessageSquareIcon className="h-5 w-5 text-blue-400" />
+                    <span>Chat</span>
+                  </h3>
+                  <button
+                    onClick={() => setShowChat(false)}
+                    className="p-1 hover:bg-white/10 rounded-lg transition-colors"
+                  >
+                    <XIcon className="h-4 w-4 text-gray-400" />
+                  </button>
+                </div>
+                <p className="text-blue-200 text-xs mt-1">{consultaAtual?.doctor?.name}</p>
               </div>
               
-              {/* Mensagens */}
+              {/* Mensagens - Scroll customizado */}
               <div 
                 ref={chatRef}
-                className="flex-1 overflow-y-auto p-4 space-y-4"
+                className="flex-1 overflow-y-auto p-4 space-y-3"
+                style={{ 
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: 'rgba(59, 130, 246, 0.5) transparent'
+                }}
               >
                 {mensagens.length === 0 ? (
-                  <div className="text-center text-gray-400 py-8">
-                    <MessageSquareIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <p>Nenhuma mensagem ainda</p>
-                    <p className="text-sm">Inicie a conversa enviando uma mensagem</p>
+                  <div className="text-center text-gray-400 py-12">
+                    <MessageSquareIcon className="h-14 w-14 mx-auto mb-4 opacity-30" />
+                    <p className="font-medium">Nenhuma mensagem</p>
+                    <p className="text-sm opacity-70 mt-1">Comece a conversa</p>
                   </div>
                 ) : (
                   mensagens.map((mensagem) => (
@@ -781,14 +851,14 @@ export const Teleconsulta = () => {
                       className={`flex ${mensagem.senderType === 'paciente' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-xs px-3 py-2 rounded-lg ${
+                        className={`max-w-[75%] px-4 py-2.5 rounded-2xl shadow-lg ${
                           mensagem.senderType === 'paciente'
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-700 text-white'
+                            ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-br-sm'
+                            : 'bg-gray-800 text-white border border-white/10 rounded-bl-sm'
                         }`}
                       >
-                        <p className="text-sm">{mensagem.content}</p>
-                        <p className="text-xs opacity-70 mt-1">
+                        <p className="text-sm leading-relaxed">{mensagem.content}</p>
+                        <p className="text-xs opacity-60 mt-1.5">
                           {new Date(mensagem.timestamp).toLocaleTimeString('pt-BR', {
                             hour: '2-digit',
                             minute: '2-digit'
@@ -800,26 +870,33 @@ export const Teleconsulta = () => {
                 )}
               </div>
               
-              {/* Input de mensagem */}
-              <div className="p-4 border-t border-gray-700">
+              {/* Input de mensagem - Design moderno */}
+              <div className="p-4 border-t border-white/10 bg-black/20">
                 <div className="flex space-x-2">
                   <input
                     type="text"
                     value={novaMensagem}
                     onChange={(e) => setNovaMensagem(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && enviarMensagem()}
-                    placeholder="Digite sua mensagem..."
-                    className="flex-1 px-3 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:border-blue-500"
+                    onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && enviarMensagem()}
+                    placeholder="Digite uma mensagem..."
+                    className="flex-1 px-4 py-2.5 bg-gray-800 text-white rounded-xl border border-white/10 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400"
                     disabled={!wsConnected}
                   />
                   <button
                     onClick={enviarMensagem}
                     disabled={!novaMensagem.trim() || !wsConnected}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg disabled:hover:bg-blue-600"
+                    title="Enviar mensagem"
                   >
-                    <SendIcon className="h-4 w-4" />
+                    <SendIcon className="h-5 w-5" />
                   </button>
                 </div>
+                {!wsConnected && (
+                  <p className="text-xs text-yellow-400 mt-2 flex items-center gap-1">
+                    <AlertCircleIcon className="h-3 w-3" />
+                    Chat desconectado
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -829,9 +906,9 @@ export const Teleconsulta = () => {
   }
 
   // Retorno completo da tela principal
-    return (
-      <div className="container mx-auto p-6 space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900">Teleconsulta</h1>
+  return (
+    <div className="container mx-auto p-6 space-y-8">
+      <h1 className="text-3xl font-bold text-gray-900">Teleconsulta</h1>
         
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
@@ -897,58 +974,141 @@ export const Teleconsulta = () => {
                     </div>
                   )}
                 
-                  <Button
-                    onClick={handleEntrarConsulta}
-                    className={`w-full ${
-                      salaAtiva
-                        ? 'bg-green-600 text-white hover:bg-green-700' 
-                        : 'bg-gray-400 text-white cursor-not-allowed'
-                    }`}
-                    disabled={isLoading || !salaAtiva}
-                  >
-                    {isLoading ? (
-                      <>
-                        <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
-                        Conectando...
-                      </>
-                    ) : isRequestingPermissions ? (
-                      <>
-                        <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
-                        Solicitando Permissões...
-                      </>
-                    ) : verificandoSala ? (
-                      <>
-                        <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
-                        Verificando...
-                      </>
-                    ) : salaAtiva ? (
-                      <>
-                        <CheckCircleIcon className="w-4 h-4 mr-2" />
-                        Entrar na Consulta
-                      </>
-                    ) : (
-                      <>
-                        <AlertCircleIcon className="w-4 h-4 mr-2" />
-                        Aguardando Médico
-                      </>
-                    )}
-                  </Button>
+                  {/* Aviso de permissões negadas */}
+                  {mediaPermissionsStatus === 'denied' && (
+                    <div className="mb-3 p-3 bg-red-900 bg-opacity-50 border border-red-700 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertCircleIcon className="w-5 h-5 text-red-300" />
+                        <span className="text-red-200 font-medium">Permissões Negadas</span>
+                      </div>
+                      <p className="text-red-100 text-sm mb-2">
+                        As permissões de câmera e microfone foram negadas. Para participar da consulta, você precisa permitir o acesso.
+                      </p>
+                      <Button
+                        onClick={verificarPermissoesMidia}
+                        className="w-full bg-red-600 text-white hover:bg-red-700 text-sm"
+                      >
+                        <CameraIcon className="w-4 h-4 mr-2" />
+                        Verificar Permissões
+                      </Button>
+                    </div>
+                  )}
+
+                  {salaAtiva ? (
+                    <Button
+                      onClick={handleEntrarConsulta}
+                      className="w-full bg-green-600 text-white hover:bg-green-700"
+                      disabled={isLoading || mediaPermissionsStatus === 'denied'}
+                    >
+                      {isLoading ? (
+                        <>
+                          <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
+                          Conectando...
+                        </>
+                      ) : isRequestingPermissions ? (
+                        <>
+                          <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
+                          Solicitando Permissões...
+                        </>
+                      ) : mediaPermissionsStatus === 'denied' ? (
+                        <>
+                          <XCircleIcon className="w-4 h-4 mr-2" />
+                          Permissões Necessárias
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircleIcon className="w-4 h-4 mr-2" />
+                          Entrar na Consulta
+                        </>
+                      )}
+                    </Button>
+                  ) : (
+                    <div className="w-full bg-gray-100 text-gray-600 px-4 py-3 rounded-lg text-center border border-gray-200">
+                      <div className="flex items-center justify-center gap-2">
+                        <LoaderIcon className="w-4 h-4 animate-spin" />
+                        <span>Aguardando médico iniciar...</span>
+                      </div>
+                      <p className="text-xs mt-1 opacity-70">
+                        A consulta aparecerá quando o médico estiver online
+                      </p>
+                    </div>
+                  )}
                   
                   {/* Botão de retry quando há erro */}
                   {videochamadaError && (
-                    <Button
-                      onClick={() => {
-                        setVideochamadaError(null);
-                        if (consultaAtual) {
-                          verificarSalaAtiva(consultaAtual.id);
-                        }
-                      }}
-                      className="w-full mt-2 bg-orange-600 text-white hover:bg-orange-700"
-                      disabled={isLoading}
-                    >
-                      <LoaderIcon className="w-4 h-4 mr-2" />
-                      Tentar Novamente
-                    </Button>
+                    <div className="mt-2 space-y-2">
+                      <Button
+                        onClick={() => {
+                          setVideochamadaError(null);
+                          if (consultaAtual) {
+                            verificarSalaAtiva(consultaAtual.id);
+                          }
+                        }}
+                        className="w-full bg-orange-600 text-white hover:bg-orange-700"
+                        disabled={isLoading}
+                      >
+                        <LoaderIcon className="w-4 h-4 mr-2" />
+                        Tentar Novamente
+                      </Button>
+                      
+                      {/* Botão específico para solicitar permissões de câmera */}
+                      {videochamadaError.includes('permissão') && (
+                        <Button
+                          onClick={async () => {
+                            setVideochamadaError(null);
+                            setIsRequestingPermissions(true);
+                            
+                            try {
+                              // Solicitar permissões novamente
+                              const mediaStream = await navigator.mediaDevices.getUserMedia({
+                                video: true,
+                                audio: true
+                              });
+                              
+                              console.log('🔍 Permissões concedidas:', {
+                                video: mediaStream.getVideoTracks().length > 0,
+                                audio: mediaStream.getAudioTracks().length > 0
+                              });
+                              
+                              // Conectar os streams aos elementos de vídeo
+                              if (localVideoRef.current && mediaStream) {
+                                localVideoRef.current.srcObject = mediaStream;
+                                setLocalStream(mediaStream);
+                              }
+                              
+                              // Tentar entrar na consulta novamente
+                              if (consultaAtual) {
+                                await handleEntrarConsulta();
+                              }
+                              
+                            } catch (permissionError) {
+                              console.error('🔍 Erro ao solicitar permissões:', permissionError);
+                              
+                              if (permissionError instanceof DOMException) {
+                                if (permissionError.name === 'NotAllowedError') {
+                                  setVideochamadaError('Permissões de câmera e microfone negadas. Por favor, permita o acesso nas configurações do navegador e tente novamente.');
+                                } else if (permissionError.name === 'NotFoundError') {
+                                  setVideochamadaError('Câmera ou microfone não encontrados. Verifique se os dispositivos estão conectados.');
+                                } else if (permissionError.name === 'NotReadableError') {
+                                  setVideochamadaError('Câmera ou microfone estão sendo usados por outro aplicativo. Feche outros programas e tente novamente.');
+                                } else {
+                                  setVideochamadaError(`Erro de permissão: ${permissionError.message}`);
+                                }
+                              } else {
+                                setVideochamadaError('Erro inesperado ao solicitar permissões de mídia.');
+                              }
+                            } finally {
+                              setIsRequestingPermissions(false);
+                            }
+                          }}
+                          className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                          disabled={isLoading || isRequestingPermissions}
+                        >
+                          <CameraIcon className="w-4 h-4 mr-2" />
+                          {isRequestingPermissions ? 'Solicitando Permissões...' : 'Permitir Câmera e Microfone'}
+                        </Button>
+                      )}
+                    </div>
                   )}
                 
                                   {/* Status da sala */}
@@ -999,6 +1159,15 @@ export const Teleconsulta = () => {
                           <br />• Se não aparecer, tente recarregar a página
                           <br />• Este não é um erro, apenas uma informação
                         </div>
+                      ) : videochamadaError.includes('permissão') ? (
+                        <div className="text-red-200 text-xs opacity-80">
+                          <strong>Como resolver problemas de permissão:</strong>
+                          <br />• <strong>Chrome/Edge:</strong> Clique no ícone de câmera na barra de endereços → Permitir
+                          <br />• <strong>Firefox:</strong> Clique no ícone de câmera na barra de endereços → Permitir
+                          <br />• <strong>Safari:</strong> Safari → Preferências → Sites → Câmera → Permitir
+                          <br />• <strong>Geral:</strong> Certifique-se de que nenhum outro programa está usando a câmera
+                          <br />• Clique no botão "Permitir Câmera e Microfone" acima para tentar novamente
+                        </div>
                       ) : (
                         <div className="text-red-200 text-xs opacity-80">
                           <strong>Dicas:</strong>
@@ -1037,25 +1206,20 @@ export const Teleconsulta = () => {
             ) : (
               <Card className="lg:col-span-1 bg-gray-50">
                 <CardHeader>
-                <CardTitle>
-                  {consultasPassadas.length > 0 ? 'Nenhuma Consulta Futura' : 'Nenhuma Consulta Agendada'}
-                </CardTitle>
+                  <CardTitle>Nenhuma Consulta Disponível</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-600">
-                  {consultasPassadas.length > 0 
-                    ? 'Você não tem consultas futuras agendadas no momento.'
-                    : 'Você não tem consultas agendadas no momento.'
-                  }
-                </p>
-                {consultasPassadas.length > 0 && (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                    <p className="text-yellow-800 text-sm">
-                      Você tem {consultasPassadas.length} consulta(s) passada(s). 
-                      Role para baixo para visualizá-las.
+                    Você não tem consultas disponíveis para teleconsulta no momento.
+                  </p>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <p className="text-blue-800 text-sm">
+                      <strong>Para acessar uma teleconsulta:</strong>
+                      <br />• Agende uma consulta primeiro
+                      <br />• Aguarde o médico iniciar a sala
+                      <br />• A consulta aparecerá aqui quando disponível
                     </p>
                   </div>
-                )}
                   <Button
                     onClick={() => navigate('/agendamento')}
                     className="w-full"
@@ -1099,59 +1263,6 @@ export const Teleconsulta = () => {
               </CardContent>
             </Card>
 
-          {/* Consultas Passadas */}
-          {consultasPassadas.length > 0 && (
-            <div className="lg:col-span-3 mt-8">
-              <Card className="bg-red-50 border-red-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-red-900">
-                    <XCircleIcon className="w-6 h-6 text-red-600" />
-                    Consultas Passadas
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {consultasPassadas.map((consulta) => (
-                      <div key={consulta.id} className="bg-white rounded-lg p-4 border border-red-200 relative">
-                        {/* Ícone de consulta passada */}
-                        <div className="absolute top-3 right-3">
-                          <XCircleIcon className="w-5 h-5 text-red-500" />
-          </div>
-          
-                        <div className="flex items-center gap-3 mb-3">
-                          <img
-                            src={consulta.doctor?.avatar || "https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg"}
-                            alt="Doctor profile"
-                            className="w-12 h-12 rounded-full object-cover border-2 border-red-200"
-                          />
-                          <div>
-                            <h3 className="font-semibold text-red-900">{consulta.doctor?.name}</h3>
-                            <p className="text-red-600 text-sm">{consulta.doctor?.specialty}</p>
-        </div>
-      </div>
-
-                        <div className="space-y-2 text-red-800 text-sm">
-                          <div className="flex items-center gap-2">
-                            <CalendarIcon className="w-4 h-4 text-red-600" />
-                            {formatarData(consulta.date)}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <ClockIcon className="w-4 h-4 text-red-600" />
-                            {consulta.time}
-                          </div>
-                        </div>
-                        
-                        <div className="mt-3 w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg font-semibold text-sm bg-red-100 text-red-700 border border-red-300">
-                          <XCircleIcon className="w-4 h-4" />
-                          Consulta Passada
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
         </div>
       )}
     </div>

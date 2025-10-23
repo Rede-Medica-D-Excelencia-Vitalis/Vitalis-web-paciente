@@ -88,7 +88,7 @@ export interface Consultation {
   date: string;
   time: string;
   type: 'presencial' | 'teleconsulta';
-  status: 'agendada' | 'confirmada' | 'em_andamento' | 'concluída' | 'cancelada';
+  status: 'agendada' | 'confirmada' | 'em_andamento' | 'concluída' | 'realizada' | 'cancelada';
   symptoms?: string;
   diagnosis?: string;
   prescription?: string;

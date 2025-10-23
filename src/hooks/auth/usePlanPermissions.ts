@@ -19,16 +19,7 @@ export const usePlanPermissions = (): PlanPermissions => {
   // Verifica se o usuário tem um plano ativo
   const hasPlan = Boolean(user?.plan?.id);
   
-  // Log para debug
-  console.log('�� usePlanPermissions: RECALCULADO!', { 
-    userId: user?.id, 
-    userName: user?.name, 
-    userPlan: user?.plan, 
-    hasPlan,
-    userPlanId: user?.plan?.id,
-    userPlanName: user?.plan?.name,
-    timestamp: new Date().toISOString()
-  });
+  // Log para debug desabilitado para evitar spam
   
   // Permissões baseadas no plano
   const canAccessTelemedicine = hasPlan;

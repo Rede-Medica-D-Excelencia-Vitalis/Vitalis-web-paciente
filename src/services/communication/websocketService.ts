@@ -84,9 +84,20 @@ class WebSocketService {
 
     try {
       // Usar a mesma base URL da API, mas com WebSocket
-      const baseUrl = api.defaults.baseURL || 'http://localhost:3001';
-      const wsUrl = baseUrl.replace('http', 'ws');
-      this.ws = new WebSocket(`${wsUrl}?token=${token}`);
+      const baseUrl = api.defaults.baseURL || 'http://localhost:3001/api';
+      // Remover /api se existir e converter para WebSocket
+      const cleanUrl = baseUrl.replace('/api', '').replace('http', 'ws');
+      const wsUrl = `${cleanUrl}?token=${token}`;
+      
+      console.log('🔍 WebSocket - Conectando em:', wsUrl);
+      console.log('🔍 WebSocket - Dados da conexão:', {
+        consultaId,
+        userId,
+        userType,
+        token: token.substring(0, 20) + '...'
+      });
+      
+      this.ws = new WebSocket(wsUrl);
 
       this.ws.onopen = () => {
         console.log('WebSocket conectado');
@@ -94,8 +105,8 @@ class WebSocketService {
         this.reconnectAttempts = 0;
         this.callbacks.onConnectionChange?.(true);
         
-        // Entrar na sala da consulta
-        this.entrarSalaConsulta();
+        // Primeiro autenticar, depois entrar na sala
+        this.autenticarWebSocket();
       };
 
       this.ws.onmessage = this.handleMessage;
@@ -106,6 +117,23 @@ class WebSocketService {
       this.isConnecting = false;
       this.callbacks.onError?.('Erro ao conectar WebSocket');
     }
+  }
+
+  private autenticarWebSocket() {
+    if (!this.ws || !this.userId || !this.userType) return;
+
+    const token = this.getToken();
+    if (!token) {
+      this.callbacks.onError?.('Token não encontrado para autenticação');
+      return;
+    }
+
+    this.ws.send(JSON.stringify({
+      tipo: 'autenticacao',
+      token: token,
+      userId: this.userId,
+      userType: this.userType
+    }));
   }
 
   private entrarSalaConsulta() {
@@ -127,9 +155,11 @@ class WebSocketService {
         case 'autenticacao':
           if (data.sucesso) {
             console.log('WebSocket autenticado com sucesso');
+            // Após autenticação bem-sucedida, entrar na sala da consulta
+            this.entrarSalaConsulta();
           } else {
-            console.error('Falha na autenticação WebSocket:', data.erro);
-            this.callbacks.onError?.('Falha na autenticação WebSocket');
+            console.error('Falha na autenticação WebSocket:', data.erro || data.mensagem);
+            this.callbacks.onError?.(data.erro || data.mensagem || 'Falha na autenticação WebSocket');
           }
           break;
 
@@ -157,16 +187,41 @@ class WebSocketService {
           this.callbacks.onUserLeft?.(data.userId, data.userType);
           break;
 
+        case 'participante_entrou':
+          console.log('Participante entrou na sala:', data);
+          this.callbacks.onUserJoined?.(data.participante?.userId, data.participante?.userType);
+          break;
+
+        case 'participante_saiu':
+          console.log('Participante saiu da sala:', data);
+          this.callbacks.onUserLeft?.(data.participante?.userId, data.participante?.userType);
+          break;
+
+        case 'sala_criada':
+        case 'sala_finalizada':
+          console.log('Evento da sala:', data.tipo, data);
+          break;
+
         case 'erro':
           console.error('Erro WebSocket:', data.mensagem);
           this.callbacks.onError?.(data.mensagem);
           break;
 
         default:
-          console.log('Tipo de mensagem desconhecido:', data.tipo);
+          // Tipos comuns que podem vir do servidor mas não precisam ser tratados
+          const tiposIgnorados = ['ping', 'pong', 'heartbeat', 'status'];
+          
+          if (!tiposIgnorados.includes(data.tipo)) {
+            console.log('ℹ️ Tipo de mensagem não tratado (mas não é erro):', data.tipo, data);
+          }
+          // Não chamar onError para mensagens desconhecidas - isso é normal
       }
     } catch (error) {
       console.error('Erro ao processar mensagem WebSocket:', error);
+      // Só chamar onError para erros reais de processamento, não para mensagens desconhecidas
+      if (error instanceof SyntaxError) {
+        this.callbacks.onError?.('Erro ao processar mensagem WebSocket: JSON inválido');
+      }
     }
   }
 

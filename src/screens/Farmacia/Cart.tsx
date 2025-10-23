@@ -102,6 +102,7 @@ export const Cart = () => {
   const [showClearCartConfirm, setShowClearCartConfirm] = useState(false);
   const [pixData, setPixData] = useState<any>(null);
   const [paymentStatus, setPaymentStatus] = useState<'pending' | 'processing' | 'success' | 'error'>('pending');
+  const [buscandoCEP, setBuscandoCEP] = useState(false);
 
   // Hooks para máscaras
   const telefoneMask = useMaskedInput('(99) 99999-9999');
@@ -122,6 +123,55 @@ export const Cart = () => {
       ...prev,
       [field]: value
     }));
+  };
+
+  // Função para buscar CEP na API ViaCEP
+  const buscarCEP = async (cep: string) => {
+    const cepLimpo = cep.replace(/\D/g, '');
+    
+    if (cepLimpo.length !== 8) {
+      return;
+    }
+
+    setBuscandoCEP(true);
+    
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const data = await response.json();
+      
+      if (data.erro) {
+        console.error('CEP não encontrado');
+        return;
+      }
+
+      // Preencher os campos automaticamente
+      setFormData(prev => ({
+        ...prev,
+        rua: data.logradouro || '',
+        bairro: data.bairro || '',
+        cidade: data.localidade || '',
+        estado: data.uf || '',
+        complemento: data.complemento || prev.complemento
+      }));
+      
+    } catch (error) {
+      console.error('Erro ao buscar CEP:', error);
+    } finally {
+      setBuscandoCEP(false);
+    }
+  };
+
+  // Handler para mudança do CEP
+  const handleCEPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    cepMask.handleChange(e, (maskedValue) => {
+      handleInputChange('cep', maskedValue);
+      
+      // Buscar CEP quando tiver 9 caracteres (formato: 99999-999)
+      if (maskedValue.replace(/\D/g, '').length === 8) {
+        buscarCEP(maskedValue);
+      }
+    });
   };
 
   const handlePaymentDataChange = (field: keyof PaymentData, value: string) => {
@@ -513,13 +563,23 @@ export const Cart = () => {
                   <div className="space-y-4">
                     <h3 className="font-semibold text-lg text-gray-900">Endereço de Entrega</h3>
                     <div className="space-y-3">
-                      <Input
-                        ref={cepMask.inputRef}
-                        placeholder="CEP"
-                        value={formData.cep}
-                        onChange={(e) => cepMask.handleChange(e, (value) => handleInputChange('cep', value))}
-                        className="h-12"
-                      />
+                      <div className="relative">
+                        <Input
+                          placeholder="CEP"
+                          value={formData.cep}
+                          onChange={handleCEPChange}
+                          className="h-12"
+                          maxLength={9}
+                        />
+                        {buscandoCEP && (
+                          <div className="absolute right-3 top-3.5">
+                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+                          </div>
+                        )}
+                      </div>
+                      {formData.cep && formData.cep.replace(/\D/g, '').length === 8 && !buscandoCEP && formData.rua && (
+                        <p className="text-xs text-green-600 mt-1">✓ Endereço preenchido automaticamente</p>
+                      )}
                       <Input
                         placeholder="Rua"
                         value={formData.rua}
