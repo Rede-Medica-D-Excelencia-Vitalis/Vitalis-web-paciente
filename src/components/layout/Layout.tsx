@@ -7,20 +7,28 @@ import { FullscreenProvider } from "../../contexts/fullscreen/FullscreenContext"
 import { useFullscreen } from "../../contexts/fullscreen/FullscreenContext";
 
 const LayoutContent = () => {
-  const { isVideoCallFullscreen } = useFullscreen();
+  const { isVideoCallFullscreen, isSidebarVisible } = useFullscreen();
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen flex flex-col">
       <HeaderSection />
-      <div className="flex flex-1">
+      <div className="flex flex-1 relative overflow-hidden">
+        <div className={`transition-all duration-300 ease-in-out ${isSidebarVisible ? 'w-[280px]' : 'w-0'} overflow-hidden`}>
         <NavigationSection />
-        <main className={`flex-1 bg-gray-50 ${isVideoCallFullscreen ? 'p-0' : 'p-8'}`}>
+        </div>
+        <main className={`flex-1 bg-gray-50 transition-all duration-300 overflow-y-auto`}>
+          {!isVideoCallFullscreen ? (
+            <div className="px-4 pt-3 pb-6">
+              <Outlet />
+            </div>
+          ) : (
           <Outlet />
+          )}
+          <div className={!isVideoCallFullscreen ? "px-4 pb-4 mt-4" : ""}>
+            <FooterSection />
+          </div>
         </main>
       </div>
-      <FooterSection />
-      
-
     </div>
   );
 };

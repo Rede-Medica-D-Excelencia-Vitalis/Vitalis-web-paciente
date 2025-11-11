@@ -47,7 +47,7 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
       case 'grave': return 'text-orange-600 bg-orange-100 border-orange-200';
       case 'moderado': return 'text-yellow-600 bg-yellow-100 border-yellow-200';
       case 'leve': return 'text-green-600 bg-green-100 border-green-200';
-      default: return 'text-gray-600 bg-gray-100 border-gray-200';
+      default: return 'text-blue-700 bg-blue-50 border-blue-200';
     }
   };
 
@@ -122,7 +122,7 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
       <Card>
         <CardContent className="text-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando histórico de triagens...</p>
+          <p className="text-blue-900/70">Carregando histórico de triagens...</p>
         </CardContent>
       </Card>
     );
@@ -145,11 +145,11 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
     return (
       <Card>
         <CardContent className="text-center py-8">
-          <StethoscopeIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <StethoscopeIcon className="w-12 h-12 text-blue-300 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">
             Nenhuma triagem encontrada
           </h3>
-          <p className="text-gray-600 mb-4">
+          <p className="text-blue-900/70 mb-4">
             Você ainda não realizou nenhuma triagem inteligente.
           </p>
           <Button onClick={() => window.location.href = '/triagem-online'}>
@@ -163,7 +163,7 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-semibold text-blue-900">
           Histórico de Triagens ({triagens.length})
         </h3>
         <Button 
@@ -178,16 +178,16 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
 
       <div className="space-y-4">
         {triagens.map((triagem, index) => (
-          <Card key={index} className="border-l-4 border-l-blue-500">
+          <Card key={index} className="border-l-4 border-l-blue-500 bg-white/90 backdrop-blur-sm shadow-[0_25px_60px_-35px_rgba(37,99,235,0.45)] border border-blue-100/70 rounded-2xl">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {getRiskLevelIcon(triagem.nivel_risco)}
                   <div>
-                    <CardTitle className="text-lg">
+                    <CardTitle className="text-lg text-blue-900">
                       Triagem #{index + 1}
                     </CardTitle>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-blue-900/60">
                       {formatDate(triagem.data_triagem)}
                     </p>
                   </div>
@@ -200,7 +200,7 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
             <CardContent className="space-y-4">
               {/* Sintomas */}
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Sintomas Detectados:</h4>
+                <h4 className="font-semibold text-blue-900 mb-2">Sintomas Detectados:</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {triagem.sintomas.map((symptom, symptomIndex) => (
                     <div key={symptomIndex} className="p-2 bg-blue-50 rounded text-blue-800 text-sm">
@@ -212,10 +212,10 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
 
               {/* Especialidades Recomendadas */}
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Especialidades Recomendadas:</h4>
+                <h4 className="font-semibold text-blue-900 mb-2">Especialidades Recomendadas:</h4>
                 <div className="flex flex-wrap gap-2">
                   {triagem.especialidades_recomendadas.map((specialty, specialtyIndex) => (
-                    <div key={specialtyIndex} className="flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-sm">
+                    <div key={specialtyIndex} className="flex items-center gap-1 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-sm text-blue-800">
                       {getSpecialtyIcon(specialty)}
                       <span className="capitalize">{specialty}</span>
                     </div>
@@ -226,8 +226,8 @@ export const TriagemHistory: React.FC<TriagemHistoryProps> = ({ pacienteId }) =>
               {/* Observações */}
               {triagem.observacoes && (
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Observações:</h4>
-                  <p className="text-gray-700 text-sm bg-gray-50 p-3 rounded">
+                  <h4 className="font-semibold text-blue-900 mb-2">Observações:</h4>
+                  <p className="text-blue-900/80 text-sm bg-blue-50 border border-blue-100 p-3 rounded-xl">
                     {triagem.observacoes}
                   </p>
                 </div>

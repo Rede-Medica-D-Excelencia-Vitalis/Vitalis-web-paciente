@@ -3,6 +3,7 @@ import {
   SearchIcon,
   ShoppingCartIcon,
   CrownIcon,
+  MenuIcon,
 } from "lucide-react";
 import React, { useState } from "react";
 import { Avatar } from "../../../../components/ui/avatar";
@@ -24,7 +25,7 @@ export const HeaderSection = (): JSX.Element => {
   const { items } = useCartStore();
   const { hasPlan } = usePlanPermissions();
   const { user } = useAuthStore();
-  const { isVideoCallFullscreen } = useFullscreen();
+  const { isVideoCallFullscreen, toggleSidebar } = useFullscreen();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
 
@@ -72,8 +73,17 @@ export const HeaderSection = (): JSX.Element => {
       <header className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 shadow-lg sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-          <div className="flex items-center">
+            {/* Botão Menu e Logo */}
+          <div className="flex items-center gap-4">
+            {/* Botão Hambúrguer */}
+            <button
+              onClick={toggleSidebar}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
+              aria-label="Toggle menu"
+            >
+              <MenuIcon className="w-6 h-6 text-white" />
+            </button>
+            
             <img
               src="/logo-ext.png"
                 alt="Vitalis"

@@ -1,14 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { Separator } from '../../components/ui/separator';
 import { 
   UserIcon, 
-  CreditCardIcon, 
   LockIcon, 
-  PhoneIcon, 
-  BadgeCheckIcon,
   ShieldIcon,
   AlertCircleIcon,
   CameraIcon,
@@ -28,7 +25,6 @@ import { OrderTrackingEstimate } from '../../components/tracking/OrderTrackingEs
 import { OrderTrackingSteps } from '../../components/tracking/OrderTrackingSteps';
 import { OrderReviewCard } from '../../components/tracking/OrderReviewCard';
 import { useAuthStore } from '../../store/auth';
-import { usePlanPermissions } from '../../hooks/auth/usePlanPermissions';
 import { authService } from '../../services/auth/authService';
 import { PlanRequiredModal, PlanChangeModal, PlanSelectionModal } from '../../components';
 import { TriagemHistory } from './TriagemHistory';
@@ -39,6 +35,7 @@ import { useApi } from '../../hooks/api/useApi';
 import { getProfile, updateProfile } from '../../services/data/pacienteService';
 import { Paciente } from '../../types/api';
 import { integrationService } from '../../services/integration/integrationService';
+import { useNotification } from '../../contexts/notification';
 
 interface ProfileFormData {
   name: string;
@@ -74,6 +71,7 @@ interface Order {
     criado_em: string;
   } | null;
   ja_avaliado?: boolean;
+  codigo_confirmacao?: string | null;
 }
 
 export const MeuPerfil = () => {
@@ -95,9 +93,176 @@ export const MeuPerfil = () => {
   const [selectedOrderForChat, setSelectedOrderForChat] = useState<Order | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user, setUser } = useAuthStore();
-  const { hasPlan } = usePlanPermissions();
   const navigate = useNavigate();
   const location = useLocation();
+  const { addNotification } = useNotification();
+
+  const cardClassName =
+    "rounded-3xl border border-blue-100/80 bg-white/95 backdrop-blur-sm shadow-[0_35px_70px_-45px_rgba(37,99,235,0.45)] overflow-hidden";
+  const cardHeaderClassName =
+    "space-y-1.5 p-6 pb-4 border-b border-blue-50/70 bg-gradient-to-r from-blue-50/80 via-white/70 to-transparent";
+  const cardTitleClassName = "flex items-center gap-2 text-lg font-semibold text-blue-700";
+  const tabButtonBaseClasses =
+    "flex-1 min-w-[120px] px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200";
+  const baseInputClasses =
+    "border-blue-100/80 text-blue-900 placeholder:text-blue-300 focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:border-blue-400 shadow-sm disabled:bg-blue-50/70 disabled:text-blue-900 disabled:opacity-100";
+
+  const statusHistoryRef = useRef<Record<number, string>>({});
+  const hasInitializedStatusesRef = useRef(false);
+  const selectedOrderRef = useRef<Order | null>(null);
+
+  useEffect(() => {
+    selectedOrderRef.current = selectedOrder;
+  }, [selectedOrder]);
+
+  const normalizeStatus = useCallback((status?: string) => {
+    if (!status) return '';
+    return status
+      .toString()
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .replace(/\s+/g, '_');
+  }, []);
+
+  const formatStatusLabel = useCallback(
+    (status?: string) => {
+      const normalized = normalizeStatus(status);
+
+      switch (normalized) {
+        case '':
+        case 'pendente':
+          return 'Pendente';
+        case 'confirmado':
+        case 'confirmada':
+          return 'Confirmado';
+        case 'em_preparo':
+        case 'em_preparacao':
+        case 'preparando':
+          return 'Em Preparação';
+        case 'pronto':
+        case 'pronto_entrega':
+          return 'Pronto para Entrega';
+        case 'indo_buscar':
+          return 'Indo Buscar';
+        case 'coletado':
+          return 'Pedido Coletado';
+        case 'a_caminho':
+          return 'A Caminho';
+        case 'em_entrega':
+        case 'em_transito':
+        case 'em_entrega':
+        case 'enviado':
+        case 'em_rota':
+          return 'Em Entrega';
+        case 'retornando_farmacia':
+          return 'Retornando à Farmácia';
+        case 'entregue':
+        case 'entrega_confirmada':
+        case 'concluida':
+        case 'concluida_':
+        case 'concluido':
+          return 'Concluído';
+        case 'devolvido':
+        case 'devolvida':
+        case 'devolucao':
+          return 'Devolvido';
+        case 'cancelado':
+        case 'cancelada':
+          return 'Cancelado';
+        case 'recusado':
+        case 'rejeitado':
+          return 'Recusado';
+        default: {
+          if (!status) return 'Pendente';
+          const beautified = status
+            .toString()
+            .replace(/_/g, ' ')
+            .trim()
+            .toLowerCase()
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+          return beautified || 'Pendente';
+        }
+      }
+    },
+    [normalizeStatus]
+  );
+
+  const statusMessageMap = useRef<Record<string, { type: 'success' | 'error' | 'warning' | 'info'; message: string }>>({
+    pendente: { type: 'info', message: 'Estamos confirmando seu pedido.' },
+    aguardando_pagamento: { type: 'info', message: 'Aguardando confirmação do pagamento.' },
+    pagamento_confirmado: { type: 'success', message: 'Pagamento confirmado! Seu pedido será preparado.' },
+    em_preparo: { type: 'info', message: 'Seu pedido está sendo preparado pela farmácia.' },
+    em_preparacao: { type: 'info', message: 'Seu pedido está sendo preparado pela farmácia.' },
+    preparado: { type: 'info', message: 'Pedido pronto! Estamos organizando a coleta.' },
+    em_transito: { type: 'info', message: 'O motoboy saiu para a entrega.' },
+    enviado: { type: 'info', message: 'O motoboy saiu para a entrega.' },
+    em_entrega: { type: 'info', message: 'O motoboy está chegando até você.' },
+    entregue: { type: 'success', message: 'Pedido entregue! Aproveite seus produtos.' },
+    concluido: { type: 'success', message: 'Pedido finalizado com sucesso.' },
+    concluida: { type: 'success', message: 'Pedido finalizado com sucesso.' },
+    cancelado: { type: 'warning', message: 'O pedido foi cancelado.' },
+    recusado: { type: 'warning', message: 'O pedido foi recusado pela farmácia.' },
+    devolvido: { type: 'warning', message: 'Pedido devolvido à farmácia. Nossa equipe entrará em contato com você.' },
+    devolvida: { type: 'warning', message: 'Pedido devolvido à farmácia. Nossa equipe entrará em contato com você.' },
+    devolucao: { type: 'warning', message: 'Pedido devolvido à farmácia. Nossa equipe entrará em contato com você.' }
+  });
+
+  const handleStatusUpdates = useCallback((latestOrders: Order[]) => {
+    if (!latestOrders || latestOrders.length === 0) {
+      return;
+    }
+
+    const changes: Array<{ order: Order; previous: string; current: string }> = [];
+
+    latestOrders.forEach((order) => {
+      const normalized = normalizeStatus(order.status);
+      const previous = statusHistoryRef.current[order.id];
+      if (previous && previous !== normalized) {
+        changes.push({ order, previous, current: normalized });
+      }
+      statusHistoryRef.current[order.id] = normalized;
+    });
+
+    if (!hasInitializedStatusesRef.current) {
+      hasInitializedStatusesRef.current = true;
+      return;
+    }
+
+    if (changes.length > 0) {
+      changes.forEach(({ order, current }) => {
+        const config = statusMessageMap.current[current] || {
+          type: 'info' as 'success' | 'error' | 'warning' | 'info',
+          message: `Status do pedido atualizado: ${order.status}`,
+        };
+
+        addNotification({
+          type: config.type,
+          title: `Pedido #${order.numero_pedido || order.id}`,
+          message: config.message,
+          duration: 6000,
+        });
+      });
+
+      window.dispatchEvent(new CustomEvent('notification:refresh'));
+    }
+
+    const selected = selectedOrderRef.current;
+    if (selected) {
+      const updated = latestOrders.find((order) => order.id === selected.id);
+      if (updated) {
+        setSelectedOrder((prev) => (prev ? { ...prev, status: updated.status } : prev));
+      }
+    }
+  }, [addNotification, normalizeStatus, setSelectedOrder]);
+
+  useEffect(() => {
+    statusHistoryRef.current = {};
+    hasInitializedStatusesRef.current = false;
+  }, [user?.id]);
 
   // Hooks da API
   const { data: profileData, loading: loadingProfile, error: errorProfile, execute: fetchProfile } = useApi<Paciente>(getProfile);
@@ -193,11 +358,11 @@ export const MeuPerfil = () => {
   }, [profileData]);
 
   // Função para buscar pedidos do paciente
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async (showLoading: boolean = true) => {
     if (!user?.id) return;
     
     try {
-      setLoadingOrders(true);
+      if (showLoading) setLoadingOrders(true);
       console.log('🔍 Buscando pedidos para usuário:', user.id);
       console.log('🔍 Tipo do user.id:', typeof user.id);
       console.log('🔍 user.id convertido para número:', parseInt(user.id.toString()));
@@ -271,7 +436,8 @@ export const MeuPerfil = () => {
           farmacia_nome: orderResponse.farmacia_nome || 'Farmácia não informada',
           paciente_nome: orderResponse.paciente_nome || 'Cliente',
           avaliacao: orderResponse.avaliacao || null,
-          ja_avaliado: orderResponse.ja_avaliado || false
+          ja_avaliado: orderResponse.ja_avaliado || false,
+          codigo_confirmacao: orderResponse.codigo_confirmacao || null
         };
         
         console.log('🔍 Pedido mapeado:', mappedOrder);
@@ -279,14 +445,15 @@ export const MeuPerfil = () => {
       });
       
       console.log('🔍 Total de pedidos mapeados:', mappedOrders.length);
+      handleStatusUpdates(mappedOrders);
       setOrders(mappedOrders);
     } catch (error) {
       console.error('❌ Erro ao buscar pedidos:', error);
       setOrders([]);
     } finally {
-      setLoadingOrders(false);
+      if (showLoading) setLoadingOrders(false);
     }
-  };
+  }, [user?.id, handleStatusUpdates]);
 
   // Buscar pedidos quando a aba de pedidos for ativada
   useEffect(() => {
@@ -294,7 +461,26 @@ export const MeuPerfil = () => {
       console.log('🔄 Aba de pedidos ativada, buscando pedidos...');
       fetchOrders();
     }
-  }, [activeTab, user?.id]);
+  }, [activeTab, user?.id, fetchOrders]);
+
+  // Recarregar pedidos quando o modal de rastreamento for aberto
+  useEffect(() => {
+    if (showTrackingModal && user?.id) {
+      fetchOrders(false);
+    }
+  }, [showTrackingModal, user?.id, fetchOrders]);
+
+  // Polling enquanto o modal estiver aberto ou a aba de pedidos ativa
+  useEffect(() => {
+    if (!user?.id) return;
+    if (!(showTrackingModal || activeTab === 'orders')) return;
+
+    const interval = setInterval(() => {
+      fetchOrders(false);
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [user?.id, showTrackingModal, activeTab, fetchOrders]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -446,32 +632,6 @@ export const MeuPerfil = () => {
       alert('Erro interno ao cancelar assinatura. Tente novamente.');
     } finally {
       setIsCancelling(false);
-    }
-  };
-
-  // Função de teste para verificar o cache
-  const handleTestCache = async () => {
-    console.log('🧪 TESTE: Verificando estado atual do cache...');
-    console.log('🧪 TESTE: Usuário atual:', user);
-    console.log('🧪 TESTE: Plano atual:', user?.plan);
-    
-    try {
-      // Forçar limpeza do cache
-      console.log('🧪 TESTE: Limpando cache...');
-      await authService.clearCacheAndRefresh();
-      
-      // Verificar usuário após limpeza
-      const userAtualizado = await authService.verifyToken();
-      console.log('🧪 TESTE: Usuário após limpeza:', userAtualizado);
-      console.log('🧪 TESTE: Plano após limpeza:', userAtualizado?.plan);
-      
-      // Atualizar estado
-      setUser(userAtualizado);
-      
-      alert('Teste de cache concluído! Verifique o console para detalhes.');
-    } catch (error) {
-      console.error('🧪 TESTE: Erro no teste:', error);
-      alert('Erro no teste de cache. Verifique o console.');
     }
   };
 
@@ -638,7 +798,7 @@ export const MeuPerfil = () => {
           <div className="text-center">
             <AlertCircleIcon className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-red-600 mb-2">Erro ao carregar perfil</h2>
-            <p className="text-gray-600 mb-4">{errorProfile}</p>
+            <p className="text-blue-900/70 mb-4">{errorProfile}</p>
             <Button onClick={() => fetchProfile()}>Tentar novamente</Button>
           </div>
         </div>
@@ -647,18 +807,32 @@ export const MeuPerfil = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Meu Perfil</h1>
+    <div className="relative min-h-[calc(100vh-2rem)] bg-gradient-to-br from-blue-50 via-white to-blue-100">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -right-24 h-72 w-72 rounded-full bg-blue-200/35 blur-3xl" />
+        <div className="absolute bottom-[-4rem] left-[-4rem] h-80 w-80 rounded-full bg-indigo-200/25 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mb-10">
+          <span className="inline-flex items-center gap-2 rounded-full bg-blue-600/10 px-4 py-2 text-sm font-semibold text-blue-700 backdrop-blur">
+            <UserIcon className="w-4 h-4" />
+            Seu espaço Vitalis
+          </span>
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-blue-800">Meu Perfil</h1>
+          <p className="mt-2 text-base text-blue-900/70">
+            Gerencie seus dados pessoais, planos e acompanhamentos com a experiência Vitalis.
+          </p>
+        </div>
 
         {/* Tabs */}
-        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-8">
+        <div className="flex flex-wrap gap-2 bg-white/70 border border-blue-100/70 rounded-2xl p-2 shadow-sm backdrop-blur mb-8">
           <button
             onClick={() => setActiveTab('profile')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+            className={`${tabButtonBaseClasses} ${
               activeTab === 'profile'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-200/60'
+                : 'text-blue-700/80 hover:text-blue-800 hover:bg-white/80'
             }`}
           >
             <UserIcon className="w-4 h-4 inline mr-2" />
@@ -666,10 +840,10 @@ export const MeuPerfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('security')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+            className={`${tabButtonBaseClasses} ${
               activeTab === 'security'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-200/60'
+                : 'text-blue-700/80 hover:text-blue-800 hover:bg-white/80'
             }`}
           >
             <ShieldIcon className="w-4 h-4 inline mr-2" />
@@ -677,10 +851,10 @@ export const MeuPerfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('orders')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+            className={`${tabButtonBaseClasses} ${
               activeTab === 'orders'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-200/60'
+                : 'text-blue-700/80 hover:text-blue-800 hover:bg-white/80'
             }`}
           >
             <PackageIcon className="w-4 h-4 inline mr-2" />
@@ -688,10 +862,10 @@ export const MeuPerfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('subscription')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+            className={`${tabButtonBaseClasses} ${
               activeTab === 'subscription'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-200/60'
+                : 'text-blue-700/80 hover:text-blue-800 hover:bg-white/80'
             }`}
           >
             <CrownIcon className="w-4 h-4 inline mr-2" />
@@ -699,10 +873,10 @@ export const MeuPerfil = () => {
           </button>
           <button
             onClick={() => setActiveTab('triagem')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+            className={`${tabButtonBaseClasses} ${
               activeTab === 'triagem'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-200/60'
+                : 'text-blue-700/80 hover:text-blue-800 hover:bg-white/80'
             }`}
           >
             <StethoscopeIcon className="w-4 h-4 inline mr-2" />
@@ -713,18 +887,18 @@ export const MeuPerfil = () => {
         {/* Profile Tab */}
         {activeTab === 'profile' && (
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <Card className={cardClassName}>
+              <CardHeader className={cardHeaderClassName}>
+                <CardTitle className={cardTitleClassName}>
                   <UserIcon className="w-5 h-5 text-blue-600" />
                   Informações Pessoais
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="flex items-start gap-6">
                   {/* Avatar */}
                   <div className="flex flex-col items-center gap-4">
-                    <Avatar className="w-24 h-24">
+                    <Avatar className="w-24 h-24 ring-4 ring-blue-100 shadow-xl bg-blue-50">
                       <img
                         src={profileImage || `https://ui-avatars.com/api/?name=${formData.name}&background=random`}
                         alt={formData.name}
@@ -742,6 +916,7 @@ export const MeuPerfil = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => fileInputRef.current?.click()}
+                      className="border-blue-200 text-blue-600 hover:bg-blue-100/80"
                     >
                       <CameraIcon className="w-4 h-4 mr-2" />
                       Alterar Foto
@@ -752,7 +927,7 @@ export const MeuPerfil = () => {
                   <div className="flex-1 space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-semibold text-blue-800 mb-1">
                           Nome Completo
                         </label>
                         <Input 
@@ -763,11 +938,11 @@ export const MeuPerfil = () => {
                             handleInputChange(e);
                           }}
                           disabled={!isEditing}
-                          className={!isEditing ? 'bg-gray-50' : ''}
+                          className={`${baseInputClasses} ${!isEditing ? 'bg-blue-50/60' : 'bg-white'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-semibold text-blue-800 mb-1">
                           Email
                         </label>
                         <Input 
@@ -778,11 +953,11 @@ export const MeuPerfil = () => {
                             handleInputChange(e);
                           }}
                           disabled={!isEditing}
-                          className={!isEditing ? 'bg-gray-50' : ''}
+                          className={`${baseInputClasses} ${!isEditing ? 'bg-blue-50/60' : 'bg-white'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-semibold text-blue-800 mb-1">
                           CPF
                         </label>
                         <Input 
@@ -793,11 +968,11 @@ export const MeuPerfil = () => {
                             handleInputChange(e);
                           }}
                           disabled={!isEditing}
-                          className={!isEditing ? 'bg-gray-50' : ''}
+                          className={`${baseInputClasses} ${!isEditing ? 'bg-blue-50/60' : 'bg-white'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-semibold text-blue-800 mb-1">
                           Telefone
                         </label>
                         <Input 
@@ -808,11 +983,11 @@ export const MeuPerfil = () => {
                             handleInputChange(e);
                           }}
                           disabled={!isEditing}
-                          className={!isEditing ? 'bg-gray-50' : ''}
+                          className={`${baseInputClasses} ${!isEditing ? 'bg-blue-50/60' : 'bg-white'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-semibold text-blue-800 mb-1">
                           Data de Nascimento
                         </label>
                         <Input 
@@ -824,7 +999,7 @@ export const MeuPerfil = () => {
                             handleInputChange(e);
                           }}
                           disabled={!isEditing}
-                          className={!isEditing ? 'bg-gray-50' : ''}
+                          className={`${baseInputClasses} ${!isEditing ? 'bg-blue-50/60' : 'bg-white'}`}
                         />
                       </div>
                     </div>
@@ -869,27 +1044,25 @@ export const MeuPerfil = () => {
         {/* Security Tab */}
         {activeTab === 'security' && (
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <LockIcon className="w-5 h-5 text-red-600" />
+            <Card className={cardClassName}>
+              <CardHeader className={cardHeaderClassName}>
+                <CardTitle className={cardTitleClassName}>
+                  <LockIcon className="w-5 h-5 text-blue-600" />
                   Segurança da Conta
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 rounded-2xl border border-blue-100/70 bg-blue-50/70">
                     <div>
-                      <h3 className="font-semibold text-gray-900">Senha</h3>
-                      <p className="text-sm text-gray-600">Última alteração há 30 dias</p>
+                      <h3 className="font-semibold text-blue-900">Senha</h3>
+                      <p className="text-sm text-blue-900/70">Última alteração há 30 dias</p>
                     </div>
-                    <Button variant="outline">
+                    <Button variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-100/80">
                       <LockIcon className="w-4 h-4 mr-2" />
                       Alterar Senha
                     </Button>
                   </div>
-
-
                 </div>
               </CardContent>
             </Card>
@@ -899,58 +1072,67 @@ export const MeuPerfil = () => {
         {/* Orders Tab */}
         {activeTab === 'orders' && (
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <PackageIcon className="w-5 h-5 text-green-600" />
+            <Card className={cardClassName}>
+              <CardHeader className={cardHeaderClassName}>
+                <CardTitle className={cardTitleClassName}>
+                  <PackageIcon className="w-5 h-5 text-blue-600" />
                   Meus Pedidos
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {loadingOrders ? (
                   <div className="flex justify-center items-center py-8">
                     <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-                    <span className="ml-2 text-gray-600">Carregando pedidos...</span>
+                    <span className="ml-2 text-blue-900/70">Carregando pedidos...</span>
                   </div>
                 ) : orders.length > 0 ? (
                   <div className="space-y-4">
                     {orders.map((order) => (
                       <div
                         key={order.id}
-                        className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
+                        className="border border-blue-100/80 bg-white/80 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer"
                         onClick={() => {
                           console.log('🔍 Abrindo modal para pedido:', order);
                           setSelectedOrder(order);
                           setShowTrackingModal(true);
                         }}
                       >
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between gap-4">
                           <div>
-                            <h3 className="font-semibold text-gray-900">
+                            <h3 className="font-semibold text-blue-900">
                               Pedido #{order.numero_pedido || order.id}
                             </h3>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-blue-900/70">
                               {order.itemCount || order.items?.length || 0} item(s) • {order.criado_em || order.data_criacao || formatDate(order.criado_em || order.createdAt || order.date || '')}
                             </p>
                           </div>
                           <div className="flex items-center gap-3">
                             <div className="text-right">
-                              <p className="font-semibold text-gray-900">
+                              <p className="font-semibold text-blue-900">
                                 R$ {order.total.toFixed(2)}
                               </p>
                               <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                                // Status de sucesso/concluído
-                                order.status === 'Entregue' || order.status === 'entregue' || order.status === 'concluida' || order.status === 'Concluída' || order.status === 'concluido' ? 'bg-green-100 text-green-800' :
-                                // Status de preparação
-                                order.status === 'em_preparo' || order.status === 'Em preparação' || order.status === 'preparando' ? 'bg-blue-100 text-blue-800' :
-                                // Status de trânsito/entrega
-                                order.status === 'Em trânsito' || order.status === 'em_transito' || order.status === 'enviado' || order.status === 'Em entrega' || order.status === 'em_entrega' ? 'bg-orange-100 text-orange-800' :
-                                // Status de recusa/cancelamento
-                                order.status === 'Recusado' || order.status === 'recusado' || order.status === 'Cancelado' || order.status === 'cancelado' || order.status === 'rejeitado' ? 'bg-red-100 text-red-800' :
-                                // Status pendente (padrão)
-                                'bg-yellow-100 text-yellow-800'
+                                (() => {
+                                  const normalizedStatus = normalizeStatus(order.status);
+                                  if (['entregue', 'entrega_confirmada', 'concluida', 'concluida_', 'concluido'].includes(normalizedStatus)) {
+                                    return 'bg-green-100 text-green-800';
+                                  }
+                                  if (['em_preparo', 'em_preparacao', 'preparando'].includes(normalizedStatus)) {
+                                    return 'bg-blue-100 text-blue-800';
+                                  }
+                                  if (['em_transito', 'em_entrega', 'enviado', 'em_rota', 'a_caminho'].includes(normalizedStatus)) {
+                                    return 'bg-orange-100 text-orange-800';
+                                  }
+                                  if (['recusado', 'rejeitado', 'cancelado', 'cancelada'].includes(normalizedStatus)) {
+                                    return 'bg-red-100 text-red-800';
+                                  }
+                                  if (['devolvido', 'devolvida', 'devolucao'].includes(normalizedStatus)) {
+                                    return 'bg-purple-100 text-purple-800';
+                                  }
+                                  return 'bg-yellow-100 text-yellow-800';
+                                })()
                               }`}>
-                                {(order.status === 'concluido' || order.status === 'Entregue' || order.status === 'entregue' || order.status === 'concluida' || order.status === 'Concluída') ? 'Concluído' : (order.status || 'Pendente')}
+                                {formatStatusLabel(order.status)}
                               </span>
                             </div>
                             <Button
@@ -961,7 +1143,7 @@ export const MeuPerfil = () => {
                                 setSelectedOrderForChat(order);
                                 setShowChatModal(true);
                               }}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-2 border-blue-200 text-blue-600 hover:bg-blue-100/80"
                             >
                               <MessageCircle className="w-4 h-4" />
                               Chat
@@ -972,13 +1154,13 @@ export const MeuPerfil = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8">
-                    <PackageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum pedido encontrado</h3>
-                    <p className="text-gray-600 mb-4">
+                  <div className="text-center py-8 px-4 border border-blue-100/70 rounded-2xl bg-white/80">
+                    <PackageIcon className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-blue-900 mb-2">Nenhum pedido encontrado</h3>
+                    <p className="text-blue-900/70 mb-4">
                       Você ainda não fez nenhum pedido no Vitalis.
                     </p>
-                    <Button onClick={() => navigate('/farmacias')}>
+                    <Button onClick={() => navigate('/farmacias')} className="bg-blue-600 hover:bg-blue-700">
                       Ver Farmácias
                     </Button>
                   </div>
@@ -991,17 +1173,17 @@ export const MeuPerfil = () => {
         {/* Subscription Tab */}
         {activeTab === 'subscription' && (
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <Card className={cardClassName}>
+              <CardHeader className={cardHeaderClassName}>
+                <CardTitle className={cardTitleClassName}>
                   <CrownIcon className="w-5 h-5 text-blue-600" />
                   Informações da Assinatura
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {user?.plan ? (
                   <div className="space-y-6">
-                    <div className="bg-green-50 p-4 rounded-lg">
+                    <div className="rounded-2xl border border-green-200 bg-green-50/80 p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <CheckCircleIcon className="w-5 h-5 text-green-600" />
                         <span className="font-semibold text-green-800">Plano Ativo</span>
@@ -1013,11 +1195,11 @@ export const MeuPerfil = () => {
 
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Plano:</span>
-                        <span className="font-semibold text-gray-900">{user.plan.name || 'Não informado'}</span>
+                        <span className="text-blue-900/70">Plano:</span>
+                        <span className="font-semibold text-blue-900">{user.plan.name || 'Não informado'}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Valor:</span>
+                        <span className="text-blue-900/70">Valor:</span>
                         <span className="font-semibold text-green-600">
                           {user.plan.price ?
                             (typeof user.plan.price === 'number'
@@ -1028,10 +1210,10 @@ export const MeuPerfil = () => {
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Próxima renovação:</span>
+                        <span className="text-blue-900/70">Próxima renovação:</span>
                         <div className="flex items-center gap-2">
                           <CalendarIcon className="w-4 h-4 text-blue-500" />
-                          <span className="font-semibold text-gray-900">
+                          <span className="font-semibold text-blue-900">
                             {formatDate(user.plan.nextBilling || '')}
                           </span>
                         </div>
@@ -1073,7 +1255,7 @@ export const MeuPerfil = () => {
                             handleChangePlan(planoDiferente);
                           }
                         }}
-                        className="w-full bg-blue-50 text-blue-600 py-2 px-4 rounded-lg hover:bg-blue-100 transition-colors font-medium border border-blue-200 flex items-center justify-center gap-2"
+                        className="w-full bg-blue-50 text-blue-600 py-2 px-4 rounded-xl hover:bg-blue-100 transition-colors font-medium border border-blue-200 flex items-center justify-center gap-2"
                       >
                         <CrownIcon className="w-4 h-4" />
                         Trocar de Plano
@@ -1081,7 +1263,7 @@ export const MeuPerfil = () => {
                       <button
                         onClick={handleCancelPlan}
                         disabled={isCancelling}
-                        className="w-full bg-red-50 text-red-600 py-2 px-4 rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 flex items-center justify-center gap-2"
+                        className="w-full bg-red-50 text-red-600 py-2 px-4 rounded-xl hover:bg-red-100 transition-colors font-medium border border-red-200 flex items-center justify-center gap-2"
                       >
                         {isCancelling ? (
                           <>
@@ -1098,10 +1280,10 @@ export const MeuPerfil = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-8">
-                    <CrownIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma assinatura ativa</h3>
-                    <p className="text-gray-600 mb-4">
+                  <div className="text-center py-8 px-4 border border-blue-100/70 rounded-2xl bg-white/80">
+                    <CrownIcon className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-blue-900 mb-2">Nenhuma assinatura ativa</h3>
+                    <p className="text-blue-900/70 mb-4">
                       Você ainda não possui uma assinatura ativa no Vitalis.
                     </p>
                     <Button 
@@ -1120,26 +1302,26 @@ export const MeuPerfil = () => {
         {/* Triagem Tab */}
         {activeTab === 'triagem' && (
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <Card className={cardClassName}>
+              <CardHeader className={cardHeaderClassName}>
+                <CardTitle className={cardTitleClassName}>
                   <StethoscopeIcon className="w-5 h-5 text-blue-600" />
                   Histórico de Triagens Inteligentes
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {user?.id ? (
                   <TriagemHistory pacienteId={parseInt(user.id.toString())} />
                 ) : (
-                  <div className="text-center py-8">
-                    <StethoscopeIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <div className="text-center py-8 px-4 border border-blue-100/70 rounded-2xl bg-white/80">
+                    <StethoscopeIcon className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-blue-900 mb-2">
                       Usuário não identificado
                     </h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-blue-900/70 mb-4">
                       Faça login para visualizar seu histórico de triagens.
                     </p>
-                    <Button onClick={() => navigate('/login')}>
+                    <Button onClick={() => navigate('/login')} className="bg-blue-600 hover:bg-blue-700">
                       Fazer Login
                     </Button>
                   </div>
@@ -1156,7 +1338,7 @@ export const MeuPerfil = () => {
           <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-2xl font-bold text-blue-900">
                   Rastreamento do Pedido #{selectedOrder.numero_pedido || selectedOrder.id}
                 </h2>
                 <button
@@ -1164,7 +1346,7 @@ export const MeuPerfil = () => {
                     setShowTrackingModal(false);
                     setSelectedOrder(null);
                   }}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-blue-500 hover:text-blue-700"
                 >
                   <XIcon className="w-6 h-6" />
                 </button>
@@ -1172,143 +1354,248 @@ export const MeuPerfil = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Mapa de entrega - só mostra se o pedido não estiver concluído */}
-                {(selectedOrder?.status !== 'concluido' && selectedOrder?.status !== 'Entregue' && selectedOrder?.status !== 'entregue' && selectedOrder?.status !== 'concluida' && selectedOrder?.status !== 'Concluída') ? (
-                  <OrderTrackingMap 
-                    deliveryPosition={[-23.5505, -46.6333]} 
-                    destination={[-23.5489, -46.6388]} 
-                    height={300} 
-                  />
-                ) : (
-                  <div className="bg-green-50 rounded-lg border border-green-200 p-6 flex flex-col items-center justify-center h-[300px]">
-                    <div className="text-center">
-                      <CheckCircleIcon className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-green-800 mb-2">Pedido Entregue!</h3>
-                      <p className="text-green-700 mb-4">
-                        Seu pedido chegou ao destino com sucesso.
-                      </p>
-                      {selectedOrder?.status === 'concluido' ? (
-                        <div className="bg-green-100 p-3 rounded-lg">
-                          <span className="text-sm font-medium text-green-800">
-                            ✅ Avaliação enviada - Pedido finalizado
-                          </span>
+                {(() => {
+                  const normalizedStatus = normalizeStatus(selectedOrder?.status);
+                  const isDelivered = ['concluido', 'concluida', 'concluida_', 'entregue', 'entrega_confirmada'].includes(normalizedStatus);
+                  const isReturned = ['devolvido', 'devolvida', 'devolucao'].includes(normalizedStatus);
+
+                  if (!isDelivered && !isReturned) {
+                    return (
+                      <OrderTrackingMap 
+                        deliveryPosition={[-23.5505, -46.6333]} 
+                        destination={[-23.5489, -46.6388]} 
+                        height={300} 
+                      />
+                    );
+                  }
+
+                  if (isReturned) {
+                    return (
+                      <div className="bg-purple-50 rounded-lg border border-purple-200 p-6 flex flex-col items-center justify-center h-[300px]">
+                        <div className="text-center">
+                          <AlertTriangleIcon className="w-16 h-16 text-purple-600 mx-auto mb-4" />
+                          <h3 className="text-xl font-bold text-purple-800 mb-2">Pedido Devolvido</h3>
+                          <p className="text-purple-700">
+                            Seu pedido foi devolvido à farmácia. Nossa equipe entrará em contato para orientar os próximos passos.
+                          </p>
                         </div>
-                      ) : (
-                        <div className="bg-blue-100 p-3 rounded-lg">
-                          <span className="text-sm font-medium text-blue-800">
-                            ⭐ Pedido entregue - Avalie o serviço
-                          </span>
-                        </div>
-                      )}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div className="bg-green-50 rounded-lg border border-green-200 p-6 flex flex-col items-center justify-center h-[300px]">
+                      <div className="text-center">
+                        <CheckCircleIcon className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                        <h3 className="text-xl font-bold text-green-800 mb-2">Pedido Entregue!</h3>
+                        <p className="text-green-700 mb-4">
+                          Seu pedido chegou ao destino com sucesso.
+                        </p>
+                        {normalizedStatus === 'concluido' ? (
+                          <div className="bg-green-100 p-3 rounded-lg">
+                            <span className="text-sm font-medium text-green-800">
+                              ✅ Avaliação enviada - Pedido finalizado
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="bg-blue-100 p-3 rounded-lg">
+                            <span className="text-sm font-medium text-blue-800">
+                              ⭐ Pedido entregue - Avalie o serviço
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
                 <div className="space-y-6">
                   {/* Status atual do pedido */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-gray-900 mb-2">Status Atual</h3>
+                  <div className="rounded-2xl border border-blue-100/70 bg-blue-50/70 p-4">
+                    <h3 className="font-semibold text-blue-900 mb-2">Status Atual</h3>
                     <span className={`inline-flex items-center px-3 py-2 rounded-full text-sm font-medium ${
-                      // Status de sucesso/concluído
-                      selectedOrder?.status === 'Entregue' || selectedOrder?.status === 'entregue' || selectedOrder?.status === 'concluida' || selectedOrder?.status === 'Concluída' || selectedOrder?.status === 'concluido' ? 'bg-green-100 text-green-800' :
-                      // Status de preparação
-                      selectedOrder?.status === 'em_preparo' || selectedOrder?.status === 'Em preparação' || selectedOrder?.status === 'preparando' ? 'bg-blue-100 text-blue-800' :
-                      // Status de trânsito/entrega
-                      selectedOrder?.status === 'Em trânsito' || selectedOrder?.status === 'em_transito' || selectedOrder?.status === 'enviado' || selectedOrder?.status === 'Em entrega' || selectedOrder?.status === 'em_entrega' ? 'bg-orange-100 text-orange-800' :
-                      // Status de recusa/cancelamento
-                      selectedOrder?.status === 'Recusado' || selectedOrder?.status === 'recusado' || selectedOrder?.status === 'Cancelado' || selectedOrder?.status === 'cancelado' || selectedOrder?.status === 'rejeitado' ? 'bg-red-100 text-red-800' :
-                      // Status pendente (padrão)
-                      'bg-yellow-100 text-yellow-800'
+                      (() => {
+                        const normalizedStatus = normalizeStatus(selectedOrder?.status);
+                        if (['entregue', 'entrega_confirmada', 'concluida', 'concluida_', 'concluido'].includes(normalizedStatus)) {
+                          return 'bg-green-100 text-green-800';
+                        }
+                        if (['em_preparo', 'em_preparacao', 'preparando'].includes(normalizedStatus)) {
+                          return 'bg-blue-100 text-blue-800';
+                        }
+                        if (['em_transito', 'em_entrega', 'enviado', 'em_rota', 'a_caminho'].includes(normalizedStatus)) {
+                          return 'bg-orange-100 text-orange-800';
+                        }
+                        if (['recusado', 'rejeitado', 'cancelado', 'cancelada'].includes(normalizedStatus)) {
+                          return 'bg-red-100 text-red-800';
+                        }
+                        if (['devolvido', 'devolvida', 'devolucao'].includes(normalizedStatus)) {
+                          return 'bg-purple-100 text-purple-800';
+                        }
+                        return 'bg-yellow-100 text-yellow-800';
+                      })()
                     }`}>
-                      {(selectedOrder?.status === 'concluido' || selectedOrder?.status === 'Entregue' || selectedOrder?.status === 'entregue' || selectedOrder?.status === 'concluida' || selectedOrder?.status === 'Concluída') ? 'Concluído' : (selectedOrder?.status || 'Pendente')}
+                      {formatStatusLabel(selectedOrder?.status)}
                     </span>
                   </div>
-                  
-                  {/* Previsão de entrega - só mostra se o pedido não estiver concluído */}
-                  {(selectedOrder?.status !== 'concluido' && selectedOrder?.status !== 'Entregue' && selectedOrder?.status !== 'entregue' && selectedOrder?.status !== 'concluida' && selectedOrder?.status !== 'Concluída') ? (
-                    <OrderTrackingEstimate 
-                      deliveryPosition={[-23.5505, -46.6333]} 
-                      destination={[-23.5489, -46.6388]} 
-                    />
-                  ) : (
-                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                      <div className="flex items-center justify-center mb-2">
-                        <CheckCircleIcon className="w-6 h-6 text-green-600 mr-2" />
-                        <span className="text-lg font-semibold text-green-800">Entrega Concluída</span>
-                      </div>
-                      <p className="text-center text-green-700">
-                        Seu pedido foi entregue com sucesso! 
-                        {selectedOrder?.status === 'concluido' ? ' Obrigado pela avaliação!' : ' Agora você pode avaliar o serviço.'}
-                      </p>
+
+                  <div className="rounded-2xl border border-blue-100/70 bg-white p-4 shadow-sm">
+                    <h3 className="font-semibold text-blue-900 mb-2">Código de Confirmação</h3>
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-3xl font-black tracking-[0.3em] text-blue-700">
+                        {selectedOrder?.codigo_confirmacao ?? '— — — —'}
+                      </span>
                     </div>
-                  )}
+                    <p className="text-sm text-blue-800/70 mt-2">
+                      Informe este código ao motoboy para confirmar a entrega com segurança.
+                    </p>
+                    {!selectedOrder?.codigo_confirmacao && (
+                      <p className="text-xs text-amber-600 mt-3">
+                        Código ainda não gerado. Assim que a farmácia encaminhar a entrega, ele aparecerá aqui.
+                      </p>
+                    )}
+                  </div>
+                  
+                  {/* Previsão de entrega ou status final */}
+                  {(() => {
+                    const normalizedStatus = normalizeStatus(selectedOrder?.status);
+                    const isDelivered = ['concluido', 'concluida', 'concluida_', 'entregue', 'entrega_confirmada'].includes(normalizedStatus);
+                    const isReturned = ['devolvido', 'devolvida', 'devolucao'].includes(normalizedStatus);
+
+                    if (!isDelivered && !isReturned) {
+                      return (
+                        <OrderTrackingEstimate 
+                          deliveryPosition={[-23.5505, -46.6333]} 
+                          destination={[-23.5489, -46.6388]} 
+                        />
+                      );
+                    }
+
+                    if (isReturned) {
+                      return (
+                        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                          <div className="flex items-center justify-center mb-2">
+                            <AlertTriangleIcon className="w-6 h-6 text-purple-600 mr-2" />
+                            <span className="text-lg font-semibold text-purple-800">Pedido devolvido</span>
+                          </div>
+                          <p className="text-center text-purple-700">
+                            O pedido retornou à farmácia. Nossa equipe entrará em contato para alinhar os próximos passos.
+                          </p>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <div className="flex items-center justify-center mb-2">
+                          <CheckCircleIcon className="w-6 h-6 text-green-600 mr-2" />
+                          <span className="text-lg font-semibold text-green-800">Entrega Concluída</span>
+                        </div>
+                        <p className="text-center text-green-700">
+                          Seu pedido foi entregue com sucesso!{normalizedStatus === 'concluido' ? ' Obrigado pela avaliação!' : ' Agora você pode avaliar o serviço.'}
+                        </p>
+                      </div>
+                    );
+                  })()}
                   <OrderTrackingSteps 
                     currentStep={
-                      // Mapear o status real do pedido para o step correspondente
                       (() => {
-                        const step = selectedOrder?.status === 'em_preparo' || selectedOrder?.status === 'Em preparação' || selectedOrder?.status === 'preparando' ? 1 :
-                          selectedOrder?.status === 'Em trânsito' || selectedOrder?.status === 'em_transito' || selectedOrder?.status === 'enviado' || selectedOrder?.status === 'Em entrega' || selectedOrder?.status === 'em_entrega' ? 2 :
-                          (selectedOrder?.status === 'Entregue' || selectedOrder?.status === 'entregue' || selectedOrder?.status === 'concluida' || selectedOrder?.status === 'Concluída' || selectedOrder?.status === 'concluido') ? 4 :
-                          selectedOrder?.status === 'Recusado' || selectedOrder?.status === 'recusado' || selectedOrder?.status === 'Cancelado' || selectedOrder?.status === 'cancelado' || selectedOrder?.status === 'rejeitado' ? 0 :
-                          0; // Status pendente ou desconhecido
-                        
+                        const normalizedStatus = normalizeStatus(selectedOrder?.status);
+                        const step =
+                          ['em_preparo', 'em_preparacao', 'preparando'].includes(normalizedStatus) ? 1 :
+                          ['em_transito', 'em_entrega', 'enviado', 'em_rota', 'a_caminho'].includes(normalizedStatus) ? 2 :
+                          ['entregue', 'entrega_confirmada', 'concluida', 'concluida_', 'concluido'].includes(normalizedStatus) ? 4 :
+                          ['devolvido', 'devolvida', 'devolucao'].includes(normalizedStatus) ? 4 :
+                          ['recusado', 'rejeitado', 'cancelado', 'cancelada'].includes(normalizedStatus) ? 0 :
+                          0;
 
-                        
                         return step;
                       })()
                     } 
                   />
                   {/* Botão de avaliação - aparece para pedidos entregues, fica cinza se já avaliado */}
                   {selectedOrder && (
-                    (selectedOrder.status === 'Entregue' || 
-                    selectedOrder.status === 'entregue' || 
-                    selectedOrder.status === 'concluida' || 
-                    selectedOrder.status === 'Concluída') && !selectedOrder.ja_avaliado
-                  ) ? (
-                    <div className="text-center">
-                      <Button 
-                        onClick={() => setShowReviewModal(true)}
-                        className="w-full bg-green-600 hover:bg-green-700"
-                      >
-                        ⭐ Avaliar Pedido
-                      </Button>
-                    </div>
-                  ) : (selectedOrder?.status === 'concluido' || selectedOrder?.ja_avaliado) ? (
-                    <div className="text-center">
-                      <Button 
-                        disabled
-                        className="w-full bg-gray-400 cursor-not-allowed"
-                      >
-                        ✅ Já Avaliado
-                      </Button>
-                    </div>
-                  ) : (selectedOrder?.status === 'em_preparo' || selectedOrder?.status === 'Em preparação' || selectedOrder?.status === 'preparando') ? (
-                    <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
-                      <div className="flex items-center justify-center mb-2">
-                        <PackageIcon className="w-5 h-5 text-blue-600 mr-2" />
-                        <span className="text-sm font-medium text-blue-800">Pedido em Preparação</span>
-                      </div>
-                      <p className="text-sm text-blue-600">
-                        Seu pedido está sendo preparado pela farmácia.
-                      </p>
-                    </div>
-                  ) : (selectedOrder?.status === 'Em trânsito' || selectedOrder?.status === 'em_transito' || selectedOrder?.status === 'enviado' || selectedOrder?.status === 'Em entrega' || selectedOrder?.status === 'em_entrega') ? (
-                    <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
-                      <div className="flex items-center justify-center mb-2">
-                        <PackageIcon className="w-5 h-5 text-orange-600 mr-2" />
-                        <span className="text-sm font-medium text-orange-800">Pedido em Entrega</span>
-                      </div>
-                      <p className="text-sm text-orange-600">
-                        Seu pedido está a caminho. Aguarde a entrega.
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="text-center p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600">
-                        {selectedOrder?.status === 'Recusado' || selectedOrder?.status === 'recusado' || selectedOrder?.status === 'Cancelado' || selectedOrder?.status === 'cancelado' || selectedOrder?.status === 'rejeitado'
-                          ? 'Pedido cancelado/recusado - não é possível avaliar'
-                          : 'Avaliação disponível após entrega do pedido'
-                        }
-                      </p>
-                    </div>
+                    (() => {
+                      const normalizedStatus = normalizeStatus(selectedOrder.status);
+
+                      if (selectedOrder.ja_avaliado || normalizedStatus === 'concluido') {
+                        return (
+                          <div className="text-center">
+                            <Button 
+                              disabled
+                              className="w-full bg-gray-400 cursor-not-allowed"
+                            >
+                              ✅ Já Avaliado
+                            </Button>
+                          </div>
+                        );
+                      }
+
+                      if (['entregue', 'entrega_confirmada', 'concluida', 'concluida_'].includes(normalizedStatus)) {
+                        return (
+                          <div className="text-center">
+                            <Button 
+                              onClick={() => setShowReviewModal(true)}
+                              className="w-full bg-green-600 hover:bg-green-700"
+                            >
+                              ⭐ Avaliar Pedido
+                            </Button>
+                          </div>
+                        );
+                      }
+
+                      if (['em_preparo', 'em_preparacao', 'preparando'].includes(normalizedStatus)) {
+                        return (
+                          <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <div className="flex items-center justify-center mb-2">
+                              <PackageIcon className="w-5 h-5 text-blue-600 mr-2" />
+                              <span className="text-sm font-medium text-blue-800">Pedido em Preparação</span>
+                            </div>
+                            <p className="text-sm text-blue-600">
+                              Seu pedido está sendo preparado pela farmácia.
+                            </p>
+                          </div>
+                        );
+                      }
+
+                      if (['em_transito', 'em_entrega', 'enviado', 'em_rota', 'a_caminho'].includes(normalizedStatus)) {
+                        return (
+                          <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <div className="flex items-center justify-center mb-2">
+                              <PackageIcon className="w-5 h-5 text-orange-600 mr-2" />
+                              <span className="text-sm font-medium text-orange-800">Pedido em Entrega</span>
+                            </div>
+                            <p className="text-sm text-orange-600">
+                              Seu pedido está a caminho. Aguarde a entrega.
+                            </p>
+                          </div>
+                        );
+                      }
+
+                      if (['devolvido', 'devolvida', 'devolucao'].includes(normalizedStatus)) {
+                        return (
+                          <div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <div className="flex items-center justify-center mb-2">
+                              <AlertTriangleIcon className="w-5 h-5 text-purple-600 mr-2" />
+                              <span className="text-sm font-medium text-purple-800">Pedido devolvido à farmácia</span>
+                            </div>
+                            <p className="text-sm text-purple-600">
+                              Nossa equipe entrará em contato para ajudar com a devolução.
+                            </p>
+                          </div>
+                        );
+                      }
+
+                      const isCancelled = ['recusado', 'rejeitado', 'cancelado', 'cancelada'].includes(normalizedStatus);
+
+                      return (
+                        <div className="text-center p-4 border border-blue-100/70 rounded-2xl bg-white/80">
+                          <p className="text-sm text-blue-900/70">
+                            {isCancelled
+                              ? 'Pedido cancelado/recusado - não é possível avaliar'
+                              : 'Avaliação disponível após entrega do pedido'}
+                          </p>
+                        </div>
+                      );
+                    })()
                   )}
                 </div>
               </div>

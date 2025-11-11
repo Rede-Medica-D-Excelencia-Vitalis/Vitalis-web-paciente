@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { ScrollArea } from '../../components/ui/scroll-area';
 import { consultaService, Consulta } from '../../services/consultation/consultaService';
+import { getMinhasConsultas } from '../../services/consultation/consultationService';
 import { useVideochamada } from '../../hooks/communication/useVideochamada';
 import { useAuth } from '../../hooks/auth/useAuth';
 import { websocketService, ChatMessage } from '../../services/communication/websocketService';
@@ -187,8 +188,48 @@ export const Teleconsulta = () => {
         setIsLoading(true);
         setError(null);
         
-        const consultas = await consultaService.getProximasConsultas();
-        console.log('🔍 Consultas recebidas:', consultas);
+        const rawConsultas = await consultaService.getProximasConsultas();
+        console.log('🔍 Consultas recebidas (raw):', rawConsultas);
+
+        const flattenConsultas = (input: any): Consulta[] => {
+          if (!Array.isArray(input)) {
+            return [];
+          }
+
+          const result: Consulta[] = [];
+
+          const walk = (nodes: any[]): void => {
+            for (const node of nodes) {
+              if (!node) continue;
+
+              if (Array.isArray(node)) {
+                walk(node);
+                continue;
+              }
+
+              if (typeof node === 'object' && 'id' in node && 'status' in node) {
+                result.push(node as Consulta);
+                continue;
+              }
+
+              if (typeof node === 'object') {
+                const values = Object.values(node).filter(Boolean);
+                if (values.length > 0) {
+                  walk(values);
+                }
+              }
+            }
+          };
+
+          walk(input);
+          return result;
+        };
+
+        const consultas = flattenConsultas(rawConsultas);
+        console.log('🔍 Consultas normalizadas:', {
+          total: consultas.length,
+          ids: consultas.map(c => c.id)
+        });
         
         // Filtrar apenas consultas agendadas que estão dentro do horário permitido
         const consultasAgendadas = consultas.filter(c => c.status === 'agendada');
@@ -197,56 +238,98 @@ export const Teleconsulta = () => {
         const TOLERANCIA_MINUTOS = 10;
         const agora = new Date();
         
-        // Consultas que podem ser acessadas (dentro da tolerância)
+        // Consultas que podem ser acessadas (dentro da tolerância) ou que ainda vão acontecer
         const consultasDisponiveis = consultasAgendadas.filter(c => {
           const dataHoraConsulta = new Date(`${c.date}T${c.time}`);
           const tolerancia = new Date(dataHoraConsulta.getTime() + (TOLERANCIA_MINUTOS * 60 * 1000));
           
           // Só mostrar consultas que:
           // 1. Ainda estão dentro da tolerância OU
-          // 2. São futuras (até 1 hora antes do horário para preparação)
+          // 2. São futuras (a qualquer momento)
           const umaHoraAntes = new Date(dataHoraConsulta.getTime() - (60 * 60 * 1000));
           const dentroTolerancia = (tolerancia >= agora) || (agora >= umaHoraAntes && agora <= dataHoraConsulta);
+          const futura = dataHoraConsulta > agora;
           
           console.log(`🔍 Consulta ${c.id} - ${c.time}:`, {
             horarioConsulta: dataHoraConsulta.toLocaleTimeString(),
             agora: agora.toLocaleTimeString(),
             tolerancia: tolerancia.toLocaleTimeString(),
-            dentroTolerancia
+            dentroTolerancia,
+            futura
           });
           
-          return dentroTolerancia;
+          return dentroTolerancia || futura;
         });
         
         // Verificar quais consultas têm sala ativa (médico já iniciou)
-        const consultasComSalaAtiva = [];
+        const salasPorConsulta: Record<number, any> = {};
         
         for (const consulta of consultasDisponiveis) {
           try {
             const sala = await consultaService.verificarSalaAtiva(consulta.id);
             if (sala) {
-              consultasComSalaAtiva.push(consulta);
-              // Se é a primeira consulta com sala ativa, definir como atual
-              if (!consultaAtual) {
-                setConsultaAtual(consulta);
-                setSalaAtiva(sala);
-              }
+              salasPorConsulta[consulta.id] = sala;
             }
           } catch (error) {
             console.log(`Consulta ${consulta.id} não tem sala ativa`);
           }
         }
+
+        setProximasConsultas(consultasDisponiveis);
         
-        // Só mostrar consultas que têm sala ativa (médico já iniciou)
-        setProximasConsultas(consultasComSalaAtiva);
-        setConsultasPassadas([]); // Não mostrar consultas passadas
-        
-        // Se não há consulta atual mas há consultas com sala ativa, definir a primeira
-        if (!consultaAtual && consultasComSalaAtiva.length > 0) {
-          setConsultaAtual(consultasComSalaAtiva[0]);
-          // Verificar sala ativa para a primeira consulta
-          await verificarSalaAtiva(consultasComSalaAtiva[0].id);
+        // Buscar consultas concluídas/realizadas para o histórico
+        try {
+          const todasConsultas = await getMinhasConsultas();
+          const consultasConcluidas = todasConsultas.filter(
+            c => c.status === 'concluída' || c.status === 'realizada' || c.status === 'finalizada'
+          );
+          
+          // Ordenar do mais recente para o mais antigo
+          const consultasOrdenadas = consultasConcluidas.sort((a, b) => {
+            try {
+              // Criar objetos Date para comparação
+              const dataHoraA = new Date(`${a.data}T${a.hora}`);
+              const dataHoraB = new Date(`${b.data}T${b.hora}`);
+              
+              // Ordenar do mais recente para o mais antigo (decrescente)
+              return dataHoraB.getTime() - dataHoraA.getTime();
+            } catch (error) {
+              console.warn('Erro ao ordenar consultas:', error);
+              return 0;
+            }
+          });
+          
+          setConsultasPassadas(consultasOrdenadas);
+          console.log('📋 Consultas concluídas carregadas e ordenadas:', consultasOrdenadas.length);
+          if (consultasOrdenadas.length > 0) {
+            console.log('📅 Primeira consulta (mais recente):', consultasOrdenadas[0]?.data, consultasOrdenadas[0]?.hora);
+            console.log('📅 Última consulta (mais antiga):', consultasOrdenadas[consultasOrdenadas.length - 1]?.data, consultasOrdenadas[consultasOrdenadas.length - 1]?.hora);
+          }
+        } catch (error) {
+          console.error('Erro ao buscar consultas concluídas:', error);
+          setConsultasPassadas([]);
         }
+
+        // Garantir que sempre exista uma consulta atual selecionada
+        let consultaSelecionada: Consulta | null = null;
+
+        // 1. Priorizar a já selecionada, se ainda estiver disponível
+        if (consultaAtual && consultasDisponiveis.some(c => c.id === consultaAtual.id)) {
+          consultaSelecionada = consultasDisponiveis.find(c => c.id === consultaAtual.id) || null;
+        }
+
+        // 2. Senão, priorizar alguma com sala ativa
+        if (!consultaSelecionada) {
+          consultaSelecionada = consultasDisponiveis.find(c => salasPorConsulta[c.id]) || null;
+        }
+
+        // 3. Senão, pegar a primeira disponível
+        if (!consultaSelecionada && consultasDisponiveis.length > 0) {
+          consultaSelecionada = consultasDisponiveis[0];
+        }
+
+        setConsultaAtual(consultaSelecionada || null);
+        setSalaAtiva(consultaSelecionada ? salasPorConsulta[consultaSelecionada.id] || null : null);
         
       } catch (err) {
         console.error('🔍 Erro ao buscar consultas:', err);

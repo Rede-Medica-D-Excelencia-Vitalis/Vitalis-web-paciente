@@ -24,6 +24,7 @@ export const useVideochamada = ({
   const [error, setError] = useState<string | null>(null);
 
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
+  const remoteStreamRef = useRef<MediaStream | null>(null);
   const localVideoRef = useRef<HTMLVideoElement | null>(null);
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null);
   const wsRef = useRef<WebSocket | null>(null);
@@ -70,8 +71,35 @@ export const useVideochamada = ({
 
     // Eventos do peer connection
     pc.ontrack = (event) => {
-      console.log('🎥 Stream remoto recebido:', event.streams[0]);
-      setRemoteStream(event.streams[0]);
+      console.log('🎥 Track remoto recebido:', {
+        kind: event.track.kind,
+        label: event.track.label,
+        streams: event.streams?.length,
+        trackReadyState: event.track.readyState
+      });
+
+      // Criar (ou reaproveitar) um MediaStream para agregar todos os tracks remotos
+      if (!remoteStreamRef.current) {
+        remoteStreamRef.current = new MediaStream();
+        setRemoteStream(remoteStreamRef.current);
+      }
+
+      const remoteMediaStream = remoteStreamRef.current;
+
+      // Alguns navegadores enviam stream completo em event.streams[0]
+      if (event.streams && event.streams[0]) {
+        console.log('🎥 Atualizando stream remoto a partir de event.streams[0]');
+        remoteStreamRef.current = event.streams[0];
+        setRemoteStream(event.streams[0]);
+        return;
+      }
+
+      // Em outros casos, precisamos adicionar manualmente o track
+      if (remoteMediaStream && !remoteMediaStream.getTracks().some(t => t.id === event.track.id)) {
+        remoteMediaStream.addTrack(event.track);
+        setRemoteStream(remoteMediaStream);
+        console.log('🎥 Track remoto adicionado manualmente ao MediaStream');
+      }
     };
 
     pc.onicecandidate = (event) => {

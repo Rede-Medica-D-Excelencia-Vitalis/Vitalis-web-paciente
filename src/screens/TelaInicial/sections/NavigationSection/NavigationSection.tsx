@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ScrollArea } from "../../../../components/ui/scroll-area";
 import { Separator } from "../../../../components/ui/separator";
 import { usePlanPermissions } from "../../../../hooks/auth/usePlanPermissions";
 import { PlanRequiredModal } from "../../../../components/plans/PlanRequiredModal";
@@ -171,9 +170,8 @@ export const NavigationSection = (): JSX.Element => {
 
   return (
     <>
-      <nav className="w-[280px] bg-gradient-to-b from-blue-900 to-blue-700 shadow-xl">
-        <ScrollArea className="h-full">
-          <div className="p-4">
+      <nav className="w-[280px] bg-gradient-to-b from-blue-900 to-blue-700 shadow-xl h-full overflow-y-auto nav-scrollbar">
+        <div className="p-4 pb-6">
             {navigationSections.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-6">
                 <h3 className="px-4 text-sm font-semibold text-blue-100 uppercase tracking-wider mb-2">
@@ -233,8 +231,7 @@ export const NavigationSection = (): JSX.Element => {
                 )}
               </div>
             ))}
-          </div>
-        </ScrollArea>
+        </div>
       </nav>
 
       <PlanRequiredModal

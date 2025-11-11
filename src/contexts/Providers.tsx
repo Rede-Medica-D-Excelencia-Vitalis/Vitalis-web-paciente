@@ -4,6 +4,7 @@ import { ModalProvider } from './modal';
 import { NotificationProvider } from './notification';
 import { AppProvider } from './app';
 import { FullscreenProvider } from './fullscreen';
+import { NotificationToaster } from '../components';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
         <NotificationProvider>
           <ModalProvider>
             <FullscreenProvider>
+              <NotificationToaster />
               {children}
             </FullscreenProvider>
           </ModalProvider>

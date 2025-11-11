@@ -20,7 +20,7 @@ export { PlanChangeModal } from './plans/PlanChangeModal';
 export { PlanBanner } from './plans/PlanBanner';
 
 // Componentes de notificação
-export { NotificationDropdown } from './notifications/NotificationDropdown';
+export { NotificationDropdown, NotificationToaster } from './notifications';
 
 // Componentes de tracking de pedidos
 export { OrderTrackingSteps } from './tracking/OrderTrackingSteps';

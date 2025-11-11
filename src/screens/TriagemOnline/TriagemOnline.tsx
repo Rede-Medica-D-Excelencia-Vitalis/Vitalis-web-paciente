@@ -36,6 +36,8 @@ export const TriagemOnline = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<TriagemResult | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [timeLeft, setTimeLeft] = useState(420); // 7 minutos em segundos
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   useEffect(() => {
     loadQuestions();
@@ -58,6 +60,30 @@ export const TriagemOnline = () => {
       document.documentElement.style.overflow = '';
     };
   }, []);
+
+  // Temporizador de 7 minutos
+  useEffect(() => {
+    if (!started || showResult || loading) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [started, showResult, loading]);
+
+  // Formatar tempo para exibição (MM:SS)
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const loadQuestions = async () => {
     try {
@@ -115,42 +141,13 @@ export const TriagemOnline = () => {
           console.log('🔍 Perguntas relevantes encontradas:', relevantQuestions);
           console.log('🔍 Respostas atuais:', answers);
           
-          // Montar array de perguntas e respostas
-          const perguntas_respostas = relevantQuestions.map((question) => {
-            const answer = answers[question.id];
-            let resposta = '';
-            
-            if (Array.isArray(answer)) {
-              resposta = answer.join(', ');
-            } else if (typeof answer === 'string') {
-              resposta = answer;
-            } else {
-              resposta = 'Não respondido';
-            }
-            
-            return {
-              pergunta_id: question.id,
-              pergunta: question.text,
-              resposta: resposta
-            };
-          });
-          
-          console.log('📋 Perguntas e respostas montadas:', perguntas_respostas);
-          
-          // IDs das perguntas respondidas
-          const perguntas_respondidas = relevantQuestions.map(q => q.id);
-          
-          console.log('🔢 IDs das perguntas respondidas:', perguntas_respondidas);
-          
           await triagemService.saveTriagem({
             paciente_id: Number(user.id),
             sintomas: analysisResult.symptoms,
             nivel_risco: analysisResult.riskLevel,
             especialidades_recomendadas: analysisResult.recommendedSpecialties,
             observacoes: analysisResult.recommendations.join('; '),
-            data_triagem: new Date().toISOString(),
-            perguntas_respostas: perguntas_respostas,
-            perguntas_respondidas: perguntas_respondidas
+            data_triagem: new Date().toISOString()
           });
           console.log('✅ Triagem salva com sucesso no backend!');
         } catch (saveError) {
@@ -182,11 +179,11 @@ export const TriagemOnline = () => {
 
   const getRiskLevelColor = (riskLevel: string) => {
     switch (riskLevel) {
-      case 'muito_grave': return 'text-red-600 bg-red-100 border-red-300';
-      case 'grave': return 'text-orange-600 bg-orange-100 border-orange-300';
-      case 'moderado': return 'text-yellow-600 bg-yellow-100 border-yellow-300';
-      case 'leve': return 'text-green-600 bg-green-100 border-green-300';
-      default: return 'text-gray-600 bg-gray-100 border-gray-300';
+      case 'muito_grave': return 'text-red-700 bg-red-50 border border-red-200';
+      case 'grave': return 'text-orange-700 bg-orange-50 border border-orange-200';
+      case 'moderado': return 'text-yellow-700 bg-yellow-50 border border-yellow-200';
+      case 'leve': return 'text-green-700 bg-green-50 border border-green-200';
+      default: return 'text-gray-700 bg-gray-50 border border-gray-200';
     }
   };
 
@@ -338,7 +335,7 @@ export const TriagemOnline = () => {
                   <ZapIcon className="w-4 h-4 text-purple-400" />
                 </div>
                 <h3 className="text-white font-bold text-sm mb-1">Rápido e Fácil</h3>
-                <p className="text-gray-400 text-xs">Menos de 5 minutos</p>
+                <p className="text-gray-400 text-xs">Apenas 7 minutos</p>
               </div>
 
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:bg-white/10 transition-all duration-300">
@@ -354,11 +351,11 @@ export const TriagemOnline = () => {
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 mb-6">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-black text-white mb-1">15</div>
+                  <div className="text-2xl font-black text-white mb-1">10</div>
                   <div className="text-gray-400 text-xs font-medium">Perguntas</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-black text-white mb-1">5min</div>
+                  <div className="text-2xl font-black text-white mb-1">7min</div>
                   <div className="text-gray-400 text-xs font-medium">Tempo</div>
                 </div>
                 <div className="text-center">
@@ -391,86 +388,167 @@ export const TriagemOnline = () => {
     );
   }
 
+  // Detectar scroll para esconder a seta
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const element = e.currentTarget;
+    if (element.scrollTop > 100) {
+      setShowScrollIndicator(false);
+    } else {
+      setShowScrollIndicator(true);
+    }
+  };
+
   if (showResult && result) {
     return (
-      <div className="fixed inset-0 bg-blue-600 overflow-y-auto">
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-blue-800 overflow-hidden">
         <ExitButton />
 
-        <div className="min-h-screen p-3">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center text-white mb-6">
-              <div className="mx-auto w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3">
-                <CheckCircleIcon className="w-6 h-6 text-white" />
+        {/* Seta Indicadora de Scroll */}
+        {showScrollIndicator && (
+          <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+            <div className="bg-white/20 backdrop-blur-sm rounded-full p-2 shadow-lg border border-white/30">
+              <svg 
+                className="w-5 h-5 text-white" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </div>
+          </div>
+        )}
+
+        {/* Ícones Médicos Animados no Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-10 left-10 animate-float-slow opacity-10">
+            <HeartIcon className="w-24 h-24 text-white" />
+          </div>
+          <div className="absolute top-40 right-20 animate-float-medium opacity-10">
+            <StethoscopeIcon className="w-20 h-20 text-white" />
+          </div>
+          <div className="absolute bottom-32 left-16 animate-float-fast opacity-10">
+            <ActivityIcon className="w-16 h-16 text-white" />
+          </div>
+          <div className="absolute top-1/3 right-10 animate-float-slow opacity-10">
+            <BrainIcon className="w-28 h-28 text-white" />
+          </div>
+          <div className="absolute bottom-20 right-32 animate-float-medium opacity-10">
+            <HeartIcon className="w-20 h-20 text-white" />
+          </div>
+          <div className="absolute top-1/4 left-1/4 animate-float-fast opacity-10">
+            <SparklesIcon className="w-16 h-16 text-white" />
+          </div>
+          <div className="absolute bottom-1/4 left-1/3 animate-float-slow opacity-10">
+            <ShieldIcon className="w-24 h-24 text-white" />
+          </div>
+          <div className="absolute top-2/3 right-1/4 animate-float-medium opacity-10">
+            <StarIcon className="w-18 h-18 text-white" />
+          </div>
+        </div>
+
+        <div 
+          className="relative w-full h-full overflow-y-auto triagem-scrollbar z-20"
+          onScroll={handleScroll}
+        >
+          <div className="min-h-screen p-6 py-8">
+            <div className="max-w-5xl mx-auto">
+            
+            {/* Header Profissional com Fundo Azul */}
+            <div className="text-center mb-8 pt-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4 shadow-lg">
+                <CheckCircleIcon className="w-8 h-8 text-green-500" />
               </div>
-              <h1 className="text-2xl font-bold mb-2 text-white">
-                Análise Completa
+              
+              <div className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full mb-4 text-sm font-semibold border border-white/30">
+                ✓ Triagem Concluída
+              </div>
+              
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">
+                Resultado da Análise
               </h1>
-              <p className="text-base text-white/90">
-                Sua triagem foi analisada com sucesso pela nossa IA
+              <p className="text-lg text-white/90 max-w-2xl mx-auto">
+                Sua triagem foi analisada com sucesso pelo sistema Vitalis
               </p>
+              
+              <div className="mt-4 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
+                <ClockIcon className="w-4 h-4 text-white/80" />
+                <span className="text-white text-sm font-medium">Tempo: {formatTime(420 - timeLeft)}</span>
+              </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               {/* Alerta de Emergência */}
               {result.alertMessage && (
-                <div className="bg-red-500/20 border-2 border-red-500/30 p-4 rounded-xl">
-                  <div className="flex items-center gap-2 mb-2">
-                    <AlertTriangleIcon className="w-6 h-6 text-red-400" />
-                    <h4 className="text-lg font-bold text-red-200">ALERTA IMPORTANTE</h4>
-                  </div>
-                  <p className="text-red-100 text-base leading-relaxed font-medium">
-                    {result.alertMessage}
-                  </p>
-                  {result.urgency === 'muito_grave' && (
-                    <div className="mt-3 p-3 bg-red-600/30 rounded-lg">
-                      <p className="text-red-100 text-sm font-bold">
-                        🚑 CHAME 192 IMEDIATAMENTE OU DIRIJA-SE AO HOSPITAL MAIS PRÓXIMO
-                      </p>
+                <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg shadow-md">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <AlertTriangleIcon className="w-5 h-5 text-white" />
                     </div>
-                  )}
+                    <div>
+                      <h4 className="text-xl font-bold text-red-900 mb-2">Alerta Importante</h4>
+                      <p className="text-red-800 leading-relaxed">
+                        {result.alertMessage}
+                      </p>
+                      {result.urgency === 'muito_grave' && (
+                        <div className="mt-4 p-4 bg-red-100 rounded-lg border border-red-300">
+                          <p className="text-red-900 font-bold text-center">
+                            🚑 CHAME 192 IMEDIATAMENTE OU DIRIJA-SE AO HOSPITAL MAIS PRÓXIMO
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
               {/* Resultado Principal */}
-              <div className="bg-white/10 p-4 rounded-xl">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-bold text-white">Resultado da Triagem</h3>
-                  {getUrgencyIcon(result.urgency)}
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <ActivityIcon className="w-6 h-6 text-blue-600" />
+                    Resumo da Triagem
+                  </h3>
                 </div>
-                <div className="grid md:grid-cols-3 gap-3">
-                  <div className="text-center p-3 bg-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white mb-1">{result.riskPercentage}%</div>
-                    <div className="text-white/80 mb-1 text-xs">Nível de Risco</div>
-                    <div className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskLevelColor(result.riskLevel)}`}>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="text-center p-6 bg-blue-50 rounded-lg border border-blue-200">
+                    <div className="text-4xl font-bold text-blue-600 mb-2">{result.riskPercentage}%</div>
+                    <div className="text-gray-600 mb-2 text-sm font-medium">Nível de Risco</div>
+                    <div className={`px-3 py-1.5 rounded-lg text-xs font-bold ${getRiskLevelColor(result.riskLevel)}`}>
                       {getRiskLevelText(result.riskLevel)}
                     </div>
                   </div>
-                  <div className="text-center p-3 bg-white/10 rounded-lg">
-                    <div className="text-xl font-bold text-white mb-1">{getUrgencyText(result.urgency)}</div>
-                    <div className="text-white/80 mb-1 text-xs">Urgência</div>
-                    <div className="text-xs text-white/80">{result.estimatedWaitTime}</div>
+                  <div className="text-center p-6 bg-purple-50 rounded-lg border border-purple-200">
+                    <div className="text-2xl font-bold text-purple-600 mb-2">{getUrgencyText(result.urgency)}</div>
+                    <div className="text-gray-600 mb-2 text-sm font-medium">Urgência</div>
+                    <div className="text-sm text-gray-700 font-medium">{result.estimatedWaitTime}</div>
                   </div>
-                  <div className="text-center p-3 bg-white/10 rounded-lg">
-                    <div className="text-xl font-bold text-white mb-1">{result.recommendedSpecialties.length}</div>
-                    <div className="text-white/80 mb-1 text-xs">Especialidades</div>
-                    <div className="text-xs text-white/80">Recomendadas</div>
+                  <div className="text-center p-6 bg-green-50 rounded-lg border border-green-200">
+                    <div className="text-4xl font-bold text-green-600 mb-2">{result.recommendedSpecialties.length}</div>
+                    <div className="text-gray-600 mb-2 text-sm font-medium">Especialidades</div>
+                    <div className="text-sm text-gray-700 font-medium">Recomendadas</div>
                   </div>
                 </div>
               </div>
 
               {/* Especialidades Recomendadas */}
-              <div className="bg-white/10 p-4 rounded-xl">
-                <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                  <StarIcon className="w-4 h-4 text-white" />
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <StethoscopeIcon className="w-5 h-5 text-indigo-600" />
                   Especialidades Recomendadas
                 </h3>
-                <div className="grid md:grid-cols-2 gap-2">
+                <div className="grid md:grid-cols-2 gap-3">
                   {result.recommendedSpecialties.map((specialty, index) => (
-                    <div key={index} className="flex items-center gap-2 p-3 bg-white/10 rounded-lg hover:bg-white/15 transition-all duration-300">
-                      {getSpecialtyIcon(specialty)}
+                    <div key={index} className="flex items-center gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100 hover:border-indigo-200 transition-colors">
+                      <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <StethoscopeIcon className="w-5 h-5 text-white" />
+                      </div>
                       <div>
-                        <div className="font-semibold text-white capitalize text-sm">{specialty}</div>
-                        <div className="text-white/80 text-xs">Especialidade {index + 1}</div>
+                        <div className="font-semibold text-gray-900 capitalize">{specialty}</div>
+                        <div className="text-indigo-600 text-xs">Especialidade Indicada</div>
                       </div>
                     </div>
                   ))}
@@ -478,89 +556,98 @@ export const TriagemOnline = () => {
               </div>
 
               {/* Sintomas Detectados */}
-              <div className="bg-white/10 p-4 rounded-xl">
-                <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                  <ActivityIcon className="w-4 h-4 text-white" />
-                  Sintomas Detectados
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <ActivityIcon className="w-5 h-5 text-red-600" />
+                  Sintomas Identificados
                 </h3>
-                <div className="grid md:grid-cols-2 gap-2">
-                  {result.symptoms.map((symptom, index) => (
-                    <div key={index} className="flex items-center gap-2 p-2 bg-red-500/20 rounded-lg">
-                      <div className="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                      <span className="text-white text-xs">{symptom}</span>
-                    </div>
-                  ))}
-                </div>
+                {result.symptoms && result.symptoms.length > 0 ? (
+                  <div className="grid md:grid-cols-2 gap-2">
+                    {result.symptoms.map((symptom, index) => (
+                      <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                        <div className="w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></div>
+                        <span className="text-gray-700 text-sm">{symptom}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-100">
+                    <CheckCircleIcon className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-gray-700">Nenhum sintoma específico foi identificado nesta triagem.</span>
+                  </div>
+                )}
               </div>
 
               {/* Recomendações */}
-              <div className="bg-white/10 p-4 rounded-xl">
-                <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                  <ShieldIcon className="w-4 h-4 text-white" />
-                  Recomendações
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <ShieldIcon className="w-5 h-5 text-blue-600" />
+                  Recomendações Médicas
                 </h3>
                 <div className="space-y-2">
                   {result.recommendations.map((rec, index) => (
-                    <div key={index} className="flex items-start gap-2 p-3 bg-blue-500/20 rounded-lg">
-                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    <div key={index} className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                      <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                         {index + 1}
                       </div>
-                      <span className="text-white text-sm">{rec}</span>
+                      <span className="text-gray-700 leading-relaxed">{rec}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Próximos Passos */}
-              <div className="bg-white/10 p-4 rounded-xl">
-                <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                  <ZapIcon className="w-4 h-4 text-white" />
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <ZapIcon className="w-5 h-5 text-green-600" />
                   Próximos Passos
                 </h3>
                 <div className="space-y-2">
                   {result.nextSteps.map((step, index) => (
-                    <div key={index} className="flex items-start gap-2 p-3 bg-green-500/20 rounded-lg">
-                      <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    <div key={index} className="flex items-start gap-3 p-4 bg-green-50 rounded-lg border border-green-100">
+                      <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                         {index + 1}
                       </div>
-                      <span className="text-white text-sm">{step}</span>
+                      <span className="text-gray-700 leading-relaxed">{step}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Aviso Importante */}
-              <div className="bg-yellow-500/20 border-2 border-yellow-500/30 p-4 rounded-xl">
-                <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangleIcon className="w-5 h-5 text-yellow-400" />
-                  <h4 className="text-base font-semibold text-yellow-200">Aviso Importante</h4>
+              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start gap-3">
+                  <AlertTriangleIcon className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-bold text-amber-900 mb-2">Aviso Importante</h4>
+                    <p className="text-amber-800 text-sm leading-relaxed">
+                      Esta triagem <span className="font-bold">não substitui uma consulta médica</span>. É uma ferramenta de avaliação inicial. 
+                      Sempre consulte um profissional de saúde para diagnóstico e tratamento adequados.
+                    </p>
+                  </div>
                 </div>
-                <p className="text-yellow-100 text-sm leading-relaxed">
-                  Esta triagem não substitui uma consulta médica. É uma ferramenta de avaliação inicial 
-                  baseada em inteligência artificial. Sempre consulte um profissional de saúde para 
-                  diagnóstico e tratamento adequados.
-                </p>
               </div>
 
               {/* Botões de Ação */}
-              <div className="flex flex-col gap-3 pt-4">
+              <div className="flex flex-col gap-3 pt-4 pb-8">
                 <Button
                   onClick={generatePDF}
                   variant="outline"
-                  className="w-full py-3 text-base font-semibold border-2 border-white/30 hover:border-white/50 hover:bg-white/10 transition-all duration-300 bg-white/10 text-white"
+                  className="w-full py-4 text-base font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors rounded-lg"
                 >
-                  <DownloadIcon className="w-4 h-4 mr-2" />
-                  Baixar Relatório Completo
+                  <DownloadIcon className="w-5 h-5 mr-2" />
+                  Baixar Relatório em PDF
                 </Button>
 
                 <Button
-                  className="bg-white text-blue-600 hover:bg-gray-100 py-3 text-base font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="w-full py-4 text-base font-bold rounded-lg shadow-md hover:shadow-lg transition-all bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={() => navigate('/agendamento')}
                 >
-                  <CalendarIcon className="w-4 h-4 mr-2" />
+                  <CalendarIcon className="w-5 h-5 mr-2" />
                   Agendar Consulta
                 </Button>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -624,7 +711,12 @@ export const TriagemOnline = () => {
           <div className="max-w-md mx-auto">
             <div className="flex items-center justify-between mb-3">
               <span className="text-white text-sm font-medium">Pergunta {currentRelevantIndex + 1} de {relevantQuestions.length}</span>
-              <span className="text-white text-sm">{Math.max(1, Math.ceil((relevantQuestions.length - currentRelevantIndex - 1) * 0.3))} min restantes</span>
+              <div className="flex items-center gap-2">
+                <ClockIcon className="w-4 h-4 text-white" />
+                <span className={`text-sm font-bold ${timeLeft < 60 ? 'text-red-300 animate-pulse' : 'text-white'}`}>
+                  {formatTime(timeLeft)}
+                </span>
+              </div>
             </div>
             <div className="w-full bg-white/20 rounded-full h-2">
               <div 
@@ -661,13 +753,40 @@ export const TriagemOnline = () => {
                   <div className="space-y-4">
                     <div className="text-center">
                       <textarea
-                        value={answers[question.id] || ''}
+                        value={answers[question.id] === 'Não se aplica' ? '' : (answers[question.id] || '')}
                         onChange={(e) => setAnswers({ ...answers, [question.id]: e.target.value })}
                         placeholder={question.description || "Conte pra gente..."}
                         className="w-full p-4 rounded-lg border-2 border-white/20 bg-white/10 text-white placeholder-white/50 focus:border-white/40 focus:outline-none transition-all duration-300 resize-none text-sm"
                         rows={4}
+                        disabled={answers[question.id] === 'Não se aplica'}
                       />
                     </div>
+                    
+                    {/* Checkbox "Não se aplica" se a pergunta tiver options */}
+                    {question.options && question.options.includes('Não se aplica') && (
+                      <div className="flex items-center justify-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={`nao-se-aplica-${question.id}`}
+                          checked={answers[question.id] === 'Não se aplica'}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setAnswers({ ...answers, [question.id]: 'Não se aplica' });
+                            } else {
+                              setAnswers({ ...answers, [question.id]: '' });
+                            }
+                          }}
+                          className="w-4 h-4 rounded border-2 border-white/40 bg-white/10 checked:bg-white checked:border-white"
+                        />
+                        <label 
+                          htmlFor={`nao-se-aplica-${question.id}`}
+                          className="text-white text-sm cursor-pointer"
+                        >
+                          Não se aplica
+                        </label>
+                      </div>
+                    )}
+                    
                     <Button
                       onClick={() => {
                         const relevantQuestions = getRelevantQuestions();

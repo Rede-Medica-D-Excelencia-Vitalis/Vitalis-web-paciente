@@ -4,13 +4,15 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../../store/business';
-import { PlusIcon, MinusIcon, TrashIcon, ArrowLeftIcon, ArrowRightIcon, ShoppingCartIcon, X, CreditCard, QrCode } from 'lucide-react';
+import { PlusIcon, MinusIcon, TrashIcon, ArrowLeftIcon, ArrowRightIcon, ShoppingCartIcon, CreditCard, QrCode, ShieldCheck } from 'lucide-react';
 import { ScrollArea } from '../../components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
+import { PaymentCardPreview, PaymentCardFieldFocus } from '../../components/forms/PaymentCardPreview';
 import { pharmacyService } from '../../services/pharmacy/pharmacyService';
 import { useAuthStore } from '../../store/auth';
 import { Loading } from '../../components/ui/loading';
 import { api } from '../../lib/api';
+import { useNotification } from '../../contexts/notification';
 
 // Hooks personalizados para máscaras
 const useMaskedInput = (mask: string) => {
@@ -72,6 +74,7 @@ export const Cart = () => {
   const navigate = useNavigate();
   const { items, removeItem, updateQuantity, total, clearCart } = useCartStore();
   const { user } = useAuthStore();
+  const { addNotification } = useNotification();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<CheckoutFormData>({
     nome: user?.name || '',
@@ -94,6 +97,7 @@ export const Cart = () => {
     email: '',
     pedido_id: ''
   });
+  const [focusedField, setFocusedField] = useState<PaymentCardFieldFocus>(null);
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderId, setOrderId] = useState('');
   const [orderValue, setOrderValue] = useState(0);
@@ -163,7 +167,6 @@ export const Cart = () => {
 
   // Handler para mudança do CEP
   const handleCEPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
     cepMask.handleChange(e, (maskedValue) => {
       handleInputChange('cep', maskedValue);
       
@@ -192,14 +195,21 @@ export const Cart = () => {
     try {
       console.log('Debug - Valor do pedido:', pedidoValor, 'Tipo:', typeof pedidoValor);
       
+      const sanitizedPaymentData = {
+        ...paymentData,
+        pedido_id: pedidoId,
+        email: formData.email,
+        numero_cartao: (paymentData.numero_cartao || '').replace(/\s/g, ''),
+        validade: (paymentData.validade || '').replace(/\s/g, ''),
+        cvv: (paymentData.cvv || '').replace(/\s/g, '')
+      };
+
       const paymentPayload = {
         pedido_id: pedidoId,
         valor: Number(pedidoValor),
         forma_pagamento: paymentMethod === 'credit' ? 'cartao_credito' : 'pix',
         dados_pagamento: {
-          ...paymentData,
-          pedido_id: pedidoId,
-          email: formData.email
+          ...sanitizedPaymentData
         }
       };
 
@@ -290,10 +300,27 @@ export const Cart = () => {
         setOrderValue(Number(orderResponse.pedido.total));
         setOrderComplete(true);
         clearCart();
+
+        addNotification({
+          type: 'success',
+          title: 'Pedido realizado! 🎉',
+          message: 'Seu pedido foi confirmado. Vamos te avisar por aqui sobre cada etapa da entrega.',
+          duration: 6000,
+        });
+
+        window.dispatchEvent(new CustomEvent('notification:refresh'));
       }
     } catch (error: any) {
       console.error('Erro ao criar pedido:', error);
-      setOrderError(error.message || 'Erro ao processar pedido. Tente novamente.');
+      const friendlyMessage = error.message || 'Erro ao processar pedido. Tente novamente.';
+      setOrderError(friendlyMessage);
+
+      addNotification({
+        type: 'error',
+        title: 'Não conseguimos finalizar o pedido',
+        message: friendlyMessage,
+        duration: 7000,
+      });
     } finally {
       setIsCreatingOrder(false);
     }
@@ -328,25 +355,25 @@ export const Cart = () => {
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
                 <h3 className="font-semibold text-lg mb-4 text-blue-900">Informações do Pedido</h3>
                 <div className="space-y-2 text-left">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Total:</span>
+                  <div className="flex justify-between text-blue-900">
+                    <span className="font-medium">Total:</span>
                     <span className="font-semibold text-lg">R$ {orderValue.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Pagamento:</span>
+                  <div className="flex justify-between text-blue-900">
+                    <span className="font-medium">Pagamento:</span>
                     <span className="font-medium">{paymentMethod === 'credit' ? 'Cartão de Crédito' : 'PIX'}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Entrega:</span>
+                  <div className="flex justify-between text-blue-900">
+                    <span className="font-medium">Entrega:</span>
                     <span className="font-medium">{formData.rua}, {formData.numero}</span>
                   </div>
                 </div>
               </div>
               <div className="space-y-4">
-                <Button onClick={() => navigate('/meu-perfil')} className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3">
+              <Button onClick={() => navigate('/meu-perfil')} className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3">
                   Acompanhar Pedido
                 </Button>
-                <Button variant="outline" onClick={() => navigate('/farmacia')} className="w-full text-lg py-3">
+              <Button variant="outline" onClick={() => navigate('/farmacia')} className="w-full text-blue-700 text-lg py-3">
                   Voltar para a Farmácia
                 </Button>
               </div>
@@ -370,10 +397,10 @@ export const Cart = () => {
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Seu carrinho está vazio</h2>
                 <p className="text-gray-600">Adicione produtos para continuar suas compras</p>
               </div>
-              <Button 
-                onClick={() => navigate('/farmacia')} 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3"
-              >
+            <Button 
+              onClick={() => navigate('/farmacia')} 
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3"
+            >
                 Continuar Comprando
               </Button>
             </CardContent>
@@ -511,18 +538,18 @@ export const Cart = () => {
                   </div>
 
                   <div className="flex justify-between gap-4">
-                    <Button 
-                      variant="outline" 
-                      onClick={() => navigate('/farmacia')}
-                      className="flex-1 bg-white hover:bg-gray-50 text-lg py-3"
-                    >
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/farmacia')}
+                  className="flex-1 bg-white text-blue-700 text-lg py-3 transition-colors hover:text-blue-900 hover:border-blue-200 hover:bg-blue-50/60"
+                >
                       <ArrowLeftIcon className="w-5 h-5 mr-2" />
                       Continuar Comprando
                     </Button>
-                    <Button 
-                      onClick={() => setCurrentStep(2)}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-lg py-3"
-                    >
+                <Button 
+                  onClick={() => setCurrentStep(2)}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-lg py-3"
+                >
                       Finalizar Compra
                       <ArrowRightIcon className="w-5 h-5 ml-2" />
                     </Button>
@@ -541,21 +568,21 @@ export const Cart = () => {
                         placeholder="Nome Completo"
                         value={formData.nome}
                         onChange={(e) => handleInputChange('nome', e.target.value)}
-                        className="h-12"
+                        className="h-12 text-slate-900 placeholder:text-slate-400"
                       />
                       <Input
                         ref={telefoneMask.inputRef}
                         placeholder="Telefone"
                         value={formData.telefone}
                         onChange={(e) => telefoneMask.handleChange(e, (value) => handleInputChange('telefone', value))}
-                        className="h-12"
+                        className="h-12 text-slate-900 placeholder:text-slate-400"
                       />
                       <Input
                         type="email"
                         placeholder="Email"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="h-12"
+                        className="h-12 text-slate-900 placeholder:text-slate-400"
                       />
                     </div>
                   </div>
@@ -568,7 +595,7 @@ export const Cart = () => {
                           placeholder="CEP"
                           value={formData.cep}
                           onChange={handleCEPChange}
-                          className="h-12"
+                          className="h-12 text-slate-900 placeholder:text-slate-400"
                           maxLength={9}
                         />
                         {buscandoCEP && (
@@ -584,41 +611,41 @@ export const Cart = () => {
                         placeholder="Rua"
                         value={formData.rua}
                         onChange={(e) => handleInputChange('rua', e.target.value)}
-                        className="h-12"
+                        className="h-12 text-slate-900 placeholder:text-slate-400"
                       />
                       <div className="grid grid-cols-2 gap-3">
                         <Input
                           placeholder="Número"
                           value={formData.numero}
                           onChange={(e) => handleInputChange('numero', e.target.value)}
-                          className="h-12"
+                          className="h-12 text-slate-900 placeholder:text-slate-400"
                         />
                         <Input
                           placeholder="Complemento"
                           value={formData.complemento}
                           onChange={(e) => handleInputChange('complemento', e.target.value)}
-                          className="h-12"
+                          className="h-12 text-slate-900 placeholder:text-slate-400"
                         />
                       </div>
                       <Input
                         placeholder="Bairro"
                         value={formData.bairro}
                         onChange={(e) => handleInputChange('bairro', e.target.value)}
-                        className="h-12"
+                        className="h-12 text-slate-900 placeholder:text-slate-400"
                       />
                       <div className="grid grid-cols-2 gap-3">
                         <Input
                           placeholder="Cidade"
                           value={formData.cidade}
                           onChange={(e) => handleInputChange('cidade', e.target.value)}
-                          className="h-12"
+                          className="h-12 text-slate-900 placeholder:text-slate-400"
                         />
                         <Input
                           placeholder="Estado"
                           maxLength={2}
                           value={formData.estado}
                           onChange={(e) => handleInputChange('estado', e.target.value)}
-                          className="h-12"
+                          className="h-12 text-slate-900 placeholder:text-slate-400"
                         />
                       </div>
                     </div>
@@ -626,17 +653,17 @@ export const Cart = () => {
                 </div>
 
                 <div className="flex justify-between gap-4">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setCurrentStep(1)}
-                    className="flex-1 bg-white hover:bg-gray-50 text-lg py-3"
-                  >
+                <Button 
+                  variant="outline" 
+                  onClick={() => setCurrentStep(1)}
+                  className="flex-1 bg-white text-blue-700 text-lg py-3 transition-colors hover:text-blue-900 hover:border-blue-200 hover:bg-blue-50/60"
+                >
                     Voltar ao Carrinho
                   </Button>
-                  <Button 
-                    onClick={() => setCurrentStep(3)}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-lg py-3"
-                  >
+                <Button 
+                  onClick={() => setCurrentStep(3)}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-lg py-3"
+                >
                     Continuar para Pagamento
                     <ArrowRightIcon className="w-5 h-5 ml-2" />
                   </Button>
@@ -652,7 +679,13 @@ export const Cart = () => {
                   </div>
                 )}
 
-                <Tabs value={paymentMethod} onValueChange={(value: string) => setPaymentMethod(value as 'credit' | 'pix')}>
+                <Tabs
+                  value={paymentMethod}
+                  onValueChange={(value: string) => {
+                    setPaymentMethod(value as 'credit' | 'pix');
+                    setFocusedField(null);
+                  }}
+                >
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="credit" className="flex items-center gap-2">
                       <CreditCard className="w-4 h-4" />
@@ -664,43 +697,81 @@ export const Cart = () => {
                     </TabsTrigger>
                   </TabsList>
 
-                  <TabsContent value="credit" className="space-y-4">
-                    <div className="bg-blue-50 p-4 rounded-lg mb-4">
-                      <p className="text-sm text-blue-700">
-                        <strong>Cartões de teste:</strong><br/>
-                        • Aprovado: 4242 4242 4242 4242<br/>
-                        • Recusado: 4000 0000 0000 0002
-                      </p>
+                  <TabsContent value="credit" className="space-y-6">
+                    <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-start">
+                      <PaymentCardPreview
+                        cardNumber={paymentData.numero_cartao}
+                        cardName={paymentData.nome_cartao}
+                        expiry={paymentData.validade}
+                        cvv={paymentData.cvv}
+                        focusedField={focusedField}
+                        className="order-1"
+                      />
+                      <div className="space-y-4 order-2">
+                        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4 text-sm text-blue-700 shadow-sm">
+                          <p className="font-semibold text-blue-900">Cartões de teste Stripe</p>
+                          <ul className="mt-2 space-y-1">
+                            <li>Aprovado: 4242 4242 4242 4242</li>
+                            <li>Recusado: 4000 0000 0000 0002</li>
+                          </ul>
+                        </div>
+                        <div className="space-y-3">
+                          <Input
+                            ref={cartaoMask.inputRef}
+                            placeholder="Número do Cartão"
+                            value={paymentData.numero_cartao}
+                            onChange={(e) => cartaoMask.handleChange(e, (value) => handlePaymentDataChange('numero_cartao', value))}
+                            onFocus={() => setFocusedField('number')}
+                            onBlur={() => setFocusedField(null)}
+                            autoComplete="cc-number"
+                            inputMode="numeric"
+                            className="h-12 rounded-xl border-transparent bg-white text-slate-900 shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 placeholder:text-slate-400"
+                          />
+                          <Input
+                            placeholder="Nome no Cartão"
+                            value={paymentData.nome_cartao}
+                            onChange={(e) => handlePaymentDataChange('nome_cartao', e.target.value)}
+                            onFocus={() => setFocusedField('name')}
+                            onBlur={() => setFocusedField(null)}
+                            autoComplete="cc-name"
+                            className="h-12 rounded-xl border-transparent bg-white text-slate-900 shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 placeholder:text-slate-400"
+                          />
+                          <div className="grid grid-cols-2 gap-3">
+                            <Input
+                              ref={validadeMask.inputRef}
+                              placeholder="Validade (MM/AA)"
+                              value={paymentData.validade}
+                              onChange={(e) => validadeMask.handleChange(e, (value) => handlePaymentDataChange('validade', value))}
+                              onFocus={() => setFocusedField('expiry')}
+                              onBlur={() => setFocusedField(null)}
+                              autoComplete="cc-exp"
+                              inputMode="numeric"
+                              className="h-12 rounded-xl border-transparent bg-white text-slate-900 shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 placeholder:text-slate-400"
+                            />
+                            <Input
+                              placeholder="CVV"
+                              maxLength={4}
+                              value={paymentData.cvv}
+                              onChange={(e) => handlePaymentDataChange('cvv', e.target.value.replace(/\D/g, ''))}
+                              onFocus={() => setFocusedField('cvv')}
+                              onBlur={() => setFocusedField(null)}
+                              autoComplete="cc-csc"
+                              inputMode="numeric"
+                              className="h-12 rounded-xl border-transparent bg-white text-slate-900 shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 placeholder:text-slate-400"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-3">
-                      <Input
-                        ref={cartaoMask.inputRef}
-                        placeholder="Número do Cartão"
-                        value={paymentData.numero_cartao}
-                        onChange={(e) => cartaoMask.handleChange(e, (value) => handlePaymentDataChange('numero_cartao', value.replace(/\s/g, '')))}
-                        className="h-12"
-                      />
-                      <Input
-                        placeholder="Nome no Cartão"
-                        value={paymentData.nome_cartao}
-                        onChange={(e) => handlePaymentDataChange('nome_cartao', e.target.value)}
-                        className="h-12"
-                      />
-                      <div className="grid grid-cols-2 gap-3">
-                        <Input
-                          ref={validadeMask.inputRef}
-                          placeholder="Validade (MM/AA)"
-                          value={paymentData.validade}
-                          onChange={(e) => validadeMask.handleChange(e, (value) => handlePaymentDataChange('validade', value))}
-                          className="h-12"
-                        />
-                        <Input
-                          placeholder="CVV"
-                          maxLength={3}
-                          value={paymentData.cvv}
-                          onChange={(e) => handlePaymentDataChange('cvv', e.target.value)}
-                          className="h-12"
-                        />
+                    <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-sm text-blue-800">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm">
+                        <ShieldCheck className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="font-semibold">Pagamento 100% seguro</p>
+                        <p className="text-sm text-blue-700">
+                          Seus dados são criptografados e usados apenas para processar esta compra.
+                        </p>
                       </div>
                     </div>
                   </TabsContent>
@@ -724,7 +795,7 @@ export const Cart = () => {
                             <p className="font-mono text-sm break-all">{pixData.code}</p>
                           </div>
                         )}
-                        <Button variant="outline" onClick={copyPixCode} className="mb-3">
+                <Button variant="outline" onClick={copyPixCode} className="mb-3 text-blue-700 transition-colors hover:text-blue-900 hover:bg-blue-50/60 hover:border-blue-200">
                           Copiar Chave PIX
                         </Button>
                         <p className="text-xs text-gray-500">
@@ -750,19 +821,19 @@ export const Cart = () => {
                 </div>
 
                 <div className="flex justify-between gap-4">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setCurrentStep(2)} 
-                    disabled={isCreatingOrder}
-                    className="flex-1 bg-white hover:bg-gray-50 text-lg py-3"
-                  >
+                <Button 
+                  variant="outline" 
+                  onClick={() => setCurrentStep(2)} 
+                  disabled={isCreatingOrder}
+                  className="flex-1 bg-white text-blue-700 text-lg py-3 transition-colors hover:text-blue-900 hover:border-blue-200 hover:bg-blue-50/60 disabled:hover:bg-white disabled:hover:text-blue-700"
+                >
                     Voltar
                   </Button>
-                  <Button 
-                    onClick={handleCreateOrder} 
-                    disabled={isCreatingOrder}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-lg py-3 min-w-[180px]"
-                  >
+                <Button 
+                  onClick={handleCreateOrder} 
+                  disabled={isCreatingOrder}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white text-lg py-3 min-w-[180px]"
+                >
                     {isCreatingOrder ? (
                       <>
                         <Loading size="sm" />
@@ -797,13 +868,13 @@ export const Cart = () => {
                 <Button
                   variant="outline"
                   onClick={() => setShowClearCartConfirm(false)}
-                  className="flex-1"
+                  className="flex-1 text-slate-700 transition-colors hover:text-slate-900 hover:bg-slate-100"
                 >
                   Cancelar
                 </Button>
                 <Button
                   onClick={handleClearCart}
-                  className="flex-1 bg-red-600 hover:bg-red-700"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white"
                 >
                   Limpar Carrinho
                 </Button>

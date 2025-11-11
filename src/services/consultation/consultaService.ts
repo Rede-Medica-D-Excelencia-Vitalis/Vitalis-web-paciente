@@ -37,6 +37,83 @@ export interface VideochamadaInfo {
   isHost: boolean;
 }
 
+const isConsultaLike = (value: any): value is Consulta =>
+  value && typeof value === 'object' && 'id' in value && 'status' in value;
+
+const normalizeConsultasResponse = (raw: any): Consulta[] | null => {
+  if (!raw) return null;
+
+  if (Array.isArray(raw)) {
+    const flattened: Consulta[] = [];
+
+    for (const item of raw) {
+      if (isConsultaLike(item)) {
+        flattened.push(item);
+        continue;
+      }
+
+      if (Array.isArray(item)) {
+        const nested = normalizeConsultasResponse(item);
+        if (nested && nested.length > 0) {
+          flattened.push(...nested);
+        }
+        continue;
+      }
+
+      if (item && typeof item === 'object') {
+        const nested = normalizeConsultasResponse(item);
+        if (nested && nested.length > 0) {
+          flattened.push(...nested);
+        }
+        continue;
+      }
+    }
+
+    if (flattened.length > 0) {
+      return flattened;
+    }
+
+    return null;
+  }
+
+  if (Array.isArray(raw?.consultas)) {
+    return raw.consultas;
+  }
+
+  if (Array.isArray(raw?.dados?.consultas)) {
+    return raw.dados.consultas;
+  }
+
+  if (Array.isArray(raw?.dados)) {
+    return raw.dados;
+  }
+
+  if (typeof raw === 'object') {
+    const numericKeys = Object.keys(raw).filter((key) => /^\d+$/.test(key));
+    if (numericKeys.length > 0) {
+      const items = numericKeys
+        .sort((a, b) => Number(a) - Number(b))
+        .map((key) => (raw as Record<string, any>)[key]);
+
+      const filteredItems = items.filter(isConsultaLike);
+      if (filteredItems.length > 0) {
+        return filteredItems;
+      }
+
+      if (items.every(item => item && typeof item === 'object')) {
+        return items as Consulta[];
+      }
+    }
+
+    const values = Object.values(raw).filter((item) => item && typeof item === 'object');
+    if (values.length > 0) {
+      return values as Consulta[];
+    }
+  }
+
+  return null;
+};
+
 export const consultaService = {
   // Buscar próximas consultas do paciente
   async getProximasConsultas(): Promise<Consulta[]> {
@@ -46,7 +123,16 @@ export const consultaService = {
           _t: Date.now() // Cache-busting
         }
       });
-      return response.data;
+
+      const data = response.data;
+
+      const asArray = normalizeConsultasResponse(data);
+      if (asArray) {
+        return asArray;
+      }
+
+      console.warn('Formato inesperado da resposta em getProximasConsultas:', data);
+      return [];
     } catch (error) {
       console.error('Erro ao buscar próximas consultas:', error);
       throw error;
