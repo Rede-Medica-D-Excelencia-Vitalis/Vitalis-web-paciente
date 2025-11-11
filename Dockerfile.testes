@@ -1,0 +1,26 @@
+# Dockerfile para execução dos testes de interface
+FROM mcr.microsoft.com/playwright:v1.40.0-focal
+
+# Instalar curl para health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Definir diretório de trabalho
+WORKDIR /app
+
+# Copiar arquivos de dependências
+COPY package*.json ./
+
+# Instalar dependências
+RUN npm ci
+
+# Copiar código fonte
+COPY . .
+
+# Instalar navegadores do Playwright
+RUN npx playwright install --with-deps
+
+# Expor porta da aplicação
+EXPOSE 5173
+
+# Comando padrão (será sobrescrito pelo docker-compose)
+CMD ["npm", "run", "dev"]

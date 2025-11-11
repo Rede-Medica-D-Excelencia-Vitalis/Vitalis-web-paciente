@@ -6,6 +6,7 @@ import { CentralAjuda } from "./screens/CentralAjuda/CentralAjuda";
 import { ConsultasAnteriores } from "./screens/ConsultasAnteriores/ConsultasAnteriores";
 import { Emergencia } from "./screens/Emergencia/Emergencia";
 import { Farmacia } from "./screens/Farmacia/Farmacia";
+import { TestPage } from "./pages/TestPage";
 
 import { Cart } from "./screens/Farmacia/Cart";
 import { MeuPerfil } from "./screens/MeuPerfil/MeuPerfil";
@@ -148,6 +149,8 @@ export const App = () => {
         }>
           <Route index element={<TesteVideochamada />} />
         </Route>
+
+        <Route path="/test" element={<TestPage />} />
 
         <Route path="/prescricoes" element={
           <ProtectedRoute>

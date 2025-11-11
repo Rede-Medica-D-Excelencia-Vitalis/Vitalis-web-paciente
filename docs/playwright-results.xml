@@ -1,0 +1,3512 @@
+<testsuites id="" name="" tests="850" failures="0" skipped="850" errors="0" time="0.10800800000000003">
+<testsuite name="UI-001-layout-desktop.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="24" failures="0" skipped="24" time="0" errors="0">
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar viewport desktop 1920x1080" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar layout responsivo para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar header com logo e menu" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar sidebar de navegação visível" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar itens de navegação na sidebar" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cards de estatísticas em 5 colunas" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar distribuição adequada dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar lista de consultas bem estruturada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar formulário de agendamento com layout adequado" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar funcionalidade dos formulários" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar botões e controles acessíveis" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar calendário de agendamento" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interação com calendário" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interface de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar controles de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar navegação fluida entre seções" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar acessibilidade da navegação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar texto legível sem zoom" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar contraste e visibilidade dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar performance adequada para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar responsividade em diferentes tamanhos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar todos os critérios de aprovação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve monitorar métricas de interface desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cenários de interface degradada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-002-layout-tablet.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar viewport tablet 768x1024" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar layout adaptado para tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar sidebar colapsível ou em overlay" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar menu hambúrguer se aplicável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cards reorganizados em 2-3 colunas" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões com tamanho adequado para touch" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários responsivos" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar navegação touch-friendly" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar lista de consultas scrollável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar calendário adaptado" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões de ação acessíveis" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários de login/cadastro" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar performance mantida" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar todos os critérios de aprovação" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve monitorar métricas de interface tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cenários de interface degradada" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-003-layout-mobile-portrait.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar viewport mobile portrait 375x667" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar layout otimizado para mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar menu hambúrguer funcional" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cards empilhados verticalmente" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões com tamanho mínimo 44px" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários adaptados" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar texto legível sem zoom horizontal" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar scroll suave" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar lista de consultas otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar calendário mobile-friendly" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões de ação acessíveis" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários de login/cadastro" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar performance otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar todos os critérios de aprovação" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve monitorar métricas de interface mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cenários de interface degradada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-004-layout-mobile-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar viewport mobile landscape 667x375" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar layout adaptado para landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar aproveitamento da largura disponível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar navegação ainda acessível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários funcionais" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar conteúdo não cortado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar header compacto" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cards em 2 colunas se possível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar lista de consultas otimizada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar calendário adaptado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar botões acessíveis" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários responsivos" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar performance mantida" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar todos os critérios de aprovação" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve monitorar métricas de interface mobile landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cenários de interface degradada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-005-layout-tablet-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="15" failures="0" skipped="15" time="0" errors="0">
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar viewport tablet landscape 1024x768" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar layout otimizado para landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar aproveitamento da largura" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar sidebar visível ou colapsível" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cards em 3-4 colunas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar navegação fluida" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar lista de consultas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar calendário de agendamento" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar formulários" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar interface de videochamada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar performance adequada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar UX consistente" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar todos os critérios de aprovação" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve monitorar métricas de interface tablet landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cenários de interface degradada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-006-breakpoints-intermediarios.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 320px (mobile pequeno)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 480px (mobile grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 768px (tablet portrait)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1024px (tablet landscape)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1440px (desktop grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1920px (desktop full HD)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar transições suaves entre breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar elementos se reorganizam adequadamente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar nenhum layout quebrado" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar funcionalidades mantidas" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar performance consistente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar UX fluida" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar todos os critérios de aprovação" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve monitorar métricas de breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-007-menu-navegacao-principal.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar itens do menu principal" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar organização lógica dos itens" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Dashboard" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Agendamento" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Teleconsulta" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Triagem Online" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Farmácia" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Prescrições" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Resultados" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Meu Perfil" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Central de Ajuda" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar indicador visual da página ativa" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar menu responsivo em mobile" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar navegação rápida e intuitiva" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar todos os critérios de aprovação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve monitorar métricas de navegação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar cenários de navegação degradada" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Data" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Médico" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Farmácia &gt; Produto Detalhado" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Triagem &gt; Pergunta X de Y" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Meu Perfil &gt; Editar Dados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar estrutura hierárquica clara" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar redirecionamento correto ao clicar em breadcrumb" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs responsivos" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar navegação contextual" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar todos os critérios de aprovação" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve monitorar métricas de breadcrumbs" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar cenários de breadcrumbs degradados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-009-botoes-navegacao-acoes.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação principal" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de navegação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de filtro e busca" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de toggle" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação secundária" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar feedback visual claro" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar estados visuais distintos" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar ações executadas corretamente" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar acessibilidade via teclado" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar consistência visual" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões em diferentes resoluções" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar todos os critérios de aprovação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve monitorar métricas de botões" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar cenários de botões degradados" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-010-consistencia-cores-tipografia.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar paleta de cores consistente" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cores secundárias consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tipografia uniforme" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tamanhos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar pesos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar espaçamentos padronizados" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar bordas e sombras consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar ícones e imagens consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar identidade visual coesa" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar consistência em diferentes páginas" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar todos os critérios de aprovação" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve monitorar métricas de consistência visual" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cenários de consistência visual degradada" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-011-acessibilidade-usabilidade.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="chromium" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar indicadores de foco" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar contraste de cores adequado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar compatibilidade com screen reader" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar alt texts descritivos" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar labels em formulários" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar atributos ARIA" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar zoom até 200% funcional" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado em diferentes páginas" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar acessibilidade em diferentes resoluções" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar todos os critérios de aprovação" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve monitorar métricas de acessibilidade" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar cenários de acessibilidade degradada" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-001-layout-desktop.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="24" failures="0" skipped="24" time="0" errors="0">
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar viewport desktop 1920x1080" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar layout responsivo para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar header com logo e menu" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar sidebar de navegação visível" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar itens de navegação na sidebar" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cards de estatísticas em 5 colunas" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar distribuição adequada dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar lista de consultas bem estruturada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar formulário de agendamento com layout adequado" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar funcionalidade dos formulários" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar botões e controles acessíveis" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar calendário de agendamento" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interação com calendário" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interface de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar controles de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar navegação fluida entre seções" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar acessibilidade da navegação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar texto legível sem zoom" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar contraste e visibilidade dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar performance adequada para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar responsividade em diferentes tamanhos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar todos os critérios de aprovação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve monitorar métricas de interface desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cenários de interface degradada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-002-layout-tablet.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar viewport tablet 768x1024" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar layout adaptado para tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar sidebar colapsível ou em overlay" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar menu hambúrguer se aplicável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cards reorganizados em 2-3 colunas" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões com tamanho adequado para touch" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários responsivos" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar navegação touch-friendly" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar lista de consultas scrollável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar calendário adaptado" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões de ação acessíveis" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários de login/cadastro" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar performance mantida" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar todos os critérios de aprovação" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve monitorar métricas de interface tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cenários de interface degradada" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-003-layout-mobile-portrait.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar viewport mobile portrait 375x667" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar layout otimizado para mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar menu hambúrguer funcional" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cards empilhados verticalmente" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões com tamanho mínimo 44px" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários adaptados" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar texto legível sem zoom horizontal" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar scroll suave" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar lista de consultas otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar calendário mobile-friendly" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões de ação acessíveis" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários de login/cadastro" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar performance otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar todos os critérios de aprovação" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve monitorar métricas de interface mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cenários de interface degradada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-004-layout-mobile-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar viewport mobile landscape 667x375" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar layout adaptado para landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar aproveitamento da largura disponível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar navegação ainda acessível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários funcionais" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar conteúdo não cortado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar header compacto" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cards em 2 colunas se possível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar lista de consultas otimizada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar calendário adaptado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar botões acessíveis" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários responsivos" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar performance mantida" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar todos os critérios de aprovação" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve monitorar métricas de interface mobile landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cenários de interface degradada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-005-layout-tablet-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="15" failures="0" skipped="15" time="0" errors="0">
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar viewport tablet landscape 1024x768" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar layout otimizado para landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar aproveitamento da largura" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar sidebar visível ou colapsível" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cards em 3-4 colunas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar navegação fluida" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar lista de consultas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar calendário de agendamento" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar formulários" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar interface de videochamada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar performance adequada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar UX consistente" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar todos os critérios de aprovação" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve monitorar métricas de interface tablet landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cenários de interface degradada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-006-breakpoints-intermediarios.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 320px (mobile pequeno)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 480px (mobile grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 768px (tablet portrait)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1024px (tablet landscape)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1440px (desktop grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1920px (desktop full HD)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar transições suaves entre breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar elementos se reorganizam adequadamente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar nenhum layout quebrado" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar funcionalidades mantidas" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar performance consistente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar UX fluida" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar todos os critérios de aprovação" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve monitorar métricas de breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-007-menu-navegacao-principal.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar itens do menu principal" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar organização lógica dos itens" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Dashboard" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Agendamento" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Teleconsulta" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Triagem Online" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Farmácia" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Prescrições" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Resultados" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Meu Perfil" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Central de Ajuda" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar indicador visual da página ativa" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar menu responsivo em mobile" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar navegação rápida e intuitiva" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar todos os critérios de aprovação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve monitorar métricas de navegação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar cenários de navegação degradada" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Data" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Médico" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Farmácia &gt; Produto Detalhado" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Triagem &gt; Pergunta X de Y" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Meu Perfil &gt; Editar Dados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar estrutura hierárquica clara" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar redirecionamento correto ao clicar em breadcrumb" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs responsivos" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar navegação contextual" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar todos os critérios de aprovação" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve monitorar métricas de breadcrumbs" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar cenários de breadcrumbs degradados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-009-botoes-navegacao-acoes.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação principal" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de navegação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de filtro e busca" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de toggle" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação secundária" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar feedback visual claro" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar estados visuais distintos" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar ações executadas corretamente" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar acessibilidade via teclado" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar consistência visual" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões em diferentes resoluções" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar todos os critérios de aprovação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve monitorar métricas de botões" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar cenários de botões degradados" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-010-consistencia-cores-tipografia.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar paleta de cores consistente" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cores secundárias consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tipografia uniforme" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tamanhos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar pesos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar espaçamentos padronizados" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar bordas e sombras consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar ícones e imagens consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar identidade visual coesa" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar consistência em diferentes páginas" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar todos os critérios de aprovação" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve monitorar métricas de consistência visual" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cenários de consistência visual degradada" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-011-acessibilidade-usabilidade.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="firefox" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar indicadores de foco" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar contraste de cores adequado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar compatibilidade com screen reader" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar alt texts descritivos" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar labels em formulários" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar atributos ARIA" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar zoom até 200% funcional" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado em diferentes páginas" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar acessibilidade em diferentes resoluções" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar todos os critérios de aprovação" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve monitorar métricas de acessibilidade" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar cenários de acessibilidade degradada" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-001-layout-desktop.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="24" failures="0" skipped="24" time="0" errors="0">
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar viewport desktop 1920x1080" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar layout responsivo para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar header com logo e menu" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar sidebar de navegação visível" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar itens de navegação na sidebar" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cards de estatísticas em 5 colunas" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar distribuição adequada dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar lista de consultas bem estruturada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar formulário de agendamento com layout adequado" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar funcionalidade dos formulários" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar botões e controles acessíveis" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar calendário de agendamento" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interação com calendário" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interface de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar controles de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar navegação fluida entre seções" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar acessibilidade da navegação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar texto legível sem zoom" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar contraste e visibilidade dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar performance adequada para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar responsividade em diferentes tamanhos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar todos os critérios de aprovação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve monitorar métricas de interface desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cenários de interface degradada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-002-layout-tablet.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar viewport tablet 768x1024" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar layout adaptado para tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar sidebar colapsível ou em overlay" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar menu hambúrguer se aplicável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cards reorganizados em 2-3 colunas" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões com tamanho adequado para touch" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários responsivos" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar navegação touch-friendly" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar lista de consultas scrollável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar calendário adaptado" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões de ação acessíveis" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários de login/cadastro" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar performance mantida" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar todos os critérios de aprovação" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve monitorar métricas de interface tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cenários de interface degradada" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-003-layout-mobile-portrait.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar viewport mobile portrait 375x667" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar layout otimizado para mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar menu hambúrguer funcional" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cards empilhados verticalmente" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões com tamanho mínimo 44px" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários adaptados" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar texto legível sem zoom horizontal" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar scroll suave" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar lista de consultas otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar calendário mobile-friendly" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões de ação acessíveis" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários de login/cadastro" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar performance otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar todos os critérios de aprovação" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve monitorar métricas de interface mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cenários de interface degradada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-004-layout-mobile-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar viewport mobile landscape 667x375" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar layout adaptado para landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar aproveitamento da largura disponível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar navegação ainda acessível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários funcionais" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar conteúdo não cortado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar header compacto" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cards em 2 colunas se possível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar lista de consultas otimizada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar calendário adaptado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar botões acessíveis" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários responsivos" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar performance mantida" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar todos os critérios de aprovação" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve monitorar métricas de interface mobile landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cenários de interface degradada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-005-layout-tablet-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="15" failures="0" skipped="15" time="0" errors="0">
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar viewport tablet landscape 1024x768" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar layout otimizado para landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar aproveitamento da largura" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar sidebar visível ou colapsível" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cards em 3-4 colunas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar navegação fluida" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar lista de consultas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar calendário de agendamento" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar formulários" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar interface de videochamada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar performance adequada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar UX consistente" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar todos os critérios de aprovação" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve monitorar métricas de interface tablet landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cenários de interface degradada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-006-breakpoints-intermediarios.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 320px (mobile pequeno)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 480px (mobile grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 768px (tablet portrait)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1024px (tablet landscape)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1440px (desktop grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1920px (desktop full HD)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar transições suaves entre breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar elementos se reorganizam adequadamente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar nenhum layout quebrado" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar funcionalidades mantidas" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar performance consistente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar UX fluida" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar todos os critérios de aprovação" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve monitorar métricas de breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-007-menu-navegacao-principal.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar itens do menu principal" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar organização lógica dos itens" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Dashboard" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Agendamento" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Teleconsulta" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Triagem Online" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Farmácia" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Prescrições" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Resultados" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Meu Perfil" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Central de Ajuda" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar indicador visual da página ativa" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar menu responsivo em mobile" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar navegação rápida e intuitiva" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar todos os critérios de aprovação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve monitorar métricas de navegação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar cenários de navegação degradada" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Data" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Médico" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Farmácia &gt; Produto Detalhado" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Triagem &gt; Pergunta X de Y" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Meu Perfil &gt; Editar Dados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar estrutura hierárquica clara" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar redirecionamento correto ao clicar em breadcrumb" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs responsivos" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar navegação contextual" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar todos os critérios de aprovação" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve monitorar métricas de breadcrumbs" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar cenários de breadcrumbs degradados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-009-botoes-navegacao-acoes.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação principal" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de navegação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de filtro e busca" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de toggle" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação secundária" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar feedback visual claro" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar estados visuais distintos" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar ações executadas corretamente" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar acessibilidade via teclado" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar consistência visual" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões em diferentes resoluções" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar todos os critérios de aprovação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve monitorar métricas de botões" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar cenários de botões degradados" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-010-consistencia-cores-tipografia.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar paleta de cores consistente" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cores secundárias consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tipografia uniforme" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tamanhos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar pesos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar espaçamentos padronizados" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar bordas e sombras consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar ícones e imagens consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar identidade visual coesa" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar consistência em diferentes páginas" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar todos os critérios de aprovação" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve monitorar métricas de consistência visual" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cenários de consistência visual degradada" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-011-acessibilidade-usabilidade.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="webkit" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar indicadores de foco" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar contraste de cores adequado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar compatibilidade com screen reader" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar alt texts descritivos" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar labels em formulários" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar atributos ARIA" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar zoom até 200% funcional" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado em diferentes páginas" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar acessibilidade em diferentes resoluções" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar todos os critérios de aprovação" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve monitorar métricas de acessibilidade" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar cenários de acessibilidade degradada" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-001-layout-desktop.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="24" failures="0" skipped="24" time="0" errors="0">
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar viewport desktop 1920x1080" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar layout responsivo para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar header com logo e menu" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar sidebar de navegação visível" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar itens de navegação na sidebar" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cards de estatísticas em 5 colunas" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar distribuição adequada dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar lista de consultas bem estruturada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar formulário de agendamento com layout adequado" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar funcionalidade dos formulários" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar botões e controles acessíveis" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar calendário de agendamento" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interação com calendário" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interface de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar controles de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar navegação fluida entre seções" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar acessibilidade da navegação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar texto legível sem zoom" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar contraste e visibilidade dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar performance adequada para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar responsividade em diferentes tamanhos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar todos os critérios de aprovação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve monitorar métricas de interface desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cenários de interface degradada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-002-layout-tablet.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar viewport tablet 768x1024" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar layout adaptado para tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar sidebar colapsível ou em overlay" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar menu hambúrguer se aplicável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cards reorganizados em 2-3 colunas" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões com tamanho adequado para touch" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários responsivos" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar navegação touch-friendly" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar lista de consultas scrollável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar calendário adaptado" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões de ação acessíveis" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários de login/cadastro" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar performance mantida" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar todos os critérios de aprovação" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve monitorar métricas de interface tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cenários de interface degradada" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-003-layout-mobile-portrait.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar viewport mobile portrait 375x667" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar layout otimizado para mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar menu hambúrguer funcional" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cards empilhados verticalmente" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões com tamanho mínimo 44px" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários adaptados" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar texto legível sem zoom horizontal" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar scroll suave" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar lista de consultas otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar calendário mobile-friendly" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões de ação acessíveis" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários de login/cadastro" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar performance otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar todos os critérios de aprovação" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve monitorar métricas de interface mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cenários de interface degradada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-004-layout-mobile-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar viewport mobile landscape 667x375" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar layout adaptado para landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar aproveitamento da largura disponível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar navegação ainda acessível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários funcionais" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar conteúdo não cortado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar header compacto" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cards em 2 colunas se possível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar lista de consultas otimizada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar calendário adaptado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar botões acessíveis" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários responsivos" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar performance mantida" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar todos os critérios de aprovação" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve monitorar métricas de interface mobile landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cenários de interface degradada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-005-layout-tablet-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="15" failures="0" skipped="15" time="0" errors="0">
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar viewport tablet landscape 1024x768" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar layout otimizado para landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar aproveitamento da largura" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar sidebar visível ou colapsível" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cards em 3-4 colunas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar navegação fluida" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar lista de consultas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar calendário de agendamento" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar formulários" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar interface de videochamada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar performance adequada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar UX consistente" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar todos os critérios de aprovação" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve monitorar métricas de interface tablet landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cenários de interface degradada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-006-breakpoints-intermediarios.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 320px (mobile pequeno)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 480px (mobile grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 768px (tablet portrait)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1024px (tablet landscape)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1440px (desktop grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1920px (desktop full HD)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar transições suaves entre breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar elementos se reorganizam adequadamente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar nenhum layout quebrado" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar funcionalidades mantidas" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar performance consistente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar UX fluida" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar todos os critérios de aprovação" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve monitorar métricas de breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-007-menu-navegacao-principal.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar itens do menu principal" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar organização lógica dos itens" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Dashboard" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Agendamento" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Teleconsulta" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Triagem Online" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Farmácia" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Prescrições" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Resultados" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Meu Perfil" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Central de Ajuda" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar indicador visual da página ativa" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar menu responsivo em mobile" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar navegação rápida e intuitiva" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar todos os critérios de aprovação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve monitorar métricas de navegação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar cenários de navegação degradada" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Data" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Médico" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Farmácia &gt; Produto Detalhado" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Triagem &gt; Pergunta X de Y" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Meu Perfil &gt; Editar Dados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar estrutura hierárquica clara" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar redirecionamento correto ao clicar em breadcrumb" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs responsivos" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar navegação contextual" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar todos os critérios de aprovação" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve monitorar métricas de breadcrumbs" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar cenários de breadcrumbs degradados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-009-botoes-navegacao-acoes.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação principal" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de navegação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de filtro e busca" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de toggle" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação secundária" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar feedback visual claro" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar estados visuais distintos" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar ações executadas corretamente" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar acessibilidade via teclado" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar consistência visual" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões em diferentes resoluções" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar todos os critérios de aprovação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve monitorar métricas de botões" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar cenários de botões degradados" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-010-consistencia-cores-tipografia.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar paleta de cores consistente" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cores secundárias consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tipografia uniforme" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tamanhos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar pesos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar espaçamentos padronizados" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar bordas e sombras consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar ícones e imagens consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar identidade visual coesa" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar consistência em diferentes páginas" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar todos os critérios de aprovação" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve monitorar métricas de consistência visual" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cenários de consistência visual degradada" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-011-acessibilidade-usabilidade.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Chrome" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar indicadores de foco" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar contraste de cores adequado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar compatibilidade com screen reader" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar alt texts descritivos" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar labels em formulários" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar atributos ARIA" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar zoom até 200% funcional" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado em diferentes páginas" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar acessibilidade em diferentes resoluções" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar todos os critérios de aprovação" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve monitorar métricas de acessibilidade" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar cenários de acessibilidade degradada" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-001-layout-desktop.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="24" failures="0" skipped="24" time="0" errors="0">
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar viewport desktop 1920x1080" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar layout responsivo para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar header com logo e menu" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar sidebar de navegação visível" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar itens de navegação na sidebar" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cards de estatísticas em 5 colunas" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar distribuição adequada dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar lista de consultas bem estruturada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar formulário de agendamento com layout adequado" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar funcionalidade dos formulários" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar botões e controles acessíveis" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar calendário de agendamento" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interação com calendário" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar interface de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar controles de videochamada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar navegação fluida entre seções" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar acessibilidade da navegação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar texto legível sem zoom" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar contraste e visibilidade dos elementos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar performance adequada para desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar responsividade em diferentes tamanhos" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar todos os critérios de aprovação" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve monitorar métricas de interface desktop" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-001 - Layout Desktop (1920x1080) › deve verificar cenários de interface degradada" classname="UI-001-layout-desktop.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-002-layout-tablet.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar viewport tablet 768x1024" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar layout adaptado para tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar sidebar colapsível ou em overlay" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar menu hambúrguer se aplicável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cards reorganizados em 2-3 colunas" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões com tamanho adequado para touch" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários responsivos" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar navegação touch-friendly" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar lista de consultas scrollável" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar calendário adaptado" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar botões de ação acessíveis" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar formulários de login/cadastro" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar performance mantida" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar todos os critérios de aprovação" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve monitorar métricas de interface tablet" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-002 - Layout Tablet (768x1024) › deve verificar cenários de interface degradada" classname="UI-002-layout-tablet.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-003-layout-mobile-portrait.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar viewport mobile portrait 375x667" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar layout otimizado para mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar menu hambúrguer funcional" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cards empilhados verticalmente" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões com tamanho mínimo 44px" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários adaptados" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar texto legível sem zoom horizontal" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar scroll suave" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar lista de consultas otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar calendário mobile-friendly" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar botões de ação acessíveis" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar formulários de login/cadastro" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar performance otimizada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar todos os critérios de aprovação" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve monitorar métricas de interface mobile" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-003 - Layout Mobile Portrait (375x667) › deve verificar cenários de interface degradada" classname="UI-003-layout-mobile-portrait.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-004-layout-mobile-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="16" failures="0" skipped="16" time="0" errors="0">
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar viewport mobile landscape 667x375" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar layout adaptado para landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar aproveitamento da largura disponível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar navegação ainda acessível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários funcionais" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar conteúdo não cortado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar header compacto" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cards em 2 colunas se possível" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar lista de consultas otimizada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar calendário adaptado" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar botões acessíveis" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar formulários responsivos" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar performance mantida" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar todos os critérios de aprovação" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve monitorar métricas de interface mobile landscape" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-004 - Layout Mobile Landscape (667x375) › deve verificar cenários de interface degradada" classname="UI-004-layout-mobile-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-005-layout-tablet-landscape.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="15" failures="0" skipped="15" time="0" errors="0">
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar viewport tablet landscape 1024x768" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar layout otimizado para landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar aproveitamento da largura" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar sidebar visível ou colapsível" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cards em 3-4 colunas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar navegação fluida" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar lista de consultas" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar calendário de agendamento" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar formulários" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar interface de videochamada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar performance adequada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar UX consistente" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar todos os critérios de aprovação" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve monitorar métricas de interface tablet landscape" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-005 - Layout Tablet Landscape (1024x768) › deve verificar cenários de interface degradada" classname="UI-005-layout-tablet-landscape.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-006-breakpoints-intermediarios.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 320px (mobile pequeno)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 480px (mobile grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 768px (tablet portrait)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1024px (tablet landscape)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1440px (desktop grande)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar breakpoint 1920px (desktop full HD)" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar transições suaves entre breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar elementos se reorganizam adequadamente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar nenhum layout quebrado" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar funcionalidades mantidas" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar performance consistente" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar UX fluida" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve verificar todos os critérios de aprovação" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-006 - Breakpoints Intermediários › deve monitorar métricas de breakpoints" classname="UI-006-breakpoints-intermediarios.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-007-menu-navegacao-principal.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar itens do menu principal" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar organização lógica dos itens" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Dashboard" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Agendamento" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Teleconsulta" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Triagem Online" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Farmácia" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Prescrições" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Resultados" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Meu Perfil" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar redirecionamento para Central de Ajuda" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar indicador visual da página ativa" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar menu responsivo em mobile" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar navegação rápida e intuitiva" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar todos os critérios de aprovação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve monitorar métricas de navegação" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-007 - Menu de Navegação Principal › deve verificar cenários de navegação degradada" classname="UI-007-menu-navegacao-principal.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Data" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Agendamento &gt; Selecionar Médico" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Farmácia &gt; Produto Detalhado" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Triagem &gt; Pergunta X de Y" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs em Meu Perfil &gt; Editar Dados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar estrutura hierárquica clara" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar redirecionamento correto ao clicar em breadcrumb" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar breadcrumbs responsivos" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar navegação contextual" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar todos os critérios de aprovação" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve monitorar métricas de breadcrumbs" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-008 - Breadcrumbs e Navegação Hierárquica › deve verificar cenários de breadcrumbs degradados" classname="UI-008-breadcrumbs-navegacao-hierarquica.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-009-botoes-navegacao-acoes.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação principal" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de navegação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de filtro e busca" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de toggle" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões de ação secundária" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar feedback visual claro" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar estados visuais distintos" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar ações executadas corretamente" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar acessibilidade via teclado" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar consistência visual" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar botões em diferentes resoluções" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar todos os critérios de aprovação" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve monitorar métricas de botões" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-009 - Botões de Navegação e Ações › deve verificar cenários de botões degradados" classname="UI-009-botoes-navegacao-acoes.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-010-consistencia-cores-tipografia.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar paleta de cores consistente" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cores secundárias consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tipografia uniforme" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar tamanhos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar pesos de fonte consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar espaçamentos padronizados" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar bordas e sombras consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar ícones e imagens consistentes" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar identidade visual coesa" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar consistência em diferentes páginas" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar todos os critérios de aprovação" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve monitorar métricas de consistência visual" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-010 - Consistência de Cores e Tipografia › deve verificar cenários de consistência visual degradada" classname="UI-010-consistencia-cores-tipografia.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="UI-011-acessibilidade-usabilidade.test.tsx" timestamp="2025-09-24T01:20:17.302Z" hostname="Mobile Safari" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar indicadores de foco" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar contraste de cores adequado" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar compatibilidade com screen reader" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar alt texts descritivos" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar labels em formulários" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar atributos ARIA" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar zoom até 200% funcional" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar navegação por teclado em diferentes páginas" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar acessibilidade em diferentes resoluções" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar todos os critérios de aprovação" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve monitorar métricas de acessibilidade" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI-011 - Acessibilidade e Usabilidade › deve verificar cenários de acessibilidade degradada" classname="UI-011-acessibilidade-usabilidade.test.tsx" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

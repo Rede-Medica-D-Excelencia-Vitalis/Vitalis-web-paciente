@@ -6,7 +6,27 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
+    "test:playwright": "playwright test",
+    "test:playwright:ui": "playwright test --ui",
+    "test:playwright:headed": "playwright test --headed",
+    "test:playwright:debug": "playwright test --debug",
+    "test:playwright:report": "playwright show-report",
+    "test:playwright:install": "playwright install",
+    "test:integracao": "playwright test --config=playwright.integracao.config.ts",
+    "test:integracao:report": "playwright test --config=playwright.integracao.config.ts --reporter=html",
+    "test:integracao:headless": "playwright test --config=playwright.integracao.config.ts --headed=false",
+    "test:dados": "playwright test --config=playwright.dados.config.ts",
+    "test:dados:report": "playwright test --config=playwright.dados.config.ts --reporter=html",
+    "test:dados:headless": "playwright test --config=playwright.dados.config.ts --headed=false",
+    "test:compatibilidade": "playwright test --config=playwright.compatibilidade.config.ts",
+    "test:compatibilidade:report": "playwright test --config=playwright.compatibilidade.config.ts --reporter=html",
+    "test:compatibilidade:headless": "playwright test --config=playwright.compatibilidade.config.ts --headed=false",
+    "test:compatibilidade:debug": "playwright test --config=playwright.compatibilidade.config.ts --debug"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -36,6 +56,8 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/leaflet": "^1.9.17",
@@ -43,11 +65,15 @@
     "@types/react-dom": "^18.2.15",
     "@types/react-leaflet": "^2.8.3",
     "@vitejs/plugin-react": "^4.2.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "@vitest/ui": "^1.0.0",
     "autoprefixer": "^10.4.16",
+    "jsdom": "^23.0.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0"
   }
 }
