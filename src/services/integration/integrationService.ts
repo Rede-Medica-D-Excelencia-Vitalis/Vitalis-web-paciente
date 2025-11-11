@@ -83,6 +83,9 @@ export interface OrderResponse {
     criado_em: string;
   } | null;
   ja_avaliado?: boolean;
+  entrega_id?: number;
+  status_entrega?: string;
+  codigo_confirmacao?: string;
 }
 
 export interface OrderItemDetail {

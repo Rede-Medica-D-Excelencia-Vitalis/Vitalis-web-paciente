@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BellIcon, CheckIcon, TrashIcon, X } from 'lucide-react';
 import { notificationService, Notification } from '../../services/notification/notificationService';
 import { useAuthStore } from '../../store/auth';
@@ -19,26 +19,31 @@ export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useAuthStore();
 
-  // Carregar notificações
-  const loadNotifications = async () => {
+  // Atualizar contador
+  const updateUnreadCount = useCallback(async () => {
     if (!user) return;
-    
     try {
-      setLoading(true);
-      console.log('=== DEBUG: Carregando notificações ===');
-      console.log('Usuário:', user);
+      const count = await notificationService.getUnreadCount();
+      setUnreadCount(count);
+    } catch (error) {
+      console.error('Erro ao atualizar contador:', error);
+    }
+  }, [user]);
+
+  // Carregar notificações
+  const loadNotifications = useCallback(async (showLoading: boolean = false) => {
+    if (!user) return;
+    try {
+      if (showLoading) setLoading(true);
       const response = await notificationService.getNotifications(20);
-      console.log('Resposta da API:', response);
       setNotifications(response.notificacoes);
       setUnreadCount(response.naoLidas);
-      console.log('Notificações carregadas:', response.notificacoes);
-      console.log('Não lidas:', response.naoLidas);
     } catch (error) {
       console.error('Erro ao carregar notificações:', error);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
-  };
+  }, [user]);
 
   // Marcar como lida
   const handleMarkAsRead = async (notificationId: string) => {
@@ -78,7 +83,6 @@ export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
     try {
       await notificationService.deleteNotification(notificationId);
       setNotifications(prev => prev.filter(notif => notif.id !== notificationId));
-      // Se a notificação não estava lida, diminuir o contador
       const notification = notifications.find(n => n.id === notificationId);
       if (notification && !notification.lida) {
         setUnreadCount(prev => Math.max(0, prev - 1));
@@ -108,28 +112,33 @@ export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   // Carregar notificações quando abrir
   useEffect(() => {
     if (isOpen && user) {
-      loadNotifications();
+      loadNotifications(true);
     }
-  }, [isOpen, user]);
+  }, [isOpen, user, loadNotifications]);
 
   // Atualizar contador periodicamente
   useEffect(() => {
     if (!user) return;
 
-    const updateUnreadCount = async () => {
-      try {
-        const count = await notificationService.getUnreadCount();
-        setUnreadCount(count);
-      } catch (error) {
-        console.error('Erro ao atualizar contador:', error);
-      }
-    };
-
     updateUnreadCount();
-    const interval = setInterval(updateUnreadCount, 30000); // Atualizar a cada 30 segundos
+    const interval = setInterval(updateUnreadCount, 30000);
 
     return () => clearInterval(interval);
-  }, [user]);
+  }, [user, updateUnreadCount]);
+
+  // Ouvir eventos globais de refresh
+  useEffect(() => {
+    const handleRefresh = () => {
+      loadNotifications(false);
+      updateUnreadCount();
+    };
+
+    window.addEventListener('notification:refresh', handleRefresh);
+
+    return () => {
+      window.removeEventListener('notification:refresh', handleRefresh);
+    };
+  }, [loadNotifications, updateUnreadCount]);
 
   if (!user) return null;
 

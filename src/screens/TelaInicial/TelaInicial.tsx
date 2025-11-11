@@ -6,7 +6,7 @@ import { PlanBanner } from "../../components";
 
 export const TelaInicial = (): JSX.Element => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-3">
       <PlanBanner />
       <WelcomeSection />
       <StatsSection />

@@ -42,12 +42,6 @@ export interface TriagemData {
   especialidades_recomendadas: string[];
   observacoes: string;
   data_triagem: string;
-  perguntas_respostas?: Array<{
-    pergunta_id: number;
-    pergunta: string;
-    resposta: string;
-  }>;
-  perguntas_respondidas?: number[];
 }
 
 class TriagemService {
@@ -108,6 +102,7 @@ class TriagemService {
       text: "E essa dor/desconforto, como você classificaria?",
       type: "select",
       options: [
+        "Não tenho dor ou desconforto",
         "Leve - incomoda mas não atrapalha muito",
         "Moderada - atrapalha as atividades do dia",
         "Forte - difícil de ignorar",
@@ -124,6 +119,7 @@ class TriagemService {
       text: "Faz quanto tempo que você está assim?",
       type: "select",
       options: [
+        "Não tenho dores ou desconforto",
         "Algumas horas",
         "1-2 dias",
         "3-7 dias",
@@ -151,6 +147,7 @@ class TriagemService {
         "Perda de apetite",
         "Suor excessivo",
         "Tremores",
+        "Não se aplica",
         "Nada mais"
       ],
       symptoms: ["febre_moderada", "febre_alta", "nausea", "vomito_persistente", "tontura_severa", "falta_ar_grave", "fadiga_extrema", "ansiedade_severa", "insonia_cronica"],
@@ -172,6 +169,7 @@ class TriagemService {
         "Braços",
         "Pernas",
         "Todo o corpo",
+        "Não se aplica",
         "Não sei ao certo"
       ],
       symptoms: ["dor_cabeca_intensa", "dor_peito_intensa", "dor_abdominal_intensa", "dor_costas"],
@@ -191,6 +189,7 @@ class TriagemService {
         "Piora com estresse",
         "Melhora com repouso",
         "Melhora com medicamento",
+        "Não se aplica",
         "Não muda com nada",
         "Varia muito"
       ],
@@ -208,6 +207,7 @@ class TriagemService {
         "Sim, várias vezes",
         "Sim, uma ou duas vezes",
         "Não, é a primeira vez",
+        "Não se aplica",
         "Não lembro"
       ],
       symptoms: [],
@@ -215,15 +215,16 @@ class TriagemService {
       category: "historico"
     },
 
-    // 8. Pergunta sobre medicamentos - Natural
+    // 8. Pergunta sobre medicamentos - Natural (com opção não se aplica)
     {
       id: 8,
       text: "Você está tomando algum remédio ou tem alguma condição de saúde?",
       type: "text",
-      description: "Pode ser qualquer coisa que você acha importante mencionar...",
+      description: "Pode ser qualquer coisa que você acha importante mencionar... (ou marque 'Não se aplica')",
       symptoms: [],
       weight: 2,
-      category: "medicamentos"
+      category: "medicamentos",
+      options: ["Não se aplica"] // Opção especial para esta pergunta de texto
     },
 
     // 9. Pergunta sobre impacto - Conversacional
@@ -254,29 +255,12 @@ class TriagemService {
         "Sim, urgentemente",
         "Sim, mas pode esperar",
         "Não tenho certeza",
-        "Não, só quero saber o que pode ser"
+        "Não, só quero saber o que pode ser",
+        "Apenas fazendo a triagem de rotina"
       ],
       symptoms: [],
       weight: 4,
       category: "urgencia"
-    },
-
-    // 11. Pergunta específica para dor no peito - Conversacional
-    {
-      id: 11,
-      text: "Essa dor no peito, como é?",
-      type: "select",
-      options: [
-        "Como uma pressão ou peso",
-        "Como uma pontada",
-        "Como uma queimação",
-        "Como uma dor que vai pro braço",
-        "Não sei descrever"
-      ],
-      symptoms: ["dor_peito_intensa"],
-      weight: 5,
-      category: "cardiovascular",
-      dependsOn: { questionId: 5, answer: "Peito" }
     },
 
     // 12. Pergunta específica para dor de cabeça - Natural

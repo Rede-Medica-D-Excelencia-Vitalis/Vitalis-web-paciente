@@ -46,7 +46,25 @@ const ConsultasDashboard: React.FC = () => {
 
   const consultasAgendadas = useMemo(() => {
     if (!consultations) return [];
-    return consultations.filter(c => c.status === 'agendada' || c.status === 'confirmada');
+    const agora = new Date();
+
+    return consultations.filter((consulta) => {
+      if (!(consulta.status === 'agendada' || consulta.status === 'confirmada')) {
+        return false;
+      }
+
+      if (!consulta.date) return false;
+
+      const hora = consulta.time || '00:00';
+      const dateTimeString = `${consulta.date}T${hora.length === 5 ? `${hora}:00` : hora}`;
+      const dataConsulta = new Date(dateTimeString);
+
+      if (Number.isNaN(dataConsulta.getTime())) {
+        return true; // fallback: mantém consulta se não conseguir validar a data
+      }
+
+      return dataConsulta >= agora;
+    });
   }, [consultations]);
 
   const consultasRealizadas = useMemo(() => {
@@ -117,9 +135,10 @@ const ConsultasDashboard: React.FC = () => {
       </div>
 
       {/* Lista de consultas agendadas */}
-      {consultasAgendadas.length > 0 && (
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold text-blue-900 mb-6">Suas Consultas Agendadas</h2>
+      <div className="mb-10">
+        <h2 className="text-2xl font-bold text-blue-900 mb-6">Suas Consultas Agendadas</h2>
+
+        {consultasAgendadas.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {consultasAgendadas.map((consulta) => (
               <div key={consulta.id} className="bg-white rounded-xl shadow p-5 border border-blue-100">
@@ -156,8 +175,20 @@ const ConsultasDashboard: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center text-blue-800">
+            <p className="text-sm font-medium">Você ainda não possui consultas futuras agendadas.</p>
+            <p className="text-xs mt-2">Agende uma consulta para vê-la listada aqui.</p>
+            <Link
+              to="/agendamento"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 mt-4 rounded-lg transition-colors"
+            >
+              <CalendarPlusIcon className="w-4 h-4" />
+              Agendar Consulta
+            </Link>
+          </div>
+        )}
+      </div>
 
       <style>{`
         .animate-fade-in {

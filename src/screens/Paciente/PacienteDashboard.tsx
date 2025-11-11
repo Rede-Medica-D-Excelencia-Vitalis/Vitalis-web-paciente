@@ -226,7 +226,7 @@ const PacienteDashboard: React.FC = () => {
       <p className="mb-8 text-blue-800 text-lg animate-fade-in delay-100">Bem-vindo à sua área do paciente. Aqui você tem acesso a todos os recursos do Vitalis.</p>
 
       {/* Estatísticas rápidas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <div className="bg-green-100 rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-green-700">{consultasRealizadas.length}</div>
           <div className="text-sm text-green-600">Consultas Realizadas</div>
@@ -234,10 +234,6 @@ const PacienteDashboard: React.FC = () => {
         <div className="bg-purple-100 rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-purple-700">0</div>
           <div className="text-sm text-purple-600">Prescrições Ativas</div>
-        </div>
-        <div className="bg-orange-100 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-orange-700">0</div>
-          <div className="text-sm text-orange-600">Exames Pendentes</div>
         </div>
         <div className="bg-red-100 rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-red-700">{consultasPassadas.length}</div>
@@ -513,19 +509,6 @@ const PacienteDashboard: React.FC = () => {
               </div>
             </div>
           )}
-
-          {/* Lembretes de exames */}
-          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-            <div className="flex items-center gap-3">
-              <div className="text-purple-600">🔬</div>
-              <div>
-                <div className="font-semibold text-purple-800">Exames Pendentes</div>
-                <div className="text-purple-700 text-sm">
-                  Verifique se há exames pendentes na sua área de resultados.
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Dica de triagem */}
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">

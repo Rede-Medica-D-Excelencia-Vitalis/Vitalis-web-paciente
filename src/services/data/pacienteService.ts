@@ -10,7 +10,14 @@ export async function getProfile(): Promise<Paciente> {
     console.log('🔍 Chamando API /pacientes/me...');
     const response = await api.get<Paciente>('/pacientes/me');
     console.log('✅ Resposta da API:', response.data);
-    return response.data;
+    const payload = response.data as any;
+    const paciente: Paciente | undefined = payload?.data ?? payload;
+
+    if (!paciente) {
+      throw new Error('Perfil de paciente não encontrado na resposta da API.');
+    }
+
+    return paciente;
   } catch (error: any) {
     console.error("❌ Erro ao buscar perfil do paciente:", error);
     console.error("❌ Status da resposta:", error.response?.status);
@@ -25,7 +32,14 @@ export async function getProfile(): Promise<Paciente> {
           // Dados básicos vazios - o backend deve preencher com dados do usuário
         });
         console.log("✅ Perfil criado automaticamente:", createResponse.data);
-        return createResponse.data;
+        const createdPayload = createResponse.data as any;
+        const pacienteCriado: Paciente | undefined = createdPayload?.data ?? createdPayload;
+
+        if (!pacienteCriado) {
+          throw new Error("Perfil criado automaticamente, mas dados não retornados.");
+        }
+
+        return pacienteCriado;
       } catch (createError) {
         console.error("❌ Erro ao criar perfil automaticamente:", createError);
         throw new Error("Não foi possível criar o perfil automaticamente. Por favor, complete seu cadastro.");
